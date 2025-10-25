@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Frontend - MD Publicidades</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .warning { background-color: #fff3cd; border-color: #ffeaa7; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Debug Frontend - MD Publicidades</h1>
+    
+    <div class="section">
+        <h2>📊 Estado de los Servicios</h2>
+        <button onclick="checkServices()">Verificar Servicios</button>
+        <div id="services-status"></div>
+    </div>
+    
+    <div class="section">
+        <h2>🔐 Estado de Autenticación</h2>
+        <button onclick="checkAuth()">Verificar Auth</button>
+        <div id="auth-status"></div>
+    </div>
+    
+    <div class="section">
+        <h2>🌐 Pruebas de API</h2>
+        <button onclick="testLogin()">Probar Login</button>
+        <button onclick="testNovedades()">Probar Novedades</button>
+        <div id="api-status"></div>
+    </div>
+    
+    <div class="section">
+        <h2>🔗 Navegación</h2>
+        <button onclick="testNavigation()">Probar Navegación</button>
+        <div id="nav-status"></div>
+    </div>
+
+    <script>
+        async function checkServices() {
+            const status = document.getElementById('services-status');
+            status.innerHTML = '<p>Verificando servicios...</p>';
+            
+            try {
+                const frontend = await fetch('http://localhost:3000').then(r => r.ok);
+                const backend = await fetch('http://localhost:3001/health').then(r => r.ok);
+                
+                status.innerHTML = `
+                    <div class="${frontend ? 'success' : 'error'}">
+                        <strong>Frontend:</strong> ${frontend ? '✅ OK' : '❌ Error'}
+                    </div>
+                    <div class="${backend ? 'success' : 'error'}">
+                        <strong>Backend:</strong> ${backend ? '✅ OK' : '❌ Error'}
+                    </div>
+                `;
+            } catch (error) {
+                status.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+            }
+        }
+        
+        function checkAuth() {
+            const status = document.getElementById('auth-status');
+            const token = localStorage.getItem('token');
+            const admin = localStorage.getItem('admin');
+            
+            status.innerHTML = `
+                <div class="${token ? 'success' : 'error'}">
+                    <strong>Token:</strong> ${token ? '✅ Presente' : '❌ No encontrado'}
+                </div>
+                <div class="${admin ? 'success' : 'error'}">
+                    <strong>Admin:</strong> ${admin ? '✅ Presente' : '❌ No encontrado'}
+                </div>
+                ${token ? `<pre>Token: ${token.substring(0, 50)}...</pre>` : ''}
+                ${admin ? `<pre>Admin: ${admin}</pre>` : ''}
+            `;
+        }
+        
+        async function testLogin() {
+            const status = document.getElementById('api-status');
+            status.innerHTML = '<p>Probando login...</p>';
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: 'admin@mdpublicidades.com',
+                        password: 'admin123'
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('admin', JSON.stringify(data.admin));
+                    
+                    status.innerHTML = `
+                        <div class="success">✅ Login exitoso</div>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    const error = await response.text();
+                    status.innerHTML = `<div class="error">❌ Error: ${error}</div>`;
+                }
+            } catch (error) {
+                status.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+            }
+        }
+        
+        async function testNovedades() {
+            const status = document.getElementById('api-status');
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                status.innerHTML = '<div class="warning">⚠️ No hay token. Haz login primero.</div>';
+                return;
+            }
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/novedades', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    status.innerHTML = `
+                        <div class="success">✅ Novedades obtenidas</div>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    const error = await response.text();
+                    status.innerHTML = `<div class="error">❌ Error: ${error}</div>`;
+                }
+            } catch (error) {
+                status.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+            }
+        }
+        
+        function testNavigation() {
+            const status = document.getElementById('nav-status');
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                status.innerHTML = `
+                    <div class="warning">⚠️ No estás autenticado</div>
+                    <p>Para navegar a /admin/novedades/nueva necesitas:</p>
+                    <ol>
+                        <li>Hacer login en <a href="http://localhost:3000/admin/login" target="_blank">http://localhost:3000/admin/login</a></li>
+                        <li>Usar las credenciales: admin@mdpublicidades.com / admin123</li>
+                    </ol>
+                `;
+                return;
+            }
+            
+            status.innerHTML = `
+                <div class="success">✅ Estás autenticado</div>
+                <p>Ahora puedes navegar a:</p>
+                <ul>
+                    <li><a href="http://localhost:3000/admin/novedades" target="_blank">/admin/novedades</a></li>
+                    <li><a href="http://localhost:3000/admin/novedades/nueva" target="_blank">/admin/novedades/nueva</a></li>
+                </ul>
+            `;
+        }
+        
+        // Verificar estado inicial
+        window.onload = function() {
+            checkServices();
+            checkAuth();
+        };
+    </script>
+</body>
+</html>
+

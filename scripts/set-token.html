@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Token - MD Publicidades</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; max-width: 600px; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 3px; }
+        button:hover { background: #0056b3; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔑 Establecer Token - MD Publicidades</h1>
+    
+    <div class="section">
+        <h2>📝 Login y Establecer Token</h2>
+        <button onclick="doLoginAndSetToken()">🔐 Hacer Login y Establecer Token</button>
+        <div id="login-result"></div>
+    </div>
+    
+    <div class="section">
+        <h2>🔍 Verificar Estado</h2>
+        <button onclick="checkStatus()">Verificar Estado Actual</button>
+        <div id="status-result"></div>
+    </div>
+    
+    <div class="section">
+        <h2>🧪 Probar Navegación</h2>
+        <button onclick="testNavigation()">Probar /admin/novedades/nueva</button>
+        <div id="nav-result"></div>
+    </div>
+
+    <script>
+        async function doLoginAndSetToken() {
+            const resultDiv = document.getElementById('login-result');
+            resultDiv.innerHTML = '<p>🔄 Haciendo login...</p>';
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: 'admin@mdpublicidades.com',
+                        password: 'admin123'
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    // Establecer en localStorage
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('admin', JSON.stringify(data.admin));
+                    
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            ✅ Login exitoso y token establecido!<br>
+                            <strong>Email:</strong> ${data.admin.email}<br>
+                            <strong>Token:</strong> ${data.token.substring(0, 30)}...<br>
+                            <br>
+                            <strong>Ahora puedes navegar a:</strong><br>
+                            <a href="http://localhost:3000/admin/novedades/nueva" target="_blank">
+                                ➕ /admin/novedades/nueva
+                            </a>
+                        </div>
+                    `;
+                } else {
+                    const error = await response.text();
+                    resultDiv.innerHTML = `<div class="error">❌ Error: ${error}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+            }
+        }
+        
+        function checkStatus() {
+            const statusDiv = document.getElementById('status-result');
+            const token = localStorage.getItem('token');
+            const admin = localStorage.getItem('admin');
+            
+            statusDiv.innerHTML = `
+                <div class="${token ? 'success' : 'error'}">
+                    <strong>Token:</strong> ${token ? '✅ Presente' : '❌ Ausente'}
+                </div>
+                <div class="${admin ? 'success' : 'error'}">
+                    <strong>Admin:</strong> ${admin ? '✅ Presente' : '❌ Ausente'}
+                </div>
+                ${token ? `<pre>Token: ${token.substring(0, 50)}...</pre>` : ''}
+                ${admin ? `<pre>Admin: ${admin}</pre>` : ''}
+            `;
+        }
+        
+        function testNavigation() {
+            const navDiv = document.getElementById('nav-result');
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                navDiv.innerHTML = `
+                    <div class="error">
+                        ❌ No hay token. Haz login primero.
+                    </div>
+                `;
+                return;
+            }
+            
+            navDiv.innerHTML = `
+                <div class="success">
+                    ✅ Token presente!<br>
+                    <br>
+                    <strong>Prueba estos enlaces:</strong><br>
+                    <a href="http://localhost:3000/admin/novedades" target="_blank">
+                        📋 /admin/novedades
+                    </a><br>
+                    <a href="http://localhost:3000/admin/novedades/nueva" target="_blank">
+                        ➕ /admin/novedades/nueva
+                    </a>
+                </div>
+            `;
+        }
+        
+        // Verificar estado al cargar
+        window.onload = function() {
+            checkStatus();
+        };
+    </script>
+</body>
+</html>

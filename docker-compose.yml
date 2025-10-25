@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: md-publicidades-postgres
+    environment:
+      POSTGRES_DB: md_publicidades
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - md-publicidades-network
+
+  backend:
+    build:
+      context: ./apps/backend
+      dockerfile: Dockerfile
+    container_name: md-publicidades-backend
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/md_publicidades"
+      JWT_SECRET: "dev-secret-key"
+      JWT_EXPIRES_IN: "7d"
+      PORT: 3001
+      NODE_ENV: "development"
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+    networks:
+      - md-publicidades-network
+    volumes:
+      - ./apps/backend:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data:
+
+networks:
+  md-publicidades-network:
+    driver: bridge
+

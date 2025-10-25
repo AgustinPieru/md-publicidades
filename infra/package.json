@@ -1,0 +1,31 @@
+{
+  "name": "md-publicidades-infra",
+  "version": "1.0.0",
+  "description": "AWS CDK Infrastructure for MD Publicidades",
+  "main": "dist/app.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "cdk deploy --all",
+    "deploy": "cdk deploy --all",
+    "destroy": "cdk destroy --all",
+    "diff": "cdk diff",
+    "synth": "cdk synth",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.120.0",
+    "constructs": "^10.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "aws-cdk": "^2.120.0",
+    "eslint": "^8.55.0",
+    "typescript": "^5.3.3"
+  }
+}
+
+

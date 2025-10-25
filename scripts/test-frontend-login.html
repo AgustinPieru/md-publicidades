@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Login - MD Publicidades</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; max-width: 800px; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .warning { background-color: #fff3cd; border-color: #ffeaa7; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 3px; }
+        button:hover { background: #0056b3; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+        input { padding: 8px; margin: 5px; border: 1px solid #ddd; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>🔐 Test Login - MD Publicidades</h1>
+    
+    <div class="section">
+        <h2>📝 Formulario de Login</h2>
+        <form id="loginForm">
+            <div>
+                <label>Email:</label><br>
+                <input type="email" id="email" value="admin@mdpublicidades.com" required>
+            </div>
+            <div>
+                <label>Password:</label><br>
+                <input type="password" id="password" value="admin123" required>
+            </div>
+            <button type="submit">🔐 Hacer Login</button>
+        </form>
+        <div id="login-result"></div>
+    </div>
+    
+    <div class="section">
+        <h2>🔍 Estado Actual</h2>
+        <button onclick="checkStatus()">Verificar Estado</button>
+        <div id="status-result"></div>
+    </div>
+    
+    <div class="section">
+        <h2>🧪 Pruebas de Navegación</h2>
+        <button onclick="testNavigation()">Probar Navegación</button>
+        <div id="nav-result"></div>
+    </div>
+
+    <script>
+        // Función para hacer login
+        async function doLogin(email, password) {
+            try {
+                const response = await fetch('http://localhost:3001/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    // Guardar en localStorage
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('admin', JSON.stringify(data.admin));
+                    
+                    return { success: true, data };
+                } else {
+                    const error = await response.text();
+                    return { success: false, error };
+                }
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        }
+
+        // Manejar formulario de login
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const resultDiv = document.getElementById('login-result');
+            
+            resultDiv.innerHTML = '<p>🔄 Haciendo login...</p>';
+            
+            const result = await doLogin(email, password);
+            
+            if (result.success) {
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        ✅ Login exitoso!<br>
+                        <strong>Email:</strong> ${result.data.admin.email}<br>
+                        <strong>Token:</strong> ${result.data.token.substring(0, 30)}...<br>
+                        <br>
+                        <a href="http://localhost:3000/admin/novedades" target="_blank">
+                            🚀 Ir a Admin Novedades
+                        </a> | 
+                        <a href="http://localhost:3000/admin/novedades/nueva" target="_blank">
+                            ➕ Crear Nueva Novedad
+                        </a>
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        ❌ Error en login:<br>
+                        ${result.error}
+                    </div>
+                `;
+            }
+        });
+
+        // Verificar estado actual
+        function checkStatus() {
+            const statusDiv = document.getElementById('status-result');
+            const token = localStorage.getItem('token');
+            const admin = localStorage.getItem('admin');
+            
+            statusDiv.innerHTML = `
+                <div class="${token ? 'success' : 'error'}">
+                    <strong>Token:</strong> ${token ? '✅ Presente' : '❌ No encontrado'}
+                </div>
+                <div class="${admin ? 'success' : 'error'}">
+                    <strong>Admin:</strong> ${admin ? '✅ Presente' : '❌ No encontrado'}
+                </div>
+                ${token ? `<pre>Token: ${token.substring(0, 50)}...</pre>` : ''}
+                ${admin ? `<pre>Admin: ${admin}</pre>` : ''}
+            `;
+        }
+
+        // Probar navegación
+        function testNavigation() {
+            const navDiv = document.getElementById('nav-result');
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                navDiv.innerHTML = `
+                    <div class="warning">
+                        ⚠️ No estás autenticado. Haz login primero.
+                    </div>
+                `;
+                return;
+            }
+            
+            navDiv.innerHTML = `
+                <div class="success">
+                    ✅ Estás autenticado!<br>
+                    <br>
+                    <strong>Enlaces de prueba:</strong><br>
+                    <a href="http://localhost:3000/admin/novedades" target="_blank">
+                        📋 Admin Novedades
+                    </a><br>
+                    <a href="http://localhost:3000/admin/novedades/nueva" target="_blank">
+                        ➕ Nueva Novedad
+                    </a>
+                </div>
+            `;
+        }
+
+        // Verificar estado al cargar la página
+        window.onload = function() {
+            checkStatus();
+        };
+    </script>
+</body>
+</html>
+
