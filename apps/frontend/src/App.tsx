@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { Container } from '@mui/material';
+import { Container, Box } from '@mui/material';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -14,7 +14,7 @@ import AdminNewsForm from './pages/AdminNewsForm';
 
 function App() {
   return (
-    <>
+    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Navbar />
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Routes>
@@ -31,7 +31,7 @@ function App() {
         </Routes>
       </Container>
       <Footer />
-    </>
+    </Box>
   );
 }
 
