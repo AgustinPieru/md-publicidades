@@ -1,6 +1,7 @@
 import { Typography, Container, Box, Grid, Card, CardContent, CardMedia, CircularProgress, Alert } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useNovedades } from '../hooks/useNovedades';
+import SectionHeader from '../components/SectionHeader';
 
 const News = () => {
   const { novedades, loading, error } = useNovedades();
@@ -27,13 +28,13 @@ const News = () => {
 
   return (
     <Container maxWidth="lg">
-      <Box sx={{ py: 4 }}>
-        <Typography variant="h3" component="h1" gutterBottom align="center">
-          Novedades
-        </Typography>
-        <Typography variant="h6" color="text.secondary" align="center" paragraph>
-          Las últimas noticias y novedades de MD Publicidades
-        </Typography>
+      <Box sx={{
+        py: { xs: 2, md: 3 },
+        mt: -4,
+        flex: 1,
+        overflow: 'auto'
+      }}>
+        <SectionHeader title="Novedades" subtitle="Las últimas noticias y novedades de MD Publicidades" align="left" />
         
         {novedades.length === 0 ? (
           <Typography variant="body1" align="center" sx={{ mt: 4 }}>

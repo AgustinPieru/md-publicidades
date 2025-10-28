@@ -1,4 +1,5 @@
 import { Typography, Container, Box, Button } from '@mui/material';
+import SectionHeader from '../components/SectionHeader';
 
 const Contact = () => {
   const handleWhatsAppClick = () => {
@@ -10,13 +11,14 @@ const Contact = () => {
 
   return (
     <Container maxWidth="lg">
-      <Box sx={{ py: 4, textAlign: 'center' }}>
-        <Typography variant="h3" component="h1" gutterBottom>
-          Contacto
-        </Typography>
-        <Typography variant="h5" color="text.secondary" paragraph>
-          ¿Tienes alguna consulta? ¡Contáctanos por WhatsApp!
-        </Typography>
+      <Box sx={{
+        py: { xs: 2, md: 3 },
+        mt: -4,
+        textAlign: 'center',
+        flex: 1,
+        overflow: 'auto'
+      }}>
+        <SectionHeader title="Contacto" subtitle="¿Tienes alguna consulta? ¡Contáctanos por WhatsApp!" align="left" />
         <Button
           variant="contained"
           size="large"
