@@ -13,7 +13,12 @@ const prisma = new PrismaClient();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(helmet());
+app.use(helmet({
+  // Permitir que recursos (imágenes) se consuman desde otro origen (frontend)
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+  // Evitar bloqueos innecesarios al embeber recursos de otros orígenes
+  crossOriginEmbedderPolicy: false,
+}));
 app.use(cors());
 app.use(morgan('combined'));
 app.use(express.json());

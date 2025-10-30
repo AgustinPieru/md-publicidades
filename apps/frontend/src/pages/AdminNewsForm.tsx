@@ -25,6 +25,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SaveIcon from '@mui/icons-material/Save';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ImageIcon from '@mui/icons-material/Image';
 
 const AdminNewsForm = () => {
   const navigate = useNavigate();
@@ -44,6 +45,8 @@ const AdminNewsForm = () => {
   const [error, setError] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadedFilename, setUploadedFilename] = useState<string | null>(null);
+  const [localPreviewUrl, setLocalPreviewUrl] = useState<string | null>(null);
+  const [previewError, setPreviewError] = useState<boolean>(false);
 
   useEffect(() => {
     console.log('🔍 AdminNewsForm - authLoading:', authLoading, 'isAuthenticated:', isAuthenticated);
@@ -79,6 +82,15 @@ const AdminNewsForm = () => {
     loadNovedadData();
   }, [isEditing, id]);
 
+  // Limpieza de URLs de objeto locales
+  useEffect(() => {
+    return () => {
+      if (localPreviewUrl && localPreviewUrl.startsWith('blob:')) {
+        URL.revokeObjectURL(localPreviewUrl);
+      }
+    };
+  }, [localPreviewUrl]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -92,6 +104,10 @@ const AdminNewsForm = () => {
     if (file) {
       setSelectedFile(file);
       setError(null);
+      setPreviewError(false);
+      // Crear vista previa local inmediata
+      const objectUrl = URL.createObjectURL(file);
+      setLocalPreviewUrl(objectUrl);
       // Subir automáticamente al seleccionar
       void uploadFile(file);
     }
@@ -105,10 +121,16 @@ const AdminNewsForm = () => {
       const result = await apiService.uploadImage(file);
       setFormData(prev => ({
         ...prev,
-        imagenUrl: `http://localhost:3001${result.imageUrl}`,
+        imagenUrl: result.imageUrl,
       }));
       setUploadedFilename(result.filename);
       setSelectedFile(null);
+      // Reemplazar preview local por la URL final del servidor
+      if (localPreviewUrl) {
+        URL.revokeObjectURL(localPreviewUrl);
+      }
+      setLocalPreviewUrl(result.imageUrl);
+      setPreviewError(false);
     } catch (err) {
       setError('Error al subir la imagen');
       console.error('Upload error:', err);
@@ -137,6 +159,10 @@ const AdminNewsForm = () => {
       }));
       setSelectedFile(null);
       setUploadedFilename(null);
+      if (localPreviewUrl) {
+        URL.revokeObjectURL(localPreviewUrl);
+      }
+      setLocalPreviewUrl(null);
     }
   };
 
@@ -248,48 +274,41 @@ const AdminNewsForm = () => {
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                     Selecciona un archivo de imagen desde tu computadora. La imagen es obligatoria.
                   </Typography>
-                  
-                  {/* Opción 1: Cargar archivo */}
-                  <Box sx={{ mb: 2 }}>
-                    <FormControl fullWidth variant="outlined">
-                      <InputLabel htmlFor="file-input">Seleccionar archivo</InputLabel>
-                      <OutlinedInput
-                        id="file-input"
-                        type="file"
-                        inputProps={{ accept: 'image/*' }}
-                        onChange={handleFileSelect}
-                        endAdornment={
-                          <InputAdornment position="end">
-                            <IconButton
-                              onClick={handleUpload}
-                              disabled={!selectedFile || uploadingImage}
-                              edge="end"
-                            >
-                              {uploadingImage ? <CircularProgress size={20} /> : <CloudUploadIcon />}
-                            </IconButton>
-                          </InputAdornment>
-                        }
-                      />
-                    </FormControl>
-                    {selectedFile && (
-                      <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-                        Archivo seleccionado: {selectedFile.name}
-                      </Typography>
+
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1, flexWrap: 'wrap' }}>
+                    <Button
+                      variant="outlined"
+                      startIcon={<ImageIcon />}
+                      component="label"
+                      disabled={uploadingImage}
+                    >
+                      Seleccionar imagen
+                      <input hidden accept="image/*" type="file" onChange={handleFileSelect} />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      startIcon={uploadingImage ? <CircularProgress size={20} /> : <CloudUploadIcon />}
+                      onClick={handleUpload}
+                      disabled={!selectedFile || uploadingImage}
+                    >
+                      {uploadingImage ? 'Subiendo...' : 'Subir'}
+                    </Button>
+                    {formData.imagenUrl && (
+                      <Button
+                        variant="outlined"
+                        color="error"
+                        startIcon={<DeleteIcon />}
+                        onClick={handleRemoveImage}
+                      >
+                        Remover imagen
+                      </Button>
                     )}
                   </Box>
-
-                   {/* Botón para remover imagen */}
-                   {formData.imagenUrl && (
-                     <Button
-                       variant="outlined"
-                       color="error"
-                       startIcon={<DeleteIcon />}
-                       onClick={handleRemoveImage}
-                       size="small"
-                     >
-                       Remover imagen
-                     </Button>
-                   )}
+                  {selectedFile && (
+                    <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
+                      Archivo seleccionado: {selectedFile.name}
+                    </Typography>
+                  )}
                 </Grid>
 
                 <Grid item xs={12}>
@@ -307,28 +326,40 @@ const AdminNewsForm = () => {
                   />
                 </Grid>
 
-                {formData.imagenUrl && (
+                {(localPreviewUrl || formData.imagenUrl) && (
                   <Grid item xs={12}>
                     <Typography variant="subtitle2" gutterBottom>
                       Vista previa de la imagen:
                     </Typography>
-                    <Box
-                      component="img"
-                      src={formData.imagenUrl}
-                      alt="Vista previa"
-                      sx={{
-                        maxWidth: '100%',
-                        maxHeight: 300,
-                        objectFit: 'cover',
-                        borderRadius: 1,
-                        border: '1px solid',
-                        borderColor: 'divider',
-                      }}
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                      }}
-                    />
+                    <Box sx={{
+                      height: 300,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: 1,
+                      border: '1px solid',
+                      borderColor: 'divider',
+                      backgroundColor: 'background.default',
+                      overflow: 'hidden'
+                    }}>
+                      {!previewError ? (
+                        <Box
+                          component="img"
+                          src={localPreviewUrl || formData.imagenUrl}
+                          alt="Vista previa"
+                          sx={{
+                            maxWidth: '100%',
+                            maxHeight: '100%',
+                            objectFit: 'contain'
+                          }}
+                          onError={() => setPreviewError(true)}
+                        />
+                      ) : (
+                        <Typography variant="body2" color="text.secondary">
+                          No se pudo cargar la vista previa
+                        </Typography>
+                      )}
+                    </Box>
                   </Grid>
                 )}
 

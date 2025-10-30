@@ -7,12 +7,24 @@ import App from './App';
 
 const theme = createTheme({
   palette: {
+    mode: 'light',
     primary: {
-      main: '#1E3A8A',
+      main: '#000000', // negro
+      contrastText: '#ffffff',
     },
     secondary: {
-      main: '#10B981',
+      main: '#a0195b', // color de detalle
+      contrastText: '#ffffff',
     },
+    background: {
+      default: '#ffffff', // blanco
+      paper: '#ffffff',
+    },
+    text: {
+      primary: '#000000',
+      secondary: '#6b7280', // gris
+    },
+    divider: '#e5e7eb',
   },
 });
 
