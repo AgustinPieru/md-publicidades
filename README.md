@@ -87,29 +87,81 @@ npm run dev:all
 
 ## 🛠️ Scripts Disponibles
 
+### Desarrollo
 ```bash
-# Desarrollo
 npm run dev                 # Frontend + Backend
 npm run dev:frontend        # Solo frontend
 npm run dev:backend         # Solo backend
 npm run dev:infra           # Solo infraestructura
 npm run dev:all             # Todo
+```
 
-# Build
+### Build
+```bash
 npm run build               # Build completo
 npm run build:frontend      # Build frontend
 npm run build:backend       # Build backend
+```
 
-# Linting
+### Calidad de Código
+```bash
 npm run lint                # Lint completo
 npm run lint:fix            # Fix linting issues
 npm run format              # Format código
+npm run type-check          # Verificar tipos TypeScript
+```
 
-# Base de datos
+### Despliegue
+```bash
+# Despliegue completo
+npm run deploy:complete [dominio]     # Despliegue desde cero
+npm run deploy:existing               # Desplegar en instancia existente
+
+# Despliegue rápido
+npm run deploy:frontend-only          # Solo frontend
+npm run deploy:backend-only           # Solo backend
+npm run deploy:all                    # Frontend + Backend
+npm run deploy:status                 # Ver estado
+
+# Despliegue específico
+npm run deploy:frontend               # Frontend a CloudFront
+```
+
+### Base de Datos
+```bash
+# Desarrollo local
 npm run db:generate --workspace=backend    # Generar cliente Prisma
 npm run db:push --workspace=backend       # Push schema a DB
 npm run db:migrate --workspace=backend    # Ejecutar migraciones
 npm run db:studio --workspace=backend     # Abrir Prisma Studio
+
+# Producción
+npm run db:backup [archivo]               # Crear backup
+npm run db:restore [archivo]              # Restaurar backup
+npm run db:migrate                        # Ejecutar migraciones
+npm run db:create-admin                   # Crear usuario admin
+npm run db:status                         # Ver estado de la BD
+```
+
+### Usuarios Admin
+```bash
+npm run admin:create [email] [password]  # Crear usuario
+npm run admin:list                        # Listar usuarios
+npm run admin:delete [email]              # Eliminar usuario
+```
+
+### Configuración
+```bash
+npm run ssl:setup [dominio]               # Configurar SSL
+npm run monitoring:setup                  # Configurar monitoreo
+```
+
+### Ayuda
+```bash
+npm run help:deploy                       # Ayuda de despliegue
+npm run help:db                           # Ayuda de base de datos
+npm run help:admin                        # Ayuda de usuarios admin
+npm run help:all                          # Toda la ayuda
 ```
 
 ## 🐳 Docker
@@ -126,16 +178,15 @@ docker-compose up postgres -d
 docker-compose up --build backend
 ```
 
-## ☁️ Infraestructura AWS
+## ☁️ Infraestructura
 
-### Componentes
+### AWS (Opción 1 - Completa)
 - **S3**: Hosting estático del frontend
 - **CloudFront**: CDN para el frontend
 - **ECS Fargate**: Backend en contenedor
 - **RDS PostgreSQL**: Base de datos
 - **Application Load Balancer**: Balanceador de carga
 
-### Deploy
 ```bash
 # Deploy infraestructura
 npm run deploy --workspace=infra
@@ -143,6 +194,25 @@ npm run deploy --workspace=infra
 # Destroy infraestructura
 npm run destroy --workspace=infra
 ```
+
+### AWS Lightsail (Opción 2 - Económica)
+- **Instancia Lightsail**: Todo en una sola instancia
+- **Nginx**: Proxy reverso y servidor web
+- **PostgreSQL**: Base de datos local
+- **PM2**: Gestión de procesos Node.js
+
+```bash
+# Despliegue completo en Lightsail
+npm run deploy:complete
+
+# Desplegar en instancia existente
+npm run deploy:existing
+
+# Ver estado de la aplicación
+npm run deploy:status
+```
+
+**Costo**: $10/mes (vs $50-100/mes con AWS completa)
 
 ## 🔧 Configuración
 
@@ -180,11 +250,19 @@ model Admin {
 }
 ```
 
+## 📚 Documentación
+
+- **[Guía de Despliegue](DEPLOYMENT_GUIDE.md)** - Guía completa paso a paso
+- **[Comandos Disponibles](COMMANDS.md)** - Lista completa de comandos
+- **[Scripts de Gestión](scripts/README.md)** - Documentación de scripts
+
 ## 🚀 Próximos Pasos
 
 1. ✅ Estructura del monorepo
-2. ⏳ Implementar CRUD de novedades
-3. ⏳ Implementar autenticación admin
-4. ⏳ Diseño visual y UX
-5. ⏳ Deploy a AWS
+2. ✅ Implementar CRUD de novedades
+3. ✅ Implementar autenticación admin
+4. ✅ Diseño visual y UX
+5. ✅ Deploy a AWS Lightsail
 6. ⏳ CI/CD con GitHub Actions
+7. ⏳ Monitoreo y alertas
+8. ⏳ Backup automático
