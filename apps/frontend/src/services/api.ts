@@ -9,8 +9,8 @@ class ApiService {
     // Soporte para despliegue en AWS (window.API_BASE_URL) y entorno local
     const runtimeBaseUrl = (window as any).API_BASE_URL as string | undefined;
     const baseURL =
-      import.meta.env.VITE_API_URL ||
       runtimeBaseUrl ||
+      import.meta.env.VITE_API_URL ||
       'http://localhost:3001/api';
 
     this.api = axios.create({

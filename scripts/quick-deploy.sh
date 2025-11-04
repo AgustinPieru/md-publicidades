@@ -16,6 +16,7 @@ NC='\033[0m' # No Color
 INSTANCE_IP="107.21.186.16"
 SSH_KEY="~/.ssh/id_ed25519"
 USER="bitnami"
+API_URL_DEFAULT="http://$INSTANCE_IP:3001/api"
 
 # Función para mostrar ayuda
 show_help() {
@@ -42,6 +43,11 @@ deploy_frontend() {
     echo -e "${YELLOW}   Compilando frontend...${NC}"
     cd apps/frontend
     npm run build
+    
+    # Generar config.js en runtime con la URL del backend
+    echo -e "${YELLOW}   Generando config.js...${NC}"
+    API_URL_TO_USE="${FRONTEND_API_URL:-$API_URL_DEFAULT}"
+    echo "window.API_BASE_URL = '${API_URL_TO_USE}';" > dist/config.js
     
     # Crear ZIP
     echo -e "${YELLOW}   Creando archivo ZIP...${NC}"
@@ -87,6 +93,7 @@ cd ~/md-publicidades-backend
 pm2 stop md-publicidades-backend
 unzip -o ~/backend-complete.zip
 npm install --production
+npx prisma db push
 npx prisma generate
 npm run build
 pm2 start md-publicidades-backend
