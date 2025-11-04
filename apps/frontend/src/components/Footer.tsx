@@ -5,7 +5,8 @@ const Footer = () => {
     <Box
       component="footer"
       sx={{
-        py: 3,
+        pt: 3,
+        pb: 'calc(24px + env(safe-area-inset-bottom, 0px))',
         px: 2,
         mt: 'auto',
         backgroundColor: (theme) =>

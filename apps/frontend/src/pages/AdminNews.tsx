@@ -1,6 +1,5 @@
 import { 
   Typography, 
-  Container, 
   Box, 
   Button, 
   Grid, 
@@ -25,6 +24,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import LogoutIcon from '@mui/icons-material/Logout';
+import PageContainer from '../components/PageContainer';
 
 const AdminNews = () => {
   const navigate = useNavigate();
@@ -61,27 +61,27 @@ const AdminNews = () => {
 
   if (authLoading) {
     return (
-      <Container maxWidth="lg">
+      <PageContainer maxWidth="lg" useTopOffset>
         <Box sx={{ py: 4, display: 'flex', justifyContent: 'center' }}>
           <CircularProgress />
         </Box>
-      </Container>
+      </PageContainer>
     );
   }
 
   if (loading) {
     return (
-      <Container maxWidth="lg">
+      <PageContainer maxWidth="lg" useTopOffset>
         <Box sx={{ py: 4, display: 'flex', justifyContent: 'center' }}>
           <CircularProgress />
         </Box>
-      </Container>
+      </PageContainer>
     );
   }
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ py: 4 }}>
+    <PageContainer maxWidth="lg" useTopOffset>
+      <Box>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
           <Box>
             <Typography variant="h3" component="h1" gutterBottom>
@@ -203,7 +203,7 @@ const AdminNews = () => {
           </DialogActions>
         </Dialog>
       </Box>
-    </Container>
+    </PageContainer>
   );
 };
 

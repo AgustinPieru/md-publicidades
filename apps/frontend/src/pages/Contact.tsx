@@ -1,5 +1,6 @@
-import { Typography, Container, Box, Button } from '@mui/material';
+import { Typography, Box, Button } from '@mui/material';
 import SectionHeader from '../components/SectionHeader';
+import PageContainer from '../components/PageContainer';
 
 const Contact = () => {
   const handleWhatsAppClick = () => {
@@ -10,14 +11,8 @@ const Contact = () => {
   };
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{
-        py: { xs: 2, md: 3 },
-        mt: -4,
-        textAlign: 'center',
-        flex: 1,
-        overflow: 'auto'
-      }}>
+    <PageContainer maxWidth="lg" useTopOffset>
+      <Box sx={{ textAlign: 'center' }}>
         <SectionHeader title="Contacto" subtitle="¿Tienes alguna consulta? ¡Contáctanos por WhatsApp!" align="left" />
         <Button
           variant="contained"
@@ -29,7 +24,7 @@ const Contact = () => {
           Contactar por WhatsApp
         </Button>
       </Box>
-    </Container>
+    </PageContainer>
   );
 };
 

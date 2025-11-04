@@ -1,18 +1,13 @@
-import { Typography, Container, Box, Grid, Stack } from '@mui/material';
+import { Typography, Box, Grid, Stack } from '@mui/material';
 import SectionHeader from '../components/SectionHeader';
+import PageContainer from '../components/PageContainer';
 
 const About = () => {
   return (
-    <Container maxWidth="lg">
-      <Box sx={{
-        py: { xs: 2, md: 3 },
-        mt: -4,
-        flex: 1,
-        overflow: 'auto'
-      }}>
+    <PageContainer maxWidth="lg" useTopOffset compact reservePx={110}>
         <SectionHeader title="Sobre nosotros" subtitle="Somos la solución en comunicación OUT OF HOME." align="left" />
 
-        <Grid container spacing={4} alignItems="center">
+        <Grid container spacing={3} alignItems="center">
           <Grid item xs={12} md={6}>
             <Typography variant="body1" paragraph>
               Con 20 años de experiencia, somos especialistas en la ejecución de campañas publicitarias de alcance provincial y nacional, trabajando junto a empresas privadas, entidades públicas y partidos políticos.
@@ -29,8 +24,8 @@ const About = () => {
                 borderRadius: 2,
                 overflow: 'hidden',
                 boxShadow: '0 10px 30px rgba(0,0,0,0.12)',
-                minHeight: 260,
-                aspectRatio: '4 / 3',
+                minHeight: 200,
+                aspectRatio: '16 / 9',
                 backgroundImage:
                   "url('https://images.unsplash.com/photo-1529336953121-ad5a0d43d0d2?auto=format&fit=crop&w=1600&q=80')",
                 backgroundSize: 'cover',
@@ -44,18 +39,18 @@ const About = () => {
           direction={{ xs: 'column', sm: 'row' }}
           spacing={2}
           justifyContent="center"
-          sx={{ mt: { xs: 4, md: 6 } }}
+          sx={{ mt: { xs: 3, md: 4 } }}
         >
           <Box
             sx={{
               flex: 1,
               borderRadius: 2,
-              p: 3,
+              p: 2,
               textAlign: 'center',
               backgroundColor: 'grey.100',
             }}
           >
-            <Typography variant="h3" component="div" sx={{ fontWeight: 800 }}>
+            <Typography variant="h4" component="div" sx={{ fontWeight: 800 }}>
               +20
             </Typography>
             <Typography variant="subtitle1" color="text.secondary">
@@ -67,12 +62,12 @@ const About = () => {
             sx={{
               flex: 1,
               borderRadius: 2,
-              p: 3,
+              p: 2,
               textAlign: 'center',
               backgroundColor: 'grey.100',
             }}
           >
-            <Typography variant="h3" component="div" sx={{ fontWeight: 800 }}>
+            <Typography variant="h4" component="div" sx={{ fontWeight: 800 }}>
               +500
             </Typography>
             <Typography variant="subtitle1" color="text.secondary">
@@ -84,12 +79,12 @@ const About = () => {
             sx={{
               flex: 1,
               borderRadius: 2,
-              p: 3,
+              p: 2,
               textAlign: 'center',
               backgroundColor: 'grey.100',
             }}
           >
-            <Typography variant="h3" component="div" sx={{ fontWeight: 800 }}>
+            <Typography variant="h4" component="div" sx={{ fontWeight: 800 }}>
               +200
             </Typography>
             <Typography variant="subtitle1" color="text.secondary">
@@ -97,8 +92,7 @@ const About = () => {
             </Typography>
           </Box>
         </Stack>
-      </Box>
-    </Container>
+    </PageContainer>
   );
 };
 

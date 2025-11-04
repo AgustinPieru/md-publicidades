@@ -1,6 +1,5 @@
 import { 
   Typography, 
-  Container, 
   Box, 
   TextField, 
   Button, 
@@ -26,6 +25,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ImageIcon from '@mui/icons-material/Image';
+import PageContainer from '../components/PageContainer';
 
 const AdminNewsForm = () => {
   const navigate = useNavigate();
@@ -211,28 +211,28 @@ const AdminNewsForm = () => {
 
   if (authLoading) {
     return (
-      <Container maxWidth="md">
+      <PageContainer maxWidth="md" compact reservePx={110}>
         <Box sx={{ py: 4, display: 'flex', justifyContent: 'center' }}>
           <CircularProgress />
         </Box>
-      </Container>
+      </PageContainer>
     );
   }
 
   if (loadingData) {
     return (
-      <Container maxWidth="md">
+      <PageContainer maxWidth="md" compact reservePx={110}>
         <Box sx={{ py: 4, display: 'flex', justifyContent: 'center' }}>
           <CircularProgress />
         </Box>
-      </Container>
+      </PageContainer>
     );
   }
 
   return (
-    <Container maxWidth="md">
-      <Box sx={{ py: 4 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
+    <PageContainer maxWidth="md" compact reservePx={110}>
+      <Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
           <Button
             startIcon={<ArrowBackIcon />}
             onClick={() => navigate('/admin/novedades')}
@@ -240,13 +240,13 @@ const AdminNewsForm = () => {
           >
             Volver
           </Button>
-          <Typography variant="h3" component="h1">
+          <Typography variant="h4" component="h1">
             {isEditing ? 'Editar Novedad' : 'Nueva Novedad'}
           </Typography>
         </Box>
 
         <Card>
-          <CardContent sx={{ p: 4 }}>
+          <CardContent sx={{ p: { xs: 2, md: 3 } }}>
             {error && (
               <Alert severity="error" sx={{ mb: 3 }}>
                 {error}
@@ -254,7 +254,7 @@ const AdminNewsForm = () => {
             )}
 
             <Box component="form" onSubmit={handleSubmit}>
-              <Grid container spacing={3}>
+              <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
@@ -264,14 +264,15 @@ const AdminNewsForm = () => {
                     onChange={handleChange}
                     required
                     placeholder="Ingresa el título de la novedad"
+                    size="small"
                   />
                 </Grid>
                 
                 <Grid item xs={12}>
-                  <Typography variant="subtitle1" gutterBottom>
+                  <Typography variant="body2" gutterBottom>
                     Imagen de la Novedad *
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                  <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: 'block' }}>
                     Selecciona un archivo de imagen desde tu computadora. La imagen es obligatoria.
                   </Typography>
 
@@ -281,17 +282,10 @@ const AdminNewsForm = () => {
                       startIcon={<ImageIcon />}
                       component="label"
                       disabled={uploadingImage}
+                      size="small"
                     >
                       Seleccionar imagen
                       <input hidden accept="image/*" type="file" onChange={handleFileSelect} />
-                    </Button>
-                    <Button
-                      variant="contained"
-                      startIcon={uploadingImage ? <CircularProgress size={20} /> : <CloudUploadIcon />}
-                      onClick={handleUpload}
-                      disabled={!selectedFile || uploadingImage}
-                    >
-                      {uploadingImage ? 'Subiendo...' : 'Subir'}
                     </Button>
                     {formData.imagenUrl && (
                       <Button
@@ -299,6 +293,7 @@ const AdminNewsForm = () => {
                         color="error"
                         startIcon={<DeleteIcon />}
                         onClick={handleRemoveImage}
+                        size="small"
                       >
                         Remover imagen
                       </Button>
@@ -320,9 +315,10 @@ const AdminNewsForm = () => {
                     onChange={handleChange}
                     required
                     multiline
-                    rows={6}
+                    rows={4}
                     placeholder="Describe el contenido de la novedad..."
                     helperText="Puedes usar saltos de línea para formatear el texto"
+                    size="small"
                   />
                 </Grid>
 
@@ -332,7 +328,7 @@ const AdminNewsForm = () => {
                       Vista previa de la imagen:
                     </Typography>
                     <Box sx={{
-                      height: 300,
+                      height: 200,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -369,6 +365,7 @@ const AdminNewsForm = () => {
                       variant="outlined"
                       onClick={() => navigate('/admin/novedades')}
                       disabled={loading}
+                      size="small"
                     >
                       Cancelar
                     </Button>
@@ -377,6 +374,7 @@ const AdminNewsForm = () => {
                       variant="contained"
                       startIcon={loading ? <CircularProgress size={20} /> : <SaveIcon />}
                       disabled={loading || !formData.imagenUrl}
+                      size="small"
                     >
                       {loading ? 'Guardando...' : isEditing ? 'Actualizar' : 'Crear'}
                     </Button>
@@ -387,7 +385,7 @@ const AdminNewsForm = () => {
           </CardContent>
         </Card>
       </Box>
-    </Container>
+    </PageContainer>
   );
 };
 

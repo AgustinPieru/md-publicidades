@@ -1,39 +1,34 @@
-import { Typography, Container, Box, Grid, Card, CardContent, CardMedia, CircularProgress, Alert } from '@mui/material';
+import { Typography, Box, Grid, Card, CardContent, CardMedia, CircularProgress, Alert } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useNovedades } from '../hooks/useNovedades';
 import SectionHeader from '../components/SectionHeader';
+import PageContainer from '../components/PageContainer';
 
 const News = () => {
   const { novedades, loading, error } = useNovedades();
 
   if (loading) {
     return (
-      <Container maxWidth="lg">
+      <PageContainer maxWidth="lg" useTopOffset>
         <Box sx={{ py: 4, display: 'flex', justifyContent: 'center' }}>
           <CircularProgress />
         </Box>
-      </Container>
+      </PageContainer>
     );
   }
 
   if (error) {
     return (
-      <Container maxWidth="lg">
+      <PageContainer maxWidth="lg" useTopOffset>
         <Box sx={{ py: 4 }}>
           <Alert severity="error">{error}</Alert>
         </Box>
-      </Container>
+      </PageContainer>
     );
   }
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{
-        py: { xs: 2, md: 3 },
-        mt: -4,
-        flex: 1,
-        overflow: 'auto'
-      }}>
+    <PageContainer maxWidth="lg" useTopOffset>
         <SectionHeader title="Novedades" subtitle="Las últimas noticias y novedades de MD Publicidades" align="left" />
         
         {novedades.length === 0 ? (
@@ -90,8 +85,7 @@ const News = () => {
             ))}
           </Grid>
         )}
-      </Box>
-    </Container>
+    </PageContainer>
   );
 };
 

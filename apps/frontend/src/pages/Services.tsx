@@ -1,8 +1,9 @@
 import React from 'react';
-import { Typography, Container, Box, Grid, CardMedia, Paper, Chip, Stack, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Typography, Box, Grid, CardMedia, Paper, Chip, Stack, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Lightbox from '../components/Lightbox';
 import SectionHeader from '../components/SectionHeader';
+import PageContainer from '../components/PageContainer';
 
 interface GalleryItem {
   src: string;
@@ -65,13 +66,7 @@ const Services = () => {
   );
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{
-        py: { xs: 2, md: 3 },
-        mt: -4,
-        flex: 1,
-        overflow: 'auto'
-      }}>
+    <PageContainer maxWidth="lg" useTopOffset>
         <SectionHeader title="Nuestros Servicios" align="left" />
 
         <Paper sx={{ p: { xs: 2, md: 3 }, borderRadius: 3, boxShadow: '0 10px 30px rgba(0,0,0,0.08)', mb: 3 }}>
@@ -131,7 +126,6 @@ const Services = () => {
           </List>
           {renderGallery(oohGalleries.ruteros)}
         </Paper>
-      </Box>
       <Lightbox
         open={lightboxOpen}
         src={lightboxItems[lightboxIndex]?.src || ''}
@@ -140,7 +134,7 @@ const Services = () => {
         onPrev={lightboxItems.length > 1 ? () => setLightboxIndex((prev) => (prev - 1 + lightboxItems.length) % lightboxItems.length) : undefined}
         onNext={lightboxItems.length > 1 ? () => setLightboxIndex((prev) => (prev + 1) % lightboxItems.length) : undefined}
       />
-    </Container>
+    </PageContainer>
   );
 };
 

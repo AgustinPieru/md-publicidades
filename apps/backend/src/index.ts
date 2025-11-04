@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';
+import path from 'path';
 
 // Load environment variables
 dotenv.config();
@@ -24,8 +25,10 @@ app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Servir archivos estáticos (imágenes subidas)
-app.use('/uploads', express.static('uploads'));
+// Servir archivos estáticos (imágenes subidas) desde una ruta absoluta
+// Coincide con el directorio donde multer guarda los archivos (apps/backend/uploads)
+const uploadsDir = path.join(__dirname, '../uploads');
+app.use('/uploads', express.static(uploadsDir));
 
 // Health check endpoint
 app.get('/health', (req, res) => {

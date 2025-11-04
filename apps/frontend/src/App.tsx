@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { Container, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -14,9 +14,9 @@ import AdminNewsForm from './pages/AdminNewsForm';
 
 function App() {
   return (
-    <Box sx={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <Box sx={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column', overflowX: 'hidden' }}>
       <Navbar />
-      <Container maxWidth="lg" sx={{ mt: 2, mb: 2, flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ mt: 2, mb: 2, flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sobre-nosotros" element={<About />} />
@@ -29,7 +29,7 @@ function App() {
           <Route path="/admin/novedades/nueva" element={<AdminNewsForm />} />
           <Route path="/admin/novedades/editar/:id" element={<AdminNewsForm />} />
         </Routes>
-      </Container>
+      </Box>
       <Footer />
     </Box>
   );

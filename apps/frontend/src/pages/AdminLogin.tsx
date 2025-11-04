@@ -1,6 +1,5 @@
 import { 
   Typography, 
-  Container, 
   Box, 
   TextField, 
   Button, 
@@ -9,6 +8,7 @@ import {
   Alert,
   CircularProgress 
 } from '@mui/material';
+import PageContainer from '../components/PageContainer';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
@@ -64,17 +64,17 @@ const AdminLogin = () => {
   // Mostrar carga mientras se verifica la autenticación
   if (authLoading) {
     return (
-      <Container maxWidth="sm">
+      <PageContainer maxWidth="sm">
         <Box sx={{ py: 4, display: 'flex', justifyContent: 'center' }}>
           <CircularProgress />
         </Box>
-      </Container>
+      </PageContainer>
     );
   }
 
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ py: 4 }}>
+    <PageContainer maxWidth="sm">
+      <Box>
         <Card>
           <CardContent sx={{ p: 4 }}>
             <Typography variant="h4" component="h1" gutterBottom align="center">
@@ -127,7 +127,7 @@ const AdminLogin = () => {
           </CardContent>
         </Card>
       </Box>
-    </Container>
+    </PageContainer>
   );
 };
 
