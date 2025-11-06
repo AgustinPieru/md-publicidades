@@ -6,6 +6,42 @@ import CssBaseline from '@mui/material/CssBaseline';
 import App from './App';
 
 const theme = createTheme({
+  typography: {
+    fontFamily: '"Nunito Sans", "Helvetica", "Arial", sans-serif',
+    h1: {
+      fontFamily: '"Nunito Sans", "Helvetica", "Arial", sans-serif',
+    },
+    h2: {
+      fontFamily: '"Nunito Sans", "Helvetica", "Arial", sans-serif',
+    },
+    h3: {
+      fontFamily: '"Nunito Sans", "Helvetica", "Arial", sans-serif',
+    },
+    h4: {
+      fontFamily: '"Nunito Sans", "Helvetica", "Arial", sans-serif',
+    },
+    h5: {
+      fontFamily: '"Nunito Sans", "Helvetica", "Arial", sans-serif',
+    },
+    h6: {
+      fontFamily: '"Nunito Sans", "Helvetica", "Arial", sans-serif',
+    },
+    body1: {
+      fontFamily: '"Nunito Sans", "Helvetica", "Arial", sans-serif',
+    },
+    body2: {
+      fontFamily: '"Nunito Sans", "Helvetica", "Arial", sans-serif',
+    },
+    button: {
+      fontFamily: '"Nunito Sans", "Helvetica", "Arial", sans-serif',
+    },
+    subtitle1: {
+      fontFamily: '"Nunito Sans", "Helvetica", "Arial", sans-serif',
+    },
+    subtitle2: {
+      fontFamily: '"Nunito Sans", "Helvetica", "Arial", sans-serif',
+    },
+  },
   palette: {
     mode: 'light',
     primary: {
