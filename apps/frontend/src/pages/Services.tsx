@@ -4,6 +4,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Lightbox from '../components/Lightbox';
 import SectionHeader from '../components/SectionHeader';
 import PageContainer from '../components/PageContainer';
+import { images } from '../constants/images';
 
 interface GalleryItem {
   src: string;
@@ -18,26 +19,10 @@ const Services = () => {
   const [lightboxIndex, setLightboxIndex] = React.useState(0);
 
   const oohGalleries: Record<string, GalleryItem[]> = {
-    led: [
-      { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1600&auto=format&fit=crop', alt: 'Pantallas LED 1' },
-      { src: 'https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc?q=80&w=1600&auto=format&fit=crop', alt: 'Pantallas LED 2' },
-      { src: 'https://images.unsplash.com/photo-1519558260268-cde7e03a0152?q=80&w=1600&auto=format&fit=crop', alt: 'Pantallas LED 3' },
-    ],
-    monocolumnas: [
-      { src: 'https://images.unsplash.com/photo-1475714626808-17c92d9c43ee?q=80&w=1600&auto=format&fit=crop', alt: 'Monocolumnas 1' },
-      { src: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1600&auto=format&fit=crop', alt: 'Monocolumnas 2' },
-      { src: 'https://images.unsplash.com/photo-1433838552652-f9a46b332c40?q=80&w=1600&auto=format&fit=crop', alt: 'Monocolumnas 3' },
-    ],
-    formatos: [
-      { src: 'https://images.unsplash.com/photo-1502920917128-1aa500764ce7?q=80&w=1600&auto=format&fit=crop', alt: 'Grandes formatos 1' },
-      { src: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop', alt: 'Grandes formatos 2' },
-      { src: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop', alt: 'Grandes formatos 3' },
-    ],
-    ruteros: [
-      { src: 'https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?q=80&w=1600&auto=format&fit=crop', alt: 'Ruteros 1' },
-      { src: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1600&auto=format&fit=crop', alt: 'Ruteros 2' },
-      { src: 'https://images.unsplash.com/photo-1520975922131-c2364f58f5a6?q=80&w=1600&auto=format&fit=crop', alt: 'Ruteros 3' },
-    ],
+    led: images.services.led.map((src, idx) => ({ src, alt: `Pantallas LED ${idx + 1}` })),
+    monocolumnas: images.services.monocolumnas.map((src, idx) => ({ src, alt: `Monocolumnas ${idx + 1}` })),
+    formatos: images.services.formatos.map((src, idx) => ({ src, alt: `Grandes formatos ${idx + 1}` })),
+    ruteros: images.services.ruteros.map((src, idx) => ({ src, alt: `Ruteros ${idx + 1}` })),
   };
 
   const renderGallery = (items: GalleryItem[]) => (

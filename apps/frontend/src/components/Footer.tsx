@@ -5,24 +5,26 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { contactData } from '../constants/contact';
+import { images } from '../constants/images';
 
 const Footer = () => {
-  // Datos de prueba (test)
-  const companyName = 'MD Publicidades';
-  const slogan = 'Donde tus clientes están, ahí estamos';
-  const address = 'Intendente Gimenez 368, Rafaela, Argentina';
-  const email = 'ventas@mdpublicidades.com.ar';
-  const phone = '+54 3492 501249';
-  const whatsapp = '+54 3492 15654875';
-  const instagramUrl = 'https://www.instagram.com/md.publicidades';
-  const facebookUrl = 'https://www.facebook.com/mdpublicidades18?locale=es_LA';
-  const linkedinUrl = 'https://linktr.ee/mdpublicidades';
+  const {
+    companyName,
+    slogan,
+    address,
+    email,
+    phone,
+    whatsapp,
+    instagramUrl,
+    facebookUrl,
+    linkedinUrl,
+  } = contactData;
 
   return (
     <Box
       component="footer"
       sx={{
-        pt: 4,
         pb: 'calc(24px + env(safe-area-inset-bottom, 0px))',
         px: 2,
         mt: 4,
@@ -36,11 +38,26 @@ const Footer = () => {
         <Grid container spacing={4}>
           {/* 1. Identidad del sitio */}
           <Grid item xs={12} md={4}>
-            <Box>
-              <Typography variant="h6" component="div" sx={{ mb: 1, fontWeight: 'bold' }}>
-                {companyName}
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 0.5 }}>
+              <img
+                src={images.logoHorizontal}
+                alt={companyName}
+                style={{
+                  height: '60px',
+                  maxWidth: '250px',
+                  objectFit: 'contain',
+                  display: 'block',
+                }}
+              />
+              <Typography 
+                variant="body2" 
+                color="text.secondary" 
+                sx={{ 
+                  mb: 2,
+                  alignSelf: 'flex-start',
+                  lineHeight: 1.4,
+                }}
+              >
                 {slogan}
               </Typography>
             </Box>

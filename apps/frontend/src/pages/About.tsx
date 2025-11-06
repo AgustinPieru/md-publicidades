@@ -1,6 +1,7 @@
 import { Typography, Box, Grid, Stack } from '@mui/material';
 import SectionHeader from '../components/SectionHeader';
 import PageContainer from '../components/PageContainer';
+import { images } from '../constants/images';
 
 const About = () => {
   return (
@@ -26,8 +27,7 @@ const About = () => {
                 boxShadow: '0 10px 30px rgba(0,0,0,0.12)',
                 minHeight: 200,
                 aspectRatio: '16 / 9',
-                backgroundImage:
-                  "url('https://images.unsplash.com/photo-1529336953121-ad5a0d43d0d2?auto=format&fit=crop&w=1600&q=80')",
+                backgroundImage: `url('${images.about}')`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
               }}

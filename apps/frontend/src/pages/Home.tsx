@@ -1,6 +1,7 @@
 import { Typography, Box, Button, Container, Stack } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Link } from 'react-router-dom';
+import { images } from '../constants/images';
 
 const Home = () => {
   return (
@@ -19,8 +20,7 @@ const Home = () => {
             sm: 'calc(100vh - 64px + 1px)',
           },
           overflow: 'hidden',
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=2000&q=80')",
+          backgroundImage: `url('${images.cover}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           mt: 0,
