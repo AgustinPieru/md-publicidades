@@ -9,6 +9,7 @@ import {
   CircularProgress 
 } from '@mui/material';
 import PageContainer from '../components/PageContainer';
+import SectionHeader from '../components/SectionHeader';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
@@ -75,14 +76,13 @@ const AdminLogin = () => {
   return (
     <PageContainer maxWidth="sm">
       <Box>
+        <SectionHeader 
+          title="Panel de Administración" 
+          subtitle="Inicia sesión para administrar las novedades"
+          align="center"
+        />
         <Card>
           <CardContent sx={{ p: 4 }}>
-            <Typography variant="h4" component="h1" gutterBottom align="center">
-              Panel de Administración
-            </Typography>
-            <Typography variant="body1" color="text.secondary" align="center" paragraph>
-              Inicia sesión para administrar las novedades
-            </Typography>
 
             {error && (
               <Alert severity="error" sx={{ mb: 3 }}>

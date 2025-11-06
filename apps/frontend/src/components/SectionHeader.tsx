@@ -8,7 +8,7 @@ interface SectionHeaderProps {
 
 const SectionHeader = ({ title, subtitle, align = 'left' }: SectionHeaderProps) => {
   return (
-    <Box sx={{ textAlign: align, mb: { xs: 3, md: 4 } }}>
+    <Box sx={{ textAlign: align, mb: { xs: 3, md: 4 }, pt: '46px' }}>
       <Typography
         component="h1"
         sx={{

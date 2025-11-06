@@ -25,6 +25,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PageContainer from '../components/PageContainer';
+import SectionHeader from '../components/SectionHeader';
 
 const AdminNews = () => {
   const navigate = useNavigate();
@@ -82,16 +83,15 @@ const AdminNews = () => {
   return (
     <PageContainer maxWidth="lg" useTopOffset>
       <Box>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-          <Box>
-            <Typography variant="h3" component="h1" gutterBottom>
-              Administrar Novedades
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Bienvenido, {admin?.email}
-            </Typography>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', md: 'flex-start' }, mb: 4, gap: { xs: 2, md: 0 } }}>
+          <Box sx={{ flex: 1 }}>
+            <SectionHeader 
+              title="Administrar Novedades" 
+              subtitle={`Bienvenido, ${admin?.email || ''}`}
+              align="left"
+            />
           </Box>
-          <Box sx={{ display: 'flex', gap: 2 }}>
+          <Box sx={{ display: 'flex', gap: 2, mt: { xs: 0, md: '46px' }, flexShrink: 0 }}>
             <Button
               variant="contained"
               startIcon={<AddIcon />}

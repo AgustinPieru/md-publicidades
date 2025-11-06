@@ -5,12 +5,12 @@ import { images } from '../constants/images';
 
 const Home = () => {
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth={false} sx={{ px: { xs: 0, sm: 3 } }}>
       <Box
         sx={{
           position: 'relative',
-          mx: 'calc(50% - 50vw)',
-          width: '100vw',
+          mx: { xs: 0, sm: 'calc(50% - 50vw)' },
+          width: { xs: '100%', sm: '100vw' },
           color: 'common.white',
           display: 'flex',
           alignItems: 'center',
@@ -38,14 +38,16 @@ const Home = () => {
             position: 'relative',
             zIndex: 1,
             textAlign: 'left',
-            px: { xs: 3, sm: 6 },
+            px: { xs: 2, sm: 4, md: 6 },
             py: { xs: 4, sm: 6 },
-            borderRadius: 3,
+            borderRadius: { xs: 0, sm: 3 },
             backdropFilter: 'blur(6px)',
             backgroundColor: 'rgba(0,0,0,0.35)',
-            border: '1px solid rgba(255,255,255,0.18)',
+            border: { xs: 'none', sm: '1px solid rgba(255,255,255,0.18)' },
             boxShadow: '0 20px 60px rgba(0,0,0,0.45)',
-            maxWidth: 1000,
+            maxWidth: { xs: '100%', sm: 1000 },
+            width: { xs: '100%', sm: 'auto' },
+            mx: { xs: 0, sm: 'auto' },
           }}
         >
           <Typography
@@ -64,8 +66,8 @@ const Home = () => {
             sx={{
               opacity: 0.95,
               fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' },
-              maxWidth: 900,
-              mx: 'auto',
+              maxWidth: { xs: '100%', sm: 900 },
+              mx: { xs: 0, sm: 'auto' },
             }}
           >
             Llevamos más de dos décadas posicionándonos en la industria, extendiendo nuestra influencia por todo el país. Nos dedicamos a forjar vínculos duraderos entre marcas y su público, generando conexiones valiosas y significativas

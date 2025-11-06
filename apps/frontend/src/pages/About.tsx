@@ -39,7 +39,7 @@ const About = () => {
           direction={{ xs: 'column', sm: 'row' }}
           spacing={2}
           justifyContent="center"
-          sx={{ mt: { xs: 3, md: 4 } }}
+          sx={{ mt: { xs: 6, md: 8 } }}
         >
           <Box
             sx={{

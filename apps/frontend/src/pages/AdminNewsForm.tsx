@@ -20,12 +20,12 @@ import { useAuth } from '../hooks/useAuth';
 import { useNovedades } from '../hooks/useNovedades';
 import { apiService } from '../services/api';
 import { CreateNovedadRequest, UpdateNovedadRequest, Novedad } from '../types';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SaveIcon from '@mui/icons-material/Save';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ImageIcon from '@mui/icons-material/Image';
 import PageContainer from '../components/PageContainer';
+import SectionHeader from '../components/SectionHeader';
 
 const AdminNewsForm = () => {
   const navigate = useNavigate();
@@ -232,18 +232,10 @@ const AdminNewsForm = () => {
   return (
     <PageContainer maxWidth="md" compact reservePx={110}>
       <Box>
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-          <Button
-            startIcon={<ArrowBackIcon />}
-            onClick={() => navigate('/admin/novedades')}
-            sx={{ mr: 2 }}
-          >
-            Volver
-          </Button>
-          <Typography variant="h4" component="h1">
-            {isEditing ? 'Editar Novedad' : 'Nueva Novedad'}
-          </Typography>
-        </Box>
+        <SectionHeader 
+          title={isEditing ? 'Editar Novedad' : 'Nueva Novedad'}
+          align="left"
+        />
 
         <Card>
           <CardContent sx={{ p: { xs: 2, md: 3 } }}>

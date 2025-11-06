@@ -14,7 +14,7 @@ export const images = {
   cover: '/images/cover.jpg',
   
   // Imagen sobre nosotros (About)
-  about: '/images/about.jpg',
+  about: '/images/about.jpeg',
   
   // Imágenes de servicios (Services)
   services: {
