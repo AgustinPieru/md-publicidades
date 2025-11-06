@@ -16,7 +16,7 @@ NC='\033[0m' # No Color
 INSTANCE_IP="107.21.186.16"
 SSH_KEY="~/.ssh/id_ed25519"
 USER="bitnami"
-API_URL_DEFAULT="http://$INSTANCE_IP:3001/api"
+API_URL_DEFAULT="/api"
 
 # Función para mostrar ayuda
 show_help() {

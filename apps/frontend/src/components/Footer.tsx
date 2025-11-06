@@ -1,26 +1,149 @@
-import { Box, Typography, Container } from '@mui/material';
+import { Box, Typography, Container, Grid, Stack, IconButton, Link as MuiLink, Divider } from '@mui/material';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneIcon from '@mui/icons-material/Phone';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const Footer = () => {
+  // Datos de prueba (test)
+  const companyName = 'MD Publicidades';
+  const slogan = 'Somos la solución en comunicación OUT OF HOME';
+  const address = 'Av. Principal 123, Ciudad, Provincia';
+  const email = 'contacto@mdpublicidades.com';
+  const phone = '+54 11 1234-5678';
+  const whatsapp = '+54 11 9876-5432';
+  const instagramUrl = 'https://www.instagram.com/mdpublicidades';
+  const facebookUrl = 'https://www.facebook.com/mdpublicidades';
+
   return (
     <Box
       component="footer"
       sx={{
-        pt: 3,
+        pt: 4,
         pb: 'calc(24px + env(safe-area-inset-bottom, 0px))',
         px: 2,
-        mt: 'auto',
+        mt: 4,
         backgroundColor: (theme) =>
           theme.palette.mode === 'light'
             ? theme.palette.grey[200]
             : theme.palette.grey[800],
       }}
     >
-      <Container maxWidth="sm">
-        <Typography variant="body2" color="text.secondary" align="center">
-          {'© '}
-          {new Date().getFullYear()}{' '}
-          MD Publicidades. Todos los derechos reservados.
-        </Typography>
+      <Container maxWidth="lg">
+        <Grid container spacing={4}>
+          {/* 1. Identidad del sitio */}
+          <Grid item xs={12} md={4}>
+            <Box>
+              <Typography variant="h6" component="div" sx={{ mb: 1, fontWeight: 'bold' }}>
+                {companyName}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                {slogan}
+              </Typography>
+            </Box>
+          </Grid>
+
+          {/* 2. Información de contacto */}
+          <Grid item xs={12} md={4}>
+            <Typography variant="h6" component="div" sx={{ mb: 2, fontWeight: 'bold' }}>
+              Contacto
+            </Typography>
+            <Stack spacing={1.5}>
+              <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <LocationOnIcon sx={{ fontSize: 20, mt: 0.5, color: 'text.secondary' }} />
+                <Typography variant="body2" color="text.secondary">
+                  {address}
+                </Typography>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <EmailIcon sx={{ fontSize: 20, color: 'text.secondary' }} />
+                <MuiLink
+                  href={`mailto:${email}`}
+                  color="inherit"
+                  underline="hover"
+                  sx={{ fontSize: '0.875rem' }}
+                >
+                  {email}
+                </MuiLink>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <PhoneIcon sx={{ fontSize: 20, color: 'text.secondary' }} />
+                <MuiLink
+                  href={`tel:${phone}`}
+                  color="inherit"
+                  underline="hover"
+                  sx={{ fontSize: '0.875rem', mr: 1 }}
+                >
+                  {phone}
+                </MuiLink>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <PhoneIcon sx={{ fontSize: 20, color: 'text.secondary' }} />
+                <MuiLink
+                  href={`https://wa.me/${whatsapp.replace(/\s+/g, '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  color="inherit"
+                  underline="hover"
+                  sx={{ fontSize: '0.875rem' }}
+                >
+                  WhatsApp: {whatsapp}
+                </MuiLink>
+              </Box>
+            </Stack>
+          </Grid>
+
+          {/* 3. Redes sociales */}
+          <Grid item xs={12} md={4}>
+            <Typography variant="h6" component="div" sx={{ mb: 2, fontWeight: 'bold' }}>
+              Síguenos
+            </Typography>
+            <Stack direction="row" spacing={2}>
+              <IconButton
+                component="a"
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                sx={{
+                  color: 'text.secondary',
+                  '&:hover': {
+                    color: 'primary.main',
+                    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                  },
+                }}
+              >
+                <InstagramIcon />
+              </IconButton>
+              <IconButton
+                component="a"
+                href={facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                sx={{
+                  color: 'text.secondary',
+                  '&:hover': {
+                    color: 'primary.main',
+                    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                  },
+                }}
+              >
+                <FacebookIcon />
+              </IconButton>
+            </Stack>
+          </Grid>
+        </Grid>
+
+        <Divider sx={{ my: 3 }} />
+
+        {/* 4. Información legal */}
+        <Box sx={{ textAlign: 'center' }}>
+          <Typography variant="body2" color="text.secondary">
+            © {companyName} {new Date().getFullYear()}. Todos los derechos reservados.
+          </Typography>
+        </Box>
       </Container>
     </Box>
   );

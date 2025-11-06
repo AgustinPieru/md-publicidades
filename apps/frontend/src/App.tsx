@@ -14,9 +14,9 @@ import AdminNewsForm from './pages/AdminNewsForm';
 
 function App() {
   return (
-    <Box sx={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column', overflowX: 'hidden' }}>
+    <Box sx={{ overflowX: 'hidden' }}>
       <Navbar />
-      <Box sx={{ mt: 2, mb: 2, flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <Box>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sobre-nosotros" element={<About />} />

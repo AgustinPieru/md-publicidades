@@ -23,14 +23,9 @@ const PageContainer = ({
         sx={{
           py: { xs: compact ? 2 : 2, md: compact ? 3 : 3 },
           mt: useTopOffset ? -4 : 0,
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          overflow: 'auto',
-          // Evita superposición con el footer y respeta el safe-area en móviles
-          maxHeight: {
-            xs: `calc(100svh - ${reservePx}px - env(safe-area-inset-bottom, 0px))`,
-            md: `calc(100dvh - ${reservePx}px - env(safe-area-inset-bottom, 0px))`,
+          minHeight: {
+            xs: `calc(100vh - 56px + 1px)`,
+            sm: `calc(100vh - 64px + 1px)`,
           },
         }}
       >

@@ -15,8 +15,8 @@ const Home = () => {
           alignItems: 'center',
           justifyContent: 'center',
           minHeight: {
-            xs: 'max(420px, calc(100vh - 56px - 140px))',
-            sm: 'max(520px, calc(100vh - 64px - 140px))',
+            xs: 'calc(100vh - 56px + 1px)',
+            sm: 'calc(100vh - 64px + 1px)',
           },
           overflow: 'hidden',
           backgroundImage:
