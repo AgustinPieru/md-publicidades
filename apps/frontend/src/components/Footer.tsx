@@ -1,6 +1,7 @@
 import { Box, Typography, Container, Grid, Stack, IconButton, Link as MuiLink, Divider } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -8,13 +9,14 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 const Footer = () => {
   // Datos de prueba (test)
   const companyName = 'MD Publicidades';
-  const slogan = 'Somos la solución en comunicación OUT OF HOME';
-  const address = 'Av. Principal 123, Ciudad, Provincia';
-  const email = 'contacto@mdpublicidades.com';
-  const phone = '+54 11 1234-5678';
-  const whatsapp = '+54 11 9876-5432';
-  const instagramUrl = 'https://www.instagram.com/mdpublicidades';
-  const facebookUrl = 'https://www.facebook.com/mdpublicidades';
+  const slogan = 'Donde tus clientes están, ahí estamos';
+  const address = 'Intendente Gimenez 368, Rafaela, Argentina';
+  const email = 'ventas@mdpublicidades.com.ar';
+  const phone = '+54 3492 501249';
+  const whatsapp = '+54 3492 15654875';
+  const instagramUrl = 'https://www.instagram.com/md.publicidades';
+  const facebookUrl = 'https://www.facebook.com/mdpublicidades18?locale=es_LA';
+  const linkedinUrl = 'https://linktr.ee/mdpublicidades';
 
   return (
     <Box
@@ -131,6 +133,22 @@ const Footer = () => {
                 }}
               >
                 <FacebookIcon />
+              </IconButton>
+              <IconButton
+                component="a"
+                href={linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                sx={{
+                  color: 'text.secondary',
+                  '&:hover': {
+                    color: 'primary.main',
+                    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                  },
+                }}
+              >
+                <LinkedInIcon />
               </IconButton>
             </Stack>
           </Grid>
