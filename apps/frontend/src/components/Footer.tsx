@@ -71,7 +71,7 @@ const Footer = () => {
             <Stack spacing={1.5}>
               <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
                 <LocationOnIcon sx={{ fontSize: 20, mt: 0.5, color: 'text.secondary' }} />
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.primary">
                   {address}
                 </Typography>
               </Box>
