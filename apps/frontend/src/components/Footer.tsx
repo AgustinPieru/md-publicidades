@@ -1,14 +1,16 @@
-import { Box, Typography, Container, Grid, Stack, IconButton, Link as MuiLink, Divider } from '@mui/material';
+import { Box, Typography, Container, Grid, Stack, IconButton, Link as MuiLink, Divider, useTheme } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { FaWhatsapp } from 'react-icons/fa';
 import { contactData } from '../constants/contact';
 import { images } from '../constants/images';
 
 const Footer = () => {
+  const theme = useTheme();
   const {
     companyName,
     slogan,
@@ -98,7 +100,7 @@ const Footer = () => {
                 </MuiLink>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <PhoneIcon sx={{ fontSize: 20, color: 'text.secondary' }} />
+                <FaWhatsapp style={{ fontSize: 20, color: theme.palette.text.secondary }} />
                 <MuiLink
                   href={`https://wa.me/${whatsapp.replace(/\s+/g, '')}`}
                   target="_blank"

@@ -4,7 +4,7 @@ import PageContainer from '../components/PageContainer';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import MessageIcon from '@mui/icons-material/Message';
+import { FaWhatsapp } from 'react-icons/fa';
 import { contactData } from '../constants/contact';
 
 const Contact = () => {
@@ -16,84 +16,179 @@ const Contact = () => {
         align="left" 
       />
       
-      <Grid container spacing={3} sx={{ mt: 2 }}>
-        {/* Información de contacto */}
-        <Grid item xs={12} md={8}>
-          <Card elevation={2} sx={{ height: '100%' }}>
-            <CardContent>
-              <Typography variant="h5" component="h2" gutterBottom sx={{ fontWeight: 'bold', mb: 3 }}>
-                Información de Contacto
-              </Typography>
-              <Stack spacing={2.5}>
-                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
-                  <LocationOnIcon sx={{ fontSize: 28, color: 'primary.main', mt: 0.5 }} />
-                  <Box>
-                    <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.5 }}>
-                      Dirección
-                    </Typography>
-                    <Typography variant="body1">
-                      {contactData.address}
-                    </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+        <Grid container spacing={3} sx={{ maxWidth: { xs: '100%', sm: '600px', md: '700px' } }}>
+          {/* Información de contacto */}
+          <Grid item xs={12}>
+            <Card 
+              elevation={4} 
+              sx={{ 
+                height: '100%',
+                borderRadius: 3,
+                background: 'linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(250,250,252,1) 100%)',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: 8,
+                }
+              }}
+            >
+              <CardContent sx={{ p: { xs: 3, sm: 4, md: 5 } }}>
+                <Typography 
+                  variant="h5" 
+                  component="h2" 
+                  gutterBottom 
+                  sx={{ 
+                    fontWeight: 'bold', 
+                    mb: 4,
+                    textAlign: 'left',
+                    color: 'primary.main',
+                    fontSize: { xs: '1.5rem', sm: '1.75rem' }
+                  }}
+                >
+                  Información de Contacto
+                </Typography>
+                <Stack spacing={3}>
+                  <Box 
+                    sx={{ 
+                      display: 'flex', 
+                      alignItems: 'flex-start', 
+                      gap: 2.5,
+                      p: 2,
+                      borderRadius: 2,
+                      bgcolor: 'rgba(0,0,0,0.02)',
+                      transition: 'background-color 0.2s ease',
+                      '&:hover': {
+                        bgcolor: 'rgba(0,0,0,0.04)',
+                      }
+                    }}
+                  >
+                    <LocationOnIcon sx={{ fontSize: 32, color: 'primary.main', mt: 0.5 }} />
+                    <Box sx={{ flex: 1 }}>
+                      <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.75, fontWeight: 600 }}>
+                        Dirección
+                      </Typography>
+                      <Typography variant="body1" sx={{ fontWeight: 500, color: 'text.primary' }}>
+                        {contactData.address}
+                      </Typography>
+                    </Box>
                   </Box>
-                </Box>
-                
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                  <EmailIcon sx={{ fontSize: 28, color: 'primary.main' }} />
-                  <Box>
-                    <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.5 }}>
-                      Email
-                    </Typography>
-                    <MuiLink
-                      href={`mailto:${contactData.email}`}
-                      color="primary"
-                      underline="hover"
-                      sx={{ fontSize: '1rem' }}
-                    >
-                      {contactData.email}
-                    </MuiLink>
+                  
+                  <Box 
+                    sx={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: 2.5,
+                      p: 2,
+                      borderRadius: 2,
+                      bgcolor: 'rgba(0,0,0,0.02)',
+                      transition: 'background-color 0.2s ease',
+                      '&:hover': {
+                        bgcolor: 'rgba(0,0,0,0.04)',
+                      }
+                    }}
+                  >
+                    <EmailIcon sx={{ fontSize: 32, color: 'primary.main' }} />
+                    <Box sx={{ flex: 1 }}>
+                      <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.75, fontWeight: 600 }}>
+                        Email
+                      </Typography>
+                      <MuiLink
+                        href={`mailto:${contactData.email}`}
+                        color="primary"
+                        underline="hover"
+                        sx={{ 
+                          fontSize: '1rem',
+                          fontWeight: 500,
+                          '&:hover': {
+                            textDecoration: 'underline',
+                          }
+                        }}
+                      >
+                        {contactData.email}
+                      </MuiLink>
+                    </Box>
                   </Box>
-                </Box>
-                
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                  <PhoneIcon sx={{ fontSize: 28, color: 'primary.main' }} />
-                  <Box>
-                    <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.5 }}>
-                      Teléfono
-                    </Typography>
-                    <MuiLink
-                      href={`tel:${contactData.phone}`}
-                      color="primary"
-                      underline="hover"
-                      sx={{ fontSize: '1rem' }}
-                    >
-                      {contactData.phone}
-                    </MuiLink>
+                  
+                  <Box 
+                    sx={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: 2.5,
+                      p: 2,
+                      borderRadius: 2,
+                      bgcolor: 'rgba(0,0,0,0.02)',
+                      transition: 'background-color 0.2s ease',
+                      '&:hover': {
+                        bgcolor: 'rgba(0,0,0,0.04)',
+                      }
+                    }}
+                  >
+                    <PhoneIcon sx={{ fontSize: 32, color: 'primary.main' }} />
+                    <Box sx={{ flex: 1 }}>
+                      <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.75, fontWeight: 600 }}>
+                        Teléfono
+                      </Typography>
+                      <MuiLink
+                        href={`tel:${contactData.phone}`}
+                        color="primary"
+                        underline="hover"
+                        sx={{ 
+                          fontSize: '1rem',
+                          fontWeight: 500,
+                          '&:hover': {
+                            textDecoration: 'underline',
+                          }
+                        }}
+                      >
+                        {contactData.phone}
+                      </MuiLink>
+                    </Box>
                   </Box>
-                </Box>
-                
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                  <MessageIcon sx={{ fontSize: 28, color: 'success.main' }} />
-                  <Box>
-                    <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.5 }}>
-                      WhatsApp
-                    </Typography>
-                    <MuiLink
-                      href={`https://wa.me/${contactData.whatsapp.replace(/\s+/g, '')}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      color="success"
-                      underline="hover"
-                      sx={{ fontSize: '1rem' }}
-                    >
-                      {contactData.whatsapp}
-                    </MuiLink>
+                  
+                  <Box 
+                    sx={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: 2.5,
+                      p: 2,
+                      borderRadius: 2,
+                      bgcolor: 'rgba(0,0,0,0.02)',
+                      transition: 'background-color 0.2s ease',
+                      '&:hover': {
+                        bgcolor: 'rgba(0,0,0,0.04)',
+                      }
+                    }}
+                  >
+                    <FaWhatsapp style={{ fontSize: 32, color: 'primary.main' }} />
+                    <Box sx={{ flex: 1 }}>
+                      <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.75, fontWeight: 600 }}>
+                        WhatsApp
+                      </Typography>
+                      <MuiLink
+                        href={`https://wa.me/${contactData.whatsapp.replace(/\s+/g, '')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        color="success"
+                        underline="hover"
+                        sx={{ 
+                          fontSize: '1rem',
+                          fontWeight: 600,
+                          '&:hover': {
+                            textDecoration: 'underline',
+                          }
+                        }}
+                      >
+                        {contactData.whatsapp}
+                      </MuiLink>
+                    </Box>
                   </Box>
-                </Box>
-              </Stack>
-            </CardContent>
-          </Card>
+                </Stack>
+              </CardContent>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
     </PageContainer>
   );
 };
