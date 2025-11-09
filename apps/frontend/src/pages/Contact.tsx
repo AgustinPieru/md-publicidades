@@ -63,12 +63,12 @@ const Contact = () => {
                       }
                     }}
                   >
-                    <LocationOnIcon sx={{ fontSize: 32, color: 'primary.main', mt: 0.5 }} />
-                    <Box sx={{ flex: 1 }}>
+                    <LocationOnIcon sx={{ fontSize: 32, color: 'primary.main', mt: 0.5, flexShrink: 0 }} />
+                    <Box sx={{ flex: 1, minWidth: 0 }}>
                       <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.75, fontWeight: 600 }}>
                         Dirección
                       </Typography>
-                      <Typography variant="body1" sx={{ fontWeight: 500, color: 'text.primary' }}>
+                      <Typography variant="body1" sx={{ fontWeight: 500, color: 'text.primary', wordBreak: 'break-word', overflowWrap: 'break-word' }}>
                         {contactData.address}
                       </Typography>
                     </Box>
@@ -88,8 +88,8 @@ const Contact = () => {
                       }
                     }}
                   >
-                    <EmailIcon sx={{ fontSize: 32, color: 'primary.main' }} />
-                    <Box sx={{ flex: 1 }}>
+                    <EmailIcon sx={{ fontSize: 32, color: 'primary.main', flexShrink: 0 }} />
+                    <Box sx={{ flex: 1, minWidth: 0 }}>
                       <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.75, fontWeight: 600 }}>
                         Email
                       </Typography>
@@ -100,6 +100,9 @@ const Contact = () => {
                         sx={{ 
                           fontSize: '1rem',
                           fontWeight: 500,
+                          wordBreak: 'break-word',
+                          overflowWrap: 'break-word',
+                          display: 'block',
                           '&:hover': {
                             textDecoration: 'underline',
                           }
@@ -124,8 +127,8 @@ const Contact = () => {
                       }
                     }}
                   >
-                    <PhoneIcon sx={{ fontSize: 32, color: 'primary.main' }} />
-                    <Box sx={{ flex: 1 }}>
+                    <PhoneIcon sx={{ fontSize: 32, color: 'primary.main', flexShrink: 0 }} />
+                    <Box sx={{ flex: 1, minWidth: 0 }}>
                       <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.75, fontWeight: 600 }}>
                         Teléfono
                       </Typography>
@@ -136,6 +139,9 @@ const Contact = () => {
                         sx={{ 
                           fontSize: '1rem',
                           fontWeight: 500,
+                          wordBreak: 'break-word',
+                          overflowWrap: 'break-word',
+                          display: 'block',
                           '&:hover': {
                             textDecoration: 'underline',
                           }
@@ -160,8 +166,10 @@ const Contact = () => {
                       }
                     }}
                   >
-                    <FaWhatsapp style={{ fontSize: 32, color: 'primary.main' }} />
-                    <Box sx={{ flex: 1 }}>
+                    <Box sx={{ flexShrink: 0 }}>
+                      <FaWhatsapp style={{ fontSize: 32, color: 'primary.main' }} />
+                    </Box>
+                    <Box sx={{ flex: 1, minWidth: 0 }}>
                       <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.75, fontWeight: 600 }}>
                         WhatsApp
                       </Typography>
@@ -174,6 +182,9 @@ const Contact = () => {
                         sx={{ 
                           fontSize: '1rem',
                           fontWeight: 600,
+                          wordBreak: 'break-word',
+                          overflowWrap: 'break-word',
+                          display: 'block',
                           '&:hover': {
                             textDecoration: 'underline',
                           }

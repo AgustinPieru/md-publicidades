@@ -16,27 +16,16 @@ export const images = {
   // Imagen sobre nosotros (About)
   about: '/images/about.jpeg',
   
-  // Imágenes de servicios (Services)
+  // Imágenes de servicios (Services) - Solo para OOH / Vía Pública
   services: {
     led: [
-      '/images/services/led-1.jpg',
-      '/images/services/led-2.jpg',
-      '/images/services/led-3.jpg',
+      '/images/led-1.png',
     ],
     monocolumnas: [
-      '/images/services/monocolumnas-1.jpg',
-      '/images/services/monocolumnas-2.jpg',
-      '/images/services/monocolumnas-3.jpg',
-    ],
-    formatos: [
-      '/images/services/formatos-1.jpg',
-      '/images/services/formatos-2.jpg',
-      '/images/services/formatos-3.jpg',
+      '/images/monocolumnas-1.jpg',
     ],
     ruteros: [
-      '/images/services/ruteros-1.jpg',
-      '/images/services/ruteros-2.jpg',
-      '/images/services/ruteros-3.jpg',
+      '/images/ruteros-1.jpg',
     ],
   },
 } as const;
