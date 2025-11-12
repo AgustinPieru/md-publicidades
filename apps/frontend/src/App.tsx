@@ -11,8 +11,12 @@ import Contact from './pages/Contact';
 import AdminLogin from './pages/AdminLogin';
 import AdminNews from './pages/AdminNews';
 import AdminNewsForm from './pages/AdminNewsForm';
+import { useRouteImagePreloader } from './hooks/useRouteImagePreloader';
 
 function App() {
+  // Precargar imágenes basándose en la ruta actual
+  useRouteImagePreloader();
+
   return (
     <Box sx={{ overflowX: 'hidden' }}>
       <Navbar />

@@ -65,17 +65,41 @@ const NewsDetail = () => {
 
   return (
     <PageContainer maxWidth="sm" compact useTopOffset={false}>
-      <Box>
+      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
         <Button 
           startIcon={<ArrowBackIcon />} 
           onClick={() => navigate('/novedades')}
-          sx={{ mb: 3 }}
+          sx={{ 
+            mb: 1.5,
+            alignSelf: 'flex-start',
+            ml: { xs: -1, sm: -1.5 }
+          }}
         >
           Volver a Novedades
         </Button>
         
-        <Card elevation={3} sx={{ borderRadius: 3, overflow: 'hidden', maxHeight: 'calc(100vh - 140px)', display: 'flex', flexDirection: 'column' }}>
-          <Box sx={{ position: 'relative', bgcolor: 'background.default' }}>
+        <Card 
+          elevation={3} 
+          sx={{ 
+            borderRadius: 3, 
+            overflow: 'hidden', 
+            display: 'flex', 
+            flexDirection: 'column',
+            flex: 1,
+            maxHeight: { 
+              xs: 'calc(100vh - 120px)', 
+              sm: 'calc(100vh - 130px)', 
+              md: 'calc(100vh - 140px)' 
+            }
+          }}
+        >
+          <Box 
+            sx={{ 
+              position: 'relative', 
+              bgcolor: 'background.default',
+              flexShrink: 0
+            }}
+          >
             <CardMedia
               component="img"
               image={novedad.imagenUrl}
@@ -86,7 +110,7 @@ const NewsDetail = () => {
                 display: 'block',
                 width: '100%',
                 height: 'auto',
-                maxHeight: { xs: '45vh', sm: '50vh', md: '55vh', lg: '60vh' },
+                maxHeight: { xs: '40vh', sm: '45vh', md: '50vh', lg: '55vh' },
                 objectFit: 'contain',
                 cursor: 'zoom-in'
               }}
@@ -96,8 +120,8 @@ const NewsDetail = () => {
               onClick={() => setLightboxOpen(true)}
               sx={{
                 position: 'absolute',
-                top: 12,
-                right: 12,
+                top: { xs: 8, sm: 12 },
+                right: { xs: 8, sm: 12 },
                 bgcolor: 'rgba(0,0,0,0.45)',
                 color: '#fff',
                 '&:hover': { bgcolor: 'rgba(0,0,0,0.65)' }
@@ -108,8 +132,21 @@ const NewsDetail = () => {
             </IconButton>
           </Box>
           <Divider />
-          <Box sx={{ p: { xs: 2, md: 3 } }}>
-            <Typography variant="h4" component="h1" gutterBottom>
+          <Box 
+            sx={{ 
+              p: { xs: 2, sm: 2.5, md: 3 },
+              overflow: 'auto',
+              flex: 1
+            }}
+          >
+            <Typography 
+              variant="h4" 
+              component="h1" 
+              gutterBottom
+              sx={{ 
+                fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2.125rem' }
+              }}
+            >
               {novedad.titulo}
             </Typography>
             <Typography 
@@ -118,6 +155,7 @@ const NewsDetail = () => {
               sx={{ 
                 whiteSpace: 'pre-line', 
                 mb: 1,
+                fontSize: { xs: '0.875rem', sm: '0.875rem', md: '0.875rem' },
                 ...(expandedDesc ? {} : {
                   display: '-webkit-box',
                   WebkitLineClamp: 6,
@@ -129,7 +167,11 @@ const NewsDetail = () => {
               {novedad.descripcion}
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
-              <Typography variant="caption" color="text.secondary">
+              <Typography 
+                variant="caption" 
+                color="text.secondary"
+                sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
+              >
                 Publicado el {new Date(novedad.createdAt).toLocaleDateString('es-ES', {
                   year: 'numeric',
                   month: 'long',

@@ -1,9 +1,21 @@
 import { Typography, Box, Grid, Stack } from '@mui/material';
+import { useEffect, useState } from 'react';
 import SectionHeader from '../components/SectionHeader';
 import PageContainer from '../components/PageContainer';
+import { useImagePreloader } from '../hooks/useImagePreloader';
 import { images } from '../constants/images';
 
 const About = () => {
+  // Precargar la imagen de about
+  const { allLoaded } = useImagePreloader([images.about]);
+  const [backgroundImage, setBackgroundImage] = useState<string>('');
+
+  useEffect(() => {
+    if (allLoaded) {
+      setBackgroundImage(images.about);
+    }
+  }, [allLoaded]);
+
   return (
     <PageContainer maxWidth="lg" useTopOffset compact reservePx={110}>
         <SectionHeader title="Sobre nosotros" subtitle="Somos la solución en comunicación OUT OF HOME." align="left" />
@@ -27,9 +39,11 @@ const About = () => {
                 boxShadow: '0 10px 30px rgba(0,0,0,0.12)',
                 minHeight: 200,
                 aspectRatio: '16 / 9',
-                backgroundImage: `url('${images.about}')`,
+                backgroundImage: backgroundImage ? `url('${backgroundImage}')` : 'none',
+                backgroundColor: backgroundImage ? 'transparent' : 'grey.200',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
+                transition: 'background-image 0.3s ease-in-out',
               }}
             />
           </Grid>

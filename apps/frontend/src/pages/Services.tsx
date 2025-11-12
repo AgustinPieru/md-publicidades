@@ -1,9 +1,11 @@
 import React from 'react';
-import { Typography, Box, Grid, CardMedia, Paper, Chip, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Typography, Box, Grid, Paper, Chip, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Lightbox from '../components/Lightbox';
 import SectionHeader from '../components/SectionHeader';
 import PageContainer from '../components/PageContainer';
+import OptimizedImage from '../components/OptimizedImage';
+import { useImagePreloader } from '../hooks/useImagePreloader';
 import { images } from '../constants/images';
 
 interface GalleryItem {
@@ -24,6 +26,14 @@ const Services = () => {
     ruteros: images.services.ruteros.map((src, idx) => ({ src, alt: `Ruteros ${idx + 1}` })),
   };
 
+  // Precargar todas las imágenes de servicios
+  const allServiceImages = [
+    ...images.services.led,
+    ...images.services.monocolumnas,
+    ...images.services.ruteros,
+  ];
+  const { allLoaded } = useImagePreloader(allServiceImages);
+
   const renderGallery = (items: GalleryItem[]) => (
     <Grid container spacing={2} sx={{ mt: 1 }}>
       {items.map((img, idx) => (
@@ -42,7 +52,12 @@ const Services = () => {
               setLightboxOpen(true);
             }}
           >
-            <CardMedia component="img" image={img.src} alt={img.alt} sx={{ height: 260, width: '100%', objectFit: 'cover' }} />
+            <OptimizedImage
+              src={img.src}
+              alt={img.alt}
+              skeletonHeight={260}
+              sx={{ height: 260, width: '100%' }}
+            />
           </Box>
         </Grid>
       ))}

@@ -1,9 +1,21 @@
 import { Typography, Box, Button, Container, Stack } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useImagePreloader } from '../hooks/useImagePreloader';
 import { images } from '../constants/images';
 
 const Home = () => {
+  // Precargar la imagen de portada
+  const { allLoaded } = useImagePreloader([images.cover]);
+  const [backgroundImage, setBackgroundImage] = useState<string>('');
+
+  useEffect(() => {
+    if (allLoaded) {
+      setBackgroundImage(images.cover);
+    }
+  }, [allLoaded]);
+
   return (
     <Container maxWidth={false} sx={{ px: { xs: 0, sm: 3 } }}>
       <Box
@@ -20,9 +32,11 @@ const Home = () => {
             sm: 'calc(100vh - 64px + 1px)',
           },
           overflow: 'hidden',
-          backgroundImage: `url('${images.cover}')`,
+          backgroundImage: backgroundImage ? `url('${backgroundImage}')` : 'none',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          backgroundColor: backgroundImage ? 'transparent' : 'grey.900',
+          transition: 'background-image 0.3s ease-in-out',
           mt: 0,
           '&::after': {
             content: '""',
