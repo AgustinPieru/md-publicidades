@@ -1,36 +1,130 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Typography, Box, Grid, Paper, Chip, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import Lightbox from '../components/Lightbox';
+import { Typography, Box, Grid, Paper, Card, CardContent, CardActionArea, Chip, Dialog, DialogContent, IconButton, Divider } from '@mui/material';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import CloseIcon from '@mui/icons-material/Close';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SectionHeader from '../components/SectionHeader';
 import PageContainer from '../components/PageContainer';
 import OptimizedImage from '../components/OptimizedImage';
+import Lightbox from '../components/Lightbox';
 import { useImagePreloader } from '../hooks/useImagePreloader';
 import { images } from '../constants/images';
 
-interface GalleryItem {
-  src: string;
-  alt: string;
+interface ServiceLocation {
+  address: string;
+  city: string;
 }
 
-// No TabPanel: transformamos la página en secciones verticales descriptivas
+interface ServiceCard {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  fullDescription: string;
+  images: string[];
+  locations?: ServiceLocation[];
+  showLocations?: boolean;
+}
+
+const oohServices: ServiceCard[] = [
+  {
+    id: 'monocolumna',
+    title: 'Monocolumna',
+    description: 'Tu marca en lo más alto. Ubicadas estratégicamente para maximizar la visibilidad y el impacto de cada campaña.',
+    fullDescription: 'Tu marca en lo más alto. Ubicadas estratégicamente para maximizar la visibilidad y el impacto de cada campaña.',
+    image: images.services.monocolumnas[0] || images.services.led[0],
+    imageAlt: 'Monocolumna',
+    images: [
+      ...images.services.monocolumnas,
+      images.services.led[0], // Agregar una imagen adicional
+    ],
+    showLocations: true,
+    locations: [
+      { address: 'Circunvalación Rosario altura Bv. 27 de febrero', city: 'ROSARIO' },
+      { address: 'Circunvalación Rosario altura bv avellaneda', city: 'ROSARIO' },
+      { address: 'Autopista 9 altura Ruta A174', city: 'CORDOBA' },
+    ],
+  },
+  {
+    id: 'pantallas-led',
+    title: 'Pantallas LED',
+    description: 'Llegamos a todas las provincias del país, con más de 350 ubicaciones.',
+    fullDescription: 'Llegamos a todas las provincias del país, con más de 350 ubicaciones.',
+    image: images.services.led[0] || images.services.monocolumnas[0],
+    imageAlt: 'Pantallas LED',
+    images: [
+      ...images.services.led,
+      images.services.monocolumnas[0], // Agregar una imagen adicional
+    ],
+  },
+  {
+    id: 'ruteros',
+    title: 'Ruteros',
+    description: 'Más de 250 ubicaciones distribuidas en el país. Posibilidad de instalación de nuevos dispositivos en zonas a determinar por pedido de las empresas.',
+    fullDescription: 'Más de 250 ubicaciones distribuidas en el país. Posibilidad de instalación de nuevos dispositivos en zonas a determinar por pedido de las empresas.',
+    image: images.services.ruteros[0] || images.services.led[0],
+    imageAlt: 'Ruteros',
+    images: [
+      ...images.services.ruteros,
+      images.services.led[0], // Agregar una imagen adicional
+    ],
+  },
+  {
+    id: 'medianeras',
+    title: 'Medianeras',
+    description: 'Las medianeras se destacan por su gran escala y ubicación estratégica, facilitando una visibilidad periférica efectiva.',
+    fullDescription: 'Las medianeras se destacan por su gran escala y ubicación estratégica, facilitando una visibilidad periférica efectiva. Son soportes ideales para campañas de lanzamiento, posicionamiento y acciones de largo plazo debido a su alta exposición y permanencia.',
+    image: images.services.monocolumnas[0] || images.services.led[0],
+    imageAlt: 'Medianeras',
+    images: [
+      ...images.services.monocolumnas,
+      images.services.led[0], // Agregar una imagen adicional
+    ], // Placeholder - reemplazar con imágenes reales
+  },
+  {
+    id: 'grandes-formatos',
+    title: 'Grandes Formatos / Hipervallas',
+    description: 'Estructuras publicitarias de gran superficie, instaladas en puntos de tráfico intenso. Contamos con más de 5.000 ubicaciones.',
+    fullDescription: 'Estructuras publicitarias de gran superficie, instaladas en puntos de tráfico intenso para garantizar una comunicación clara, amplia y efectiva durante largos períodos. Contamos con más de 5.000 ubicaciones.',
+    image: images.services.monocolumnas[0] || images.services.led[0],
+    imageAlt: 'Grandes Formatos',
+    images: [
+      ...images.services.monocolumnas,
+      images.services.ruteros[0] || images.services.led[0], // Agregar una imagen adicional
+    ], // Placeholder - reemplazar con imágenes reales
+  },
+  {
+    id: 'sextuples',
+    title: 'Séxtuples',
+    description: 'Soportes estratégicamente ubicados en avenidas y zonas de alto tránsito. Su formato y repetición secuencial permiten una exposición constante.',
+    fullDescription: 'Los séxtuples son soportes estratégicamente ubicados en avenidas y zonas de alto tránsito. Su formato y repetición secuencial permiten una exposición constante, logrando gran visibilidad y recordación de marca.',
+    image: images.services.monocolumnas[0] || images.services.led[0],
+    imageAlt: 'Séxtuples',
+    images: [
+      ...images.services.monocolumnas,
+      images.services.ruteros[0] || images.services.led[0], // Agregar una imagen adicional
+    ], // Placeholder - reemplazar con imágenes reales
+  },
+];
 
 const Services = () => {
   const location = useLocation();
-  const [lightboxOpen, setLightboxOpen] = React.useState(false);
-  const [lightboxItems, setLightboxItems] = React.useState<GalleryItem[]>([]);
-  const [lightboxIndex, setLightboxIndex] = React.useState(0);
+  const [selectedService, setSelectedService] = useState<ServiceCard | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   // Scroll automático a la sección cuando hay un hash en la URL
   useEffect(() => {
     const scrollToSection = () => {
       if (location.hash) {
-        const elementId = location.hash.substring(1); // Remover el #
+        const elementId = location.hash.substring(1);
         const element = document.getElementById(elementId);
         
         if (element) {
-          const offset = 80; // Offset para el header
+          const offset = 80;
           const elementPosition = element.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -44,9 +138,7 @@ const Services = () => {
       return false;
     };
 
-    // Intentar scroll inmediatamente
     if (!scrollToSection()) {
-      // Si no se encuentra el elemento, esperar un poco más (puede estar renderizándose)
       const timeout = setTimeout(() => {
         scrollToSection();
       }, 300);
@@ -55,251 +147,552 @@ const Services = () => {
     }
   }, [location.hash, location.pathname]);
 
-  const oohGalleries: Record<string, GalleryItem[]> = {
-    led: images.services.led.map((src, idx) => ({ src, alt: `Pantallas LED ${idx + 1}` })),
-    monocolumnas: images.services.monocolumnas.map((src, idx) => ({ src, alt: `Monocolumnas ${idx + 1}` })),
-    ruteros: images.services.ruteros.map((src, idx) => ({ src, alt: `Ruteros ${idx + 1}` })),
-  };
-
   // Precargar todas las imágenes de servicios
   const allServiceImages = [
     ...images.services.led,
     ...images.services.monocolumnas,
     ...images.services.ruteros,
   ];
-  const { allLoaded } = useImagePreloader(allServiceImages);
+  useImagePreloader(allServiceImages);
 
-  const renderGallery = (items: GalleryItem[]) => (
-    <Grid container spacing={2} sx={{ mt: 1 }}>
-      {items.map((img, idx) => (
-        <Grid item xs={12} sm={6} md={6} key={idx}>
-          <Box
-            sx={{
-              position: 'relative',
-              cursor: 'zoom-in',
-              borderRadius: 2,
-              overflow: 'hidden',
-              boxShadow: '0 10px 24px rgba(0,0,0,0.12)'
-            }}
-            onClick={() => {
-              setLightboxItems(items);
-              setLightboxIndex(idx);
-              setLightboxOpen(true);
-            }}
-          >
-            <OptimizedImage
-              src={img.src}
-              alt={img.alt}
-              skeletonHeight={260}
-              sx={{ height: 260, width: '100%' }}
-            />
-          </Box>
-        </Grid>
-      ))}
-    </Grid>
-  );
+  const handleServiceClick = (service: ServiceCard) => {
+    setSelectedService(service);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setSelectedService(null);
+  };
+
+  const galleryItems = selectedService 
+    ? selectedService.images.map((src, idx) => ({ 
+        src, 
+        alt: `${selectedService.title} ${idx + 1}` 
+      }))
+    : [];
 
   return (
     <PageContainer maxWidth="lg" useTopOffset>
-        <SectionHeader title="Nuestros Servicios" align="left" />
+      <SectionHeader title="Nuestros Servicios" align="left" />
 
-        <Paper 
-          id="ooh"
+      {/* OOH / Vía Pública */}
+      <Paper 
+        id="ooh"
+        sx={{ 
+          p: { xs: 2, md: 4 }, 
+          borderRadius: 3, 
+          boxShadow: '0 10px 30px rgba(0,0,0,0.08)', 
+          mb: 4,
+          scrollMarginTop: '80px'
+        }}
+      >
+        <Typography variant="h4" sx={{ fontWeight: 800, mb: 1.5, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
+          OOH / Vía Pública
+        </Typography>
+        <Typography 
+          color="text.secondary" 
           sx={{ 
-            p: { xs: 2, md: 3 }, 
-            borderRadius: 3, 
-            boxShadow: '0 10px 30px rgba(0,0,0,0.08)', 
-            mb: 3,
-            scrollMarginTop: '80px' // Espacio para el scroll
+            mb: 4,
+            fontSize: { xs: '1rem', md: '1.125rem' },
+            lineHeight: 1.8
           }}
         >
-          <Typography variant="h5" sx={{ fontWeight: 800, mb: 1 }}>OOH / Vía Pública</Typography>
-          <Typography color="text.secondary" sx={{ mb: 2 }}>Cobertura nacional en vía pública para visibilidad, recordación y alcance masivo.</Typography>
-          <Box 
+          Cobertura nacional en vía pública para visibilidad, recordación y alcance masivo.
+        </Typography>
+
+        <Grid container spacing={3}>
+          {oohServices.map((service) => (
+            <Grid item xs={12} sm={6} md={4} key={service.id}>
+              <Card
+                sx={{
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  borderRadius: 3,
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-8px)',
+                    boxShadow: '0 8px 30px rgba(0,0,0,0.15)',
+                  }
+                }}
+              >
+                <CardActionArea
+                  onClick={() => handleServiceClick(service)}
+                  sx={{ 
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'stretch'
+                  }}
+                >
+                  <Box
+                    sx={{
+                      position: 'relative',
+                      width: '100%',
+                      height: 240,
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <OptimizedImage
+                      src={service.image}
+                      alt={service.imageAlt}
+                      skeletonHeight={240}
+                      sx={{ 
+                        height: '100%',
+                        width: '100%',
+                        objectFit: 'cover',
+                        transition: 'transform 0.3s ease',
+                        '&:hover': {
+                          transform: 'scale(1.1)'
+                        }
+                      }}
+                    />
+                  </Box>
+                  <CardContent sx={{ flex: 1, p: 2.5 }}>
+                    <Typography 
+                      variant="h6" 
+                      sx={{ 
+                        fontWeight: 700, 
+                        mb: 1.5,
+                        fontSize: { xs: '1.125rem', md: '1.25rem' }
+                      }}
+                    >
+                      {service.title}
+                    </Typography>
+                    <Typography 
+                      variant="body2" 
+                      color="text.secondary"
+                      sx={{ 
+                        mb: 2,
+                        fontSize: { xs: '0.875rem', md: '0.9375rem' },
+                        lineHeight: 1.6,
+                        display: '-webkit-box',
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden'
+                      }}
+                    >
+                      {service.description}
+                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', color: 'primary.main', mt: 'auto' }}>
+                      <Typography variant="body2" sx={{ fontWeight: 600, mr: 0.5 }}>
+                        Ver más
+                      </Typography>
+                      <ArrowForwardIcon sx={{ fontSize: 18 }} />
+                    </Box>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Paper>
+
+      {/* Marketing Deportivo */}
+      <Paper 
+        id="marketing-deportivo"
+        sx={{ 
+          p: { xs: 2, md: 4 }, 
+          borderRadius: 3, 
+          boxShadow: '0 10px 30px rgba(0,0,0,0.08)', 
+          mb: 4,
+          scrollMarginTop: '80px'
+        }}
+      >
+        <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
+          Marketing Deportivo
+        </Typography>
+        <Typography 
+          color="text.secondary" 
+          sx={{ 
+            mb: 3,
+            fontSize: { xs: '1rem', md: '1.125rem' },
+            lineHeight: 1.8
+          }}
+        >
+          Desarrollamos activaciones con presencia en clubes de alcance nacional, logrando acuerdos de sponsoring en instituciones de Primera División y B Nacional como River Plate, Newell's Old Boys, Unión, Colón, Defensa y Justicia, Quilmes, Chicago y Almagro.
+        </Typography>
+        <Typography 
+          color="text.secondary" 
+          sx={{ 
+            mb: 3,
+            fontSize: { xs: '1rem', md: '1.125rem' },
+            lineHeight: 1.8
+          }}
+        >
+          Nuestra labor se centra en vincular estratégicamente a marcas comerciales, organizaciones e instituciones públicas con el ámbito deportivo, generando alianzas positivas y de largo plazo.
+        </Typography>
+        <Typography 
+          color="text.secondary" 
+          sx={{ 
+            mb: 3,
+            fontSize: { xs: '1rem', md: '1.125rem' },
+            lineHeight: 1.8
+          }}
+        >
+          Conectamos empresas, ONGs y organismos de gobierno con clubes, deportistas, eventos, federaciones y estadios, fortaleciendo la presencia de marca y promoviendo resultados genuinos y sostenibles.
+        </Typography>
+        <Typography 
+          color="text.secondary" 
+          sx={{ 
+            mb: 3,
+            fontSize: { xs: '1rem', md: '1.125rem' },
+            lineHeight: 1.8
+          }}
+        >
+          Somos agentes exclusivos del Club Atlético de Rafaela y trabajamos junto a equipos de la Liga Profesional, el Torneo Federal A y MM Competición, presente en el Nuevo Car Show Clase 2 con seis pilotos.
+        </Typography>
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            flexWrap: 'wrap', 
+            gap: 1,
+            alignItems: 'flex-start'
+          }}
+        >
+          <Chip 
+            label="Club Atlético de Rafaela" 
+            variant="outlined" 
             sx={{ 
-              mb: 2, 
-              display: 'flex', 
-              flexWrap: 'wrap', 
-              gap: { xs: 0.5, sm: 1 },
-              alignItems: 'flex-start'
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              height: { xs: 28, sm: 32 },
+            }} 
+          />
+          <Chip 
+            label="Liga Profesional" 
+            variant="outlined" 
+            sx={{ 
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              height: { xs: 28, sm: 32 },
+            }} 
+          />
+          <Chip 
+            label="Torneo Federal A" 
+            variant="outlined" 
+            sx={{ 
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              height: { xs: 28, sm: 32 },
+            }} 
+          />
+          <Chip 
+            label="MM Competición" 
+            variant="outlined" 
+            sx={{ 
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              height: { xs: 28, sm: 32 },
+            }} 
+          />
+        </Box>
+      </Paper>
+
+      {/* Eventos */}
+      <Paper 
+        id="eventos"
+        sx={{ 
+          p: { xs: 2, md: 4 }, 
+          borderRadius: 3, 
+          boxShadow: '0 10px 30px rgba(0,0,0,0.08)', 
+          mb: 4,
+          scrollMarginTop: '80px'
+        }}
+      >
+        <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
+          Eventos
+        </Typography>
+        <Typography 
+          color="text.secondary" 
+          sx={{ 
+            mb: 3,
+            fontSize: { xs: '1rem', md: '1.125rem' },
+            lineHeight: 1.8
+          }}
+        >
+          Comercialización de los tres eventos más importantes de la ciudad de Rafaela: la Expo Rural, el torneo Sueño Celeste y el Festival de Teatro.
+        </Typography>
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            flexWrap: 'wrap', 
+            gap: 1,
+            alignItems: 'flex-start'
+          }}
+        >
+          <Chip 
+            label="Expo Rural" 
+            variant="outlined" 
+            sx={{ 
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              height: { xs: 28, sm: 32 },
+            }} 
+          />
+          <Chip 
+            label="Torneo Sueño Celeste" 
+            variant="outlined" 
+            sx={{ 
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              height: { xs: 28, sm: 32 },
+            }} 
+          />
+          <Chip 
+            label="Festival de Teatro" 
+            variant="outlined" 
+            sx={{ 
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              height: { xs: 28, sm: 32 },
+            }} 
+          />
+        </Box>
+      </Paper>
+
+      {/* Rental */}
+      <Paper 
+        id="rental"
+        sx={{ 
+          p: { xs: 2, md: 4 }, 
+          borderRadius: 3, 
+          boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+          scrollMarginTop: '80px'
+        }}
+      >
+        <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
+          Rental
+        </Typography>
+        <Typography 
+          color="text.secondary" 
+          sx={{ 
+            mb: 3,
+            fontSize: { xs: '1rem', md: '1.125rem' },
+            lineHeight: 1.8
+          }}
+        >
+          Ofrecemos alquiler de pantallas LED P3 Rental para eventos y publicidad, aptas tanto para interior como exterior y con óptima calidad de visualización en cualquier entorno.
+        </Typography>
+        <Typography 
+          color="text.secondary" 
+          sx={{ 
+            mb: 3,
+            fontSize: { xs: '1rem', md: '1.125rem' },
+            lineHeight: 1.8
+          }}
+        >
+          Son ideales para conferencias, sets de DJs, eventos corporativos, presentaciones de productos, stands, festivales y celebraciones como cumpleaños y casamientos.
+        </Typography>
+        <Typography 
+          color="text.secondary" 
+          sx={{ 
+            mb: 3,
+            fontSize: { xs: '1rem', md: '1.125rem' },
+            lineHeight: 1.8
+          }}
+        >
+          Contamos con distintas configuraciones de tamaño según las necesidades del cliente y el tipo de evento, con un total disponible de 24,6 m² de pantallas LED.
+        </Typography>
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            flexWrap: 'wrap', 
+            gap: 1,
+            alignItems: 'flex-start'
+          }}
+        >
+          <Chip 
+            label="Pantallas LED P3" 
+            variant="outlined" 
+            sx={{ 
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              height: { xs: 28, sm: 32 },
+            }} 
+          />
+          <Chip 
+            label="24,6 m² disponibles" 
+            variant="outlined" 
+            sx={{ 
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              height: { xs: 28, sm: 32 },
+            }} 
+          />
+          <Chip 
+            label="Interior y Exterior" 
+            variant="outlined" 
+            sx={{ 
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              height: { xs: 28, sm: 32 },
+            }} 
+          />
+        </Box>
+      </Paper>
+
+      {/* Modal de Detalle del Servicio */}
+      <Dialog
+        open={modalOpen}
+        onClose={handleCloseModal}
+        maxWidth="lg"
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: 3,
+            maxHeight: '90vh',
+            m: { xs: 2, sm: 3 },
+            display: 'flex',
+            flexDirection: 'column'
+          }
+        }}
+      >
+        <DialogContent 
+          sx={{ 
+            p: 0, 
+            position: 'relative',
+            overflow: 'auto',
+            flex: 1
+          }}
+        >
+          <IconButton
+            aria-label="Cerrar"
+            onClick={handleCloseModal}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              zIndex: 1,
+              bgcolor: 'rgba(255, 255, 255, 0.9)',
+              '&:hover': {
+                bgcolor: 'rgba(255, 255, 255, 1)',
+              }
             }}
           >
-            <Chip 
-              label="+350 ubicaciones" 
-              variant="outlined" 
-              sx={{ 
-                fontSize: { xs: '0.7rem', sm: '0.875rem' },
-                height: { xs: 24, sm: 32 },
-                '& .MuiChip-label': { px: { xs: 1, sm: 1.5 } }
-              }} 
-            />
-            <Chip 
-              label="Cobertura nacional" 
-              variant="outlined" 
-              sx={{ 
-                fontSize: { xs: '0.7rem', sm: '0.875rem' },
-                height: { xs: 24, sm: 32 },
-                '& .MuiChip-label': { px: { xs: 1, sm: 1.5 } }
-              }} 
-            />
-            <Chip 
-              label="Grandes formatos" 
-              variant="outlined" 
-              sx={{ 
-                fontSize: { xs: '0.7rem', sm: '0.875rem' },
-                height: { xs: 24, sm: 32 },
-                '& .MuiChip-label': { px: { xs: 1, sm: 1.5 } }
-              }} 
-            />
-          </Box>
-          <List dense>
-            <ListItem><ListItemIcon><CheckCircleIcon color="success" /></ListItemIcon><ListItemText primary="Pantallas LED en todas las provincias" /></ListItem>
-            <ListItem><ListItemIcon><CheckCircleIcon color="success" /></ListItemIcon><ListItemText primary="Monocolumnas: LED + cartel fijo" /></ListItem>
-            <ListItem><ListItemIcon><CheckCircleIcon color="success" /></ListItemIcon><ListItemText primary="Grandes formatos, medianeras, séxtuples e hipervallas (5000+)" /></ListItem>
-            <ListItem><ListItemIcon><CheckCircleIcon color="success" /></ListItemIcon><ListItemText primary="Ruteros: +250 ubicaciones e instalación a medida" /></ListItem>
-          </List>
-          {renderGallery([...oohGalleries.led, ...oohGalleries.monocolumnas, ...oohGalleries.ruteros])}
-        </Paper>
+            <CloseIcon />
+          </IconButton>
 
-        <Paper 
-          id="marketing-deportivo"
-          sx={{ 
-            p: { xs: 2, md: 3 }, 
-            borderRadius: 3, 
-            boxShadow: '0 10px 30px rgba(0,0,0,0.08)', 
-            mb: 3,
-            scrollMarginTop: '80px'
-          }}
-        >
-          <Typography variant="h5" sx={{ fontWeight: 800, mb: 1 }}>Marketing Deportivo</Typography>
-          <Typography color="text.secondary" sx={{ mb: 2 }}>Activaciones y patrocinios en clubes y eventos nacionales.</Typography>
-          <Box 
-            sx={{ 
-              mb: 2, 
-              display: 'flex', 
-              flexWrap: 'wrap', 
-              gap: { xs: 0.5, sm: 1 },
-              alignItems: 'flex-start'
-            }}
-          >
-            <Chip 
-              label="Club Atlético de Rafaela" 
-              variant="outlined" 
-              sx={{ 
-                fontSize: { xs: '0.7rem', sm: '0.875rem' },
-                height: { xs: 24, sm: 32 },
-                '& .MuiChip-label': { px: { xs: 1, sm: 1.5 } }
-              }} 
-            />
-            <Chip 
-              label="Liga Profesional" 
-              variant="outlined" 
-              sx={{ 
-                fontSize: { xs: '0.7rem', sm: '0.875rem' },
-                height: { xs: 24, sm: 32 },
-                '& .MuiChip-label': { px: { xs: 1, sm: 1.5 } }
-              }} 
-            />
-            <Chip 
-              label="Federal A" 
-              variant="outlined" 
-              sx={{ 
-                fontSize: { xs: '0.7rem', sm: '0.875rem' },
-                height: { xs: 24, sm: 32 },
-                '& .MuiChip-label': { px: { xs: 1, sm: 1.5 } }
-              }} 
-            />
-          </Box>
-          <List dense>
-            <ListItem><ListItemIcon><CheckCircleIcon color="success" /></ListItemIcon><ListItemText primary="Gestión integral de espacios publicitarios en clubes" /></ListItem>
-            <ListItem><ListItemIcon><CheckCircleIcon color="success" /></ListItemIcon><ListItemText primary="Vínculos estratégicos entre marcas y clubes" /></ListItem>
-            <ListItem><ListItemIcon><CheckCircleIcon color="success" /></ListItemIcon><ListItemText primary="MM Competición en el Nuevo Car Show Clase 2 (seis pilotos)" /></ListItem>
-          </List>
-        </Paper>
+          {selectedService && (
+            <Box sx={{ p: { xs: 3, md: 4 } }}>
+              <Typography 
+                variant="h3" 
+                sx={{ 
+                  fontWeight: 800, 
+                  mb: 2,
+                  fontSize: { xs: '1.75rem', md: '2.5rem' },
+                  pr: 5
+                }}
+              >
+                {selectedService.title}
+              </Typography>
+              
+              <Typography 
+                variant="body1" 
+                color="text.secondary" 
+                sx={{ 
+                  mb: 4,
+                  fontSize: { xs: '1rem', md: '1.125rem' },
+                  lineHeight: 1.8
+                }}
+              >
+                {selectedService.fullDescription}
+              </Typography>
 
-        <Paper 
-          id="eventos"
-          sx={{ 
-            p: { xs: 2, md: 3 }, 
-            borderRadius: 3, 
-            boxShadow: '0 10px 30px rgba(0,0,0,0.08)', 
-            mb: 3,
-            scrollMarginTop: '80px'
-          }}
-        >
-          <Typography variant="h5" sx={{ fontWeight: 800, mb: 1 }}>Eventos</Typography>
-          <Typography color="text.secondary" sx={{ mb: 2 }}>Producción, cobertura y soporte visual para eventos.</Typography>
-          <Box 
-            sx={{ 
-              mb: 2, 
-              display: 'flex', 
-              flexWrap: 'wrap', 
-              gap: { xs: 0.5, sm: 1 },
-              alignItems: 'flex-start'
-            }}
-          >
-            <Chip 
-              label="Expo Rural" 
-              variant="outlined" 
-              sx={{ 
-                fontSize: { xs: '0.7rem', sm: '0.875rem' },
-                height: { xs: 24, sm: 32 },
-                '& .MuiChip-label': { px: { xs: 1, sm: 1.5 } }
-              }} 
-            />
-            <Chip 
-              label="Torneo Sueño Celeste" 
-              variant="outlined" 
-              sx={{ 
-                fontSize: { xs: '0.7rem', sm: '0.875rem' },
-                height: { xs: 24, sm: 32 },
-                '& .MuiChip-label': { px: { xs: 1, sm: 1.5 } }
-              }} 
-            />
-            <Chip 
-              label="Festival de Teatro Rafaela" 
-              variant="outlined" 
-              sx={{ 
-                fontSize: { xs: '0.7rem', sm: '0.875rem' },
-                height: { xs: 24, sm: 32 },
-                '& .MuiChip-label': { px: { xs: 1, sm: 1.5 } }
-              }} 
-            />
-          </Box>
-          <List dense>
-            <ListItem><ListItemIcon><CheckCircleIcon color="success" /></ListItemIcon><ListItemText primary="Desarrollo end-to-end de acciones y presencia de marca" /></ListItem>
-            <ListItem><ListItemIcon><CheckCircleIcon color="success" /></ListItemIcon><ListItemText primary="Infraestructura de comunicación y pauta onsite" /></ListItem>
-          </List>
-        </Paper>
+              {selectedService.showLocations && selectedService.locations && selectedService.locations.length > 0 && (
+                <Box sx={{ mb: 4 }}>
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      fontWeight: 700, 
+                      mb: 2,
+                      fontSize: { xs: '1.25rem', md: '1.5rem' }
+                    }}
+                  >
+                    Ubicaciones
+                  </Typography>
+                  <Grid container spacing={2}>
+                    {selectedService.locations.map((location, idx) => (
+                      <Grid item xs={12} md={6} key={idx}>
+                        <Paper 
+                          elevation={1}
+                          sx={{ 
+                            p: 2, 
+                            borderRadius: 2,
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            gap: 1.5
+                          }}
+                        >
+                          <LocationOnIcon color="primary" sx={{ mt: 0.5 }} />
+                          <Box>
+                            <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                              {location.address}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              {location.city}
+                            </Typography>
+                          </Box>
+                        </Paper>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
+              )}
 
-        <Paper 
-          id="rental"
-          sx={{ 
-            p: { xs: 2, md: 3 }, 
-            borderRadius: 3, 
-            boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-            scrollMarginTop: '80px'
-          }}
-        >
-          <Typography variant="h5" sx={{ fontWeight: 800, mb: 1 }}>Rental</Typography>
-          <Typography color="text.secondary" sx={{ mb: 2 }}>Alquiler de pantallas LED para eventos y publicidad.</Typography>
-          <List dense>
-            <ListItem><ListItemIcon><CheckCircleIcon color="success" /></ListItemIcon><ListItemText primary="Equipos de alta luminosidad y rápida instalación" /></ListItem>
-            <ListItem><ListItemIcon><CheckCircleIcon color="success" /></ListItemIcon><ListItemText primary="Cobertura técnica y asistencia durante el evento" /></ListItem>
-          </List>
-        </Paper>
+              {galleryItems.length > 0 && (
+                <>
+                  <Divider sx={{ my: 4 }} />
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      fontWeight: 700, 
+                      mb: 3,
+                      fontSize: { xs: '1.25rem', md: '1.5rem' }
+                    }}
+                  >
+                    Galería
+                  </Typography>
+                  <Grid container spacing={2}>
+                    {galleryItems.map((img, idx) => (
+                      <Grid item xs={12} sm={6} md={4} key={idx}>
+                        <Box
+                          sx={{
+                            position: 'relative',
+                            cursor: 'zoom-in',
+                            borderRadius: 2,
+                            overflow: 'hidden',
+                            boxShadow: '0 10px 24px rgba(0,0,0,0.12)',
+                            transition: 'transform 0.2s',
+                            '&:hover': {
+                              transform: 'scale(1.02)'
+                            }
+                          }}
+                          onClick={() => {
+                            setLightboxIndex(idx);
+                            setLightboxOpen(true);
+                          }}
+                        >
+                          <OptimizedImage
+                            src={img.src}
+                            alt={img.alt}
+                            skeletonHeight={260}
+                            sx={{ height: 260, width: '100%', objectFit: 'cover' }}
+                          />
+                        </Box>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </>
+              )}
+            </Box>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Lightbox para las imágenes */}
       <Lightbox
         open={lightboxOpen}
-        src={lightboxItems[lightboxIndex]?.src || ''}
-        alt={lightboxItems[lightboxIndex]?.alt}
+        src={galleryItems[lightboxIndex]?.src || ''}
+        alt={galleryItems[lightboxIndex]?.alt}
         onClose={() => setLightboxOpen(false)}
-        onPrev={lightboxItems.length > 1 ? () => setLightboxIndex((prev) => (prev - 1 + lightboxItems.length) % lightboxItems.length) : undefined}
-        onNext={lightboxItems.length > 1 ? () => setLightboxIndex((prev) => (prev + 1) % lightboxItems.length) : undefined}
+        onPrev={galleryItems.length > 1 ? () => setLightboxIndex((prev) => (prev - 1 + galleryItems.length) % galleryItems.length) : undefined}
+        onNext={galleryItems.length > 1 ? () => setLightboxIndex((prev) => (prev + 1) % galleryItems.length) : undefined}
       />
     </PageContainer>
   );
 };
 
 export default Services;
-
-
