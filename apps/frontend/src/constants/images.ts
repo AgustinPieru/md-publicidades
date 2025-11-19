@@ -16,6 +16,20 @@ export const images = {
   // Imagen sobre nosotros (About)
   about: '/images/about.jpeg',
   
+  // Imagen del fundador (About)
+  founder: 'https://i.pravatar.cc/400?img=12', // Imagen de test - Reemplazar con imagen real
+  
+  // Imágenes del equipo (About) - Imágenes de test - Reemplazar con imágenes reales
+  team: {
+    marcelo: 'https://i.pravatar.cc/300?img=33',
+    marina: 'https://i.pravatar.cc/300?img=47',
+    angelina: 'https://i.pravatar.cc/300?img=32',
+    paula: 'https://i.pravatar.cc/300?img=45',
+    carolina: 'https://i.pravatar.cc/300?img=28',
+    liliana: 'https://i.pravatar.cc/300?img=51',
+    gaston: 'https://i.pravatar.cc/300?img=20',
+  },
+  
   // Imágenes de servicios (Services) - Solo para OOH / Vía Pública
   services: {
     led: [
