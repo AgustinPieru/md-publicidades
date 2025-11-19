@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Typography, Box, Grid, Paper, Chip, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Lightbox from '../components/Lightbox';
@@ -16,9 +17,43 @@ interface GalleryItem {
 // No TabPanel: transformamos la página en secciones verticales descriptivas
 
 const Services = () => {
+  const location = useLocation();
   const [lightboxOpen, setLightboxOpen] = React.useState(false);
   const [lightboxItems, setLightboxItems] = React.useState<GalleryItem[]>([]);
   const [lightboxIndex, setLightboxIndex] = React.useState(0);
+
+  // Scroll automático a la sección cuando hay un hash en la URL
+  useEffect(() => {
+    const scrollToSection = () => {
+      if (location.hash) {
+        const elementId = location.hash.substring(1); // Remover el #
+        const element = document.getElementById(elementId);
+        
+        if (element) {
+          const offset = 80; // Offset para el header
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+          return true;
+        }
+      }
+      return false;
+    };
+
+    // Intentar scroll inmediatamente
+    if (!scrollToSection()) {
+      // Si no se encuentra el elemento, esperar un poco más (puede estar renderizándose)
+      const timeout = setTimeout(() => {
+        scrollToSection();
+      }, 300);
+      
+      return () => clearTimeout(timeout);
+    }
+  }, [location.hash, location.pathname]);
 
   const oohGalleries: Record<string, GalleryItem[]> = {
     led: images.services.led.map((src, idx) => ({ src, alt: `Pantallas LED ${idx + 1}` })),
@@ -68,7 +103,16 @@ const Services = () => {
     <PageContainer maxWidth="lg" useTopOffset>
         <SectionHeader title="Nuestros Servicios" align="left" />
 
-        <Paper sx={{ p: { xs: 2, md: 3 }, borderRadius: 3, boxShadow: '0 10px 30px rgba(0,0,0,0.08)', mb: 3 }}>
+        <Paper 
+          id="ooh"
+          sx={{ 
+            p: { xs: 2, md: 3 }, 
+            borderRadius: 3, 
+            boxShadow: '0 10px 30px rgba(0,0,0,0.08)', 
+            mb: 3,
+            scrollMarginTop: '80px' // Espacio para el scroll
+          }}
+        >
           <Typography variant="h5" sx={{ fontWeight: 800, mb: 1 }}>OOH / Vía Pública</Typography>
           <Typography color="text.secondary" sx={{ mb: 2 }}>Cobertura nacional en vía pública para visibilidad, recordación y alcance masivo.</Typography>
           <Box 
@@ -117,7 +161,16 @@ const Services = () => {
           {renderGallery([...oohGalleries.led, ...oohGalleries.monocolumnas, ...oohGalleries.ruteros])}
         </Paper>
 
-        <Paper sx={{ p: { xs: 2, md: 3 }, borderRadius: 3, boxShadow: '0 10px 30px rgba(0,0,0,0.08)', mb: 3 }}>
+        <Paper 
+          id="marketing-deportivo"
+          sx={{ 
+            p: { xs: 2, md: 3 }, 
+            borderRadius: 3, 
+            boxShadow: '0 10px 30px rgba(0,0,0,0.08)', 
+            mb: 3,
+            scrollMarginTop: '80px'
+          }}
+        >
           <Typography variant="h5" sx={{ fontWeight: 800, mb: 1 }}>Marketing Deportivo</Typography>
           <Typography color="text.secondary" sx={{ mb: 2 }}>Activaciones y patrocinios en clubes y eventos nacionales.</Typography>
           <Box 
@@ -164,7 +217,16 @@ const Services = () => {
           </List>
         </Paper>
 
-        <Paper sx={{ p: { xs: 2, md: 3 }, borderRadius: 3, boxShadow: '0 10px 30px rgba(0,0,0,0.08)', mb: 3 }}>
+        <Paper 
+          id="eventos"
+          sx={{ 
+            p: { xs: 2, md: 3 }, 
+            borderRadius: 3, 
+            boxShadow: '0 10px 30px rgba(0,0,0,0.08)', 
+            mb: 3,
+            scrollMarginTop: '80px'
+          }}
+        >
           <Typography variant="h5" sx={{ fontWeight: 800, mb: 1 }}>Eventos</Typography>
           <Typography color="text.secondary" sx={{ mb: 2 }}>Producción, cobertura y soporte visual para eventos.</Typography>
           <Box 
@@ -210,7 +272,15 @@ const Services = () => {
           </List>
         </Paper>
 
-        <Paper sx={{ p: { xs: 2, md: 3 }, borderRadius: 3, boxShadow: '0 10px 30px rgba(0,0,0,0.08)' }}>
+        <Paper 
+          id="rental"
+          sx={{ 
+            p: { xs: 2, md: 3 }, 
+            borderRadius: 3, 
+            boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+            scrollMarginTop: '80px'
+          }}
+        >
           <Typography variant="h5" sx={{ fontWeight: 800, mb: 1 }}>Rental</Typography>
           <Typography color="text.secondary" sx={{ mb: 2 }}>Alquiler de pantallas LED para eventos y publicidad.</Typography>
           <List dense>

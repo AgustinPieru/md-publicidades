@@ -28,5 +28,18 @@ export const images = {
       '/images/ruteros-1.jpg',
     ],
   },
+  
+  // Logos de clientes (para el carrusel)
+  // Usando logos de placeholder para pruebas - Reemplazar con logos reales cuando estén disponibles
+  clients: [
+    'https://logo.clearbit.com/coca-cola.com',
+    'https://logo.clearbit.com/microsoft.com',
+    'https://logo.clearbit.com/apple.com',
+    'https://logo.clearbit.com/google.com',
+    'https://logo.clearbit.com/amazon.com',
+    'https://logo.clearbit.com/nike.com',
+    'https://logo.clearbit.com/adidas.com',
+    'https://logo.clearbit.com/pepsi.com',
+  ],
 } as const;
 

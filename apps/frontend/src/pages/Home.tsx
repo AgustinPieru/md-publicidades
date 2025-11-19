@@ -1,9 +1,12 @@
-import { Typography, Box, Button, Container, Stack } from '@mui/material';
+import { Typography, Box, Button, Container, Stack, Grid, Card, CardContent, CardActionArea } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useImagePreloader } from '../hooks/useImagePreloader';
 import { images } from '../constants/images';
+import SectionHeader from '../components/SectionHeader';
+import ClientCarousel from '../components/ClientCarousel';
+import OptimizedImage from '../components/OptimizedImage';
 
 const Home = () => {
   // Precargar la imagen de portada
@@ -72,9 +75,10 @@ const Home = () => {
               lineHeight: 1.1,
               letterSpacing: '-0.5px',
               fontSize: { xs: '1.9rem', sm: '2.6rem', md: '3.4rem' },
+              textTransform: 'uppercase',
             }}
           >
-            Donde tus clientes están, ahí estamos
+            DONDE ESTAN TUS CLIENTES, AHÍ ESTAMOS
           </Typography>
           <Typography
             sx={{
@@ -119,6 +123,176 @@ const Home = () => {
             <path d="M0,64L60,53.3C120,43,240,21,360,21.3C480,21,600,43,720,64C840,85,960,107,1080,101.3C1200,96,1320,64,1380,48L1440,32L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z" fill="#ffffff" />
           </svg>
         </Box>
+      </Box>
+
+      {/* Sección Nuestros Servicios */}
+      <Container maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
+        <SectionHeader 
+          title="Nuestros Servicios" 
+          subtitle="Hoy, M&D Publicidades ofrece soluciones integrales en cuatro áreas principales"
+          align="center"
+        />
+        
+        <Grid container spacing={3} sx={{ mt: 2 }}>
+          <Grid item xs={12} sm={6} md={3}>
+            <Card
+              component={Link}
+              to="/servicios#ooh"
+              sx={{
+                height: '100%',
+                textDecoration: 'none',
+                display: 'flex',
+                flexDirection: 'column',
+                transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'translateY(-8px)',
+                  boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
+                },
+              }}
+            >
+              <CardActionArea sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
+                <Box sx={{ position: 'relative', width: '100%', height: 200 }}>
+                  <OptimizedImage
+                    src={images.services.led[0]}
+                    alt="Vía Pública – OOH"
+                    sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    skeletonHeight={200}
+                  />
+                </Box>
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography variant="h6" component="h3" sx={{ fontWeight: 700, mb: 1 }}>
+                    Vía Pública – OOH
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Cobertura nacional en vía pública para visibilidad, recordación y alcance masivo.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={3}>
+            <Card
+              component={Link}
+              to="/servicios#eventos"
+              sx={{
+                height: '100%',
+                textDecoration: 'none',
+                display: 'flex',
+                flexDirection: 'column',
+                transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'translateY(-8px)',
+                  boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
+                },
+              }}
+            >
+              <CardActionArea sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
+                <Box sx={{ position: 'relative', width: '100%', height: 200, backgroundColor: 'grey.200' }}>
+                  <OptimizedImage
+                    src={images.services.monocolumnas[0]}
+                    alt="Eventos"
+                    sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    skeletonHeight={200}
+                  />
+                </Box>
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography variant="h6" component="h3" sx={{ fontWeight: 700, mb: 1 }}>
+                    Eventos
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Producción, cobertura y soporte visual para eventos de gran escala.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={3}>
+            <Card
+              component={Link}
+              to="/servicios#marketing-deportivo"
+              sx={{
+                height: '100%',
+                textDecoration: 'none',
+                display: 'flex',
+                flexDirection: 'column',
+                transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'translateY(-8px)',
+                  boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
+                },
+              }}
+            >
+              <CardActionArea sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
+                <Box sx={{ position: 'relative', width: '100%', height: 200, backgroundColor: 'grey.200' }}>
+                  <OptimizedImage
+                    src={images.services.ruteros[0]}
+                    alt="Marketing Deportivo"
+                    sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    skeletonHeight={200}
+                  />
+                </Box>
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography variant="h6" component="h3" sx={{ fontWeight: 700, mb: 1 }}>
+                    Marketing Deportivo
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Activaciones y patrocinios en clubes y eventos nacionales.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={3}>
+            <Card
+              component={Link}
+              to="/servicios#rental"
+              sx={{
+                height: '100%',
+                textDecoration: 'none',
+                display: 'flex',
+                flexDirection: 'column',
+                transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'translateY(-8px)',
+                  boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
+                },
+              }}
+            >
+              <CardActionArea sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
+                <Box sx={{ position: 'relative', width: '100%', height: 200, backgroundColor: 'grey.200' }}>
+                  <OptimizedImage
+                    src={images.services.led[0]}
+                    alt="Rental"
+                    sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    skeletonHeight={200}
+                  />
+                </Box>
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography variant="h6" component="h3" sx={{ fontWeight: 700, mb: 1 }}>
+                    Rental
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Alquiler de pantallas LED para eventos y publicidad.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
+
+      {/* Sección Nuestros Clientes */}
+      <Box sx={{ backgroundColor: 'grey.50', py: { xs: 6, md: 8 } }}>
+        <Container maxWidth="lg">
+          <SectionHeader 
+            title="Nuestros Clientes" 
+            align="center"
+          />
+          <ClientCarousel logos={[...images.clients]} />
+        </Container>
       </Box>
     </Container>
   );
