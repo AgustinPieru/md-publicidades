@@ -22,11 +22,18 @@ class ApiService {
 
     // Calcular el origin para archivos (sirve para construir URLs absolutas
     // como http://host:puerto/uploads/archivo.ext)
-    try {
-      const parsed = new URL(baseURL, window.location.origin);
-      this.filesOrigin = parsed.origin;
-    } catch {
+    // Si baseURL es relativo (/api), usar window.location.origin directamente
+    if (baseURL.startsWith('/')) {
+      // URL relativa, usar el origin actual
       this.filesOrigin = window.location.origin;
+    } else {
+      // URL absoluta, extraer el origin
+      try {
+        const parsed = new URL(baseURL);
+        this.filesOrigin = parsed.origin;
+      } catch {
+        this.filesOrigin = window.location.origin;
+      }
     }
 
     // Interceptor para agregar token a las requests
