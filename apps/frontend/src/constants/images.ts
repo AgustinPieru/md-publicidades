@@ -17,17 +17,17 @@ export const images = {
   about: '/images/about.jpeg',
   
   // Imagen del fundador (About)
-  founder: 'https://i.pravatar.cc/400?img=12', // Imagen de test - Reemplazar con imagen real
+  founder: '/images/gerente-marce.jpg', // Imagen de test - Reemplazar con imagen real
   
   // Imágenes del equipo (About) - Imágenes de test - Reemplazar con imágenes reales
   team: {
-    marcelo: 'https://i.pravatar.cc/300?img=33',
-    marina: 'https://i.pravatar.cc/300?img=47',
-    angelina: 'https://i.pravatar.cc/300?img=32',
-    paula: 'https://i.pravatar.cc/300?img=45',
-    carolina: 'https://i.pravatar.cc/300?img=28',
-    liliana: 'https://i.pravatar.cc/300?img=51',
-    gaston: 'https://i.pravatar.cc/300?img=20',
+    marcelo: '/images/gerente-marce.jpg',
+    marina: '/images/comercial-mari.jpg',
+    angelina: '/images/contenido-ange.jpg',
+    paula: '/images/medios-pauli.png',
+    carolina: '/images/administracion-caro.jpg',
+    liliana: '/images/logistica-lili.jpg',
+    gaston: '/images/gestion-gasti.jpeg',
   },
   
   // Imágenes de servicios (Services)
@@ -42,6 +42,11 @@ export const images = {
       ruteros: [
         '/images/ruteros-1.jpg',
       ],
+      formatos: [
+        '/images/formatos-1.jpg',
+        '/images/formatos-2.jpg',
+        '/images/formatos-3.jpg',
+      ]
     },
     eventos: [
       '/images/eventos-1.jpg',

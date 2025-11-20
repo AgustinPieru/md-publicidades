@@ -284,7 +284,6 @@ const Home = () => {
         </Grid>
       </Container>
 
-      {/* Sección Nuestros Clientes */}
       <Box sx={{ backgroundColor: 'grey.50', py: { xs: 6, md: 8 } }}>
         <Container maxWidth="lg">
           <SectionHeader 

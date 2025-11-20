@@ -7,16 +7,20 @@ import { images } from '../constants/images';
 import OptimizedImage from '../components/OptimizedImage';
 
 const About = () => {
-  // Precargar las imágenes
+  // Precargar las imágenes del equipo y del fundador
   const teamImages = Object.values(images.team);
-  const { allLoaded } = useImagePreloader([images.about, images.founder, ...teamImages]);
+  useImagePreloader([images.founder, ...teamImages]);
+  
+  // Precargar la imagen de about por separado para mostrarla tan pronto como esté lista
+  const { loadedImages: aboutLoadedImages } = useImagePreloader([images.about]);
   const [backgroundImage, setBackgroundImage] = useState<string>('');
 
   useEffect(() => {
-    if (allLoaded) {
+    // Mostrar la imagen de about tan pronto como se cargue, sin esperar a las demás
+    if (aboutLoadedImages.has(images.about)) {
       setBackgroundImage(images.about);
     }
-  }, [allLoaded]);
+  }, [aboutLoadedImages]);
 
   // Datos del equipo
   const teamMembers = [

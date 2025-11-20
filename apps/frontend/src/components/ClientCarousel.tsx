@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import OptimizedImage from './OptimizedImage';
@@ -15,6 +15,9 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
   autoPlay = true,
   autoPlayInterval = 3000,
 }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -49,10 +52,13 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
   const getVisibleCount = () => {
     if (logos.length === 0) return 0;
     if (logos.length <= 2) return logos.length;
-    return 5; // Mostrar 4 logos a la vez en pantallas grandes
+    if (isMobile) return 2; // Móvil: 2 logos
+    if (isTablet) return 3; // Tablet: 3 logos
+    return 5; // Desktop: 5 logos
   };
 
   const visibleCount = getVisibleCount();
+
   const visibleLogos = logos.slice(currentIndex, currentIndex + visibleCount);
   
   // Si no hay suficientes logos al final, agregar del inicio
@@ -76,8 +82,9 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: 2,
+          gap: { xs: 0.5, sm: 1, md: 2 },
           overflow: 'hidden',
+          px: { xs: 1, sm: 2 },
         }}
       >
         {logos.length > visibleCount && (
@@ -86,10 +93,14 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
             sx={{
               color: 'primary.main',
               '&:hover': { backgroundColor: 'action.hover' },
+              display: { xs: 'none', sm: 'flex' },
+              minWidth: { xs: 32, sm: 40 },
+              width: { xs: 32, sm: 40 },
+              height: { xs: 32, sm: 40 },
             }}
             aria-label="Anterior"
           >
-            <ArrowBackIosIcon />
+            <ArrowBackIosIcon sx={{ fontSize: { xs: 18, sm: 24 } }} />
           </IconButton>
         )}
 
@@ -99,9 +110,17 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            minHeight: 120,
-            gap: { xs: 2, sm: 3, md: 4 },
-            flexWrap: 'wrap',
+            minHeight: { xs: 80, sm: 100, md: 120 },
+            gap: { xs: 1.5, sm: 2, md: 3 },
+            flexWrap: { xs: 'nowrap', sm: 'wrap' },
+            overflowX: { xs: 'auto', sm: 'visible' },
+            overflowY: 'hidden',
+            scrollSnapType: { xs: 'x mandatory', sm: 'none' },
+            WebkitOverflowScrolling: 'touch',
+            '&::-webkit-scrollbar': {
+              display: 'none',
+            },
+            scrollbarWidth: 'none',
           }}
         >
           {visibleLogos.map((logo, index) => {
@@ -112,14 +131,18 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
                 sx={{
                   opacity: 1,
                   transition: 'all 0.3s ease-in-out',
-                  width: { xs: 100, sm: 120, md: 150 },
-                  height: { xs: 60, sm: 70, md: 90 },
+                  width: { xs: 80, sm: 90, md: 110 },
+                  height: { xs: 50, sm: 55, md: 65 },
+                  minWidth: { xs: 80, sm: 90, md: 110 },
+                  flexShrink: 0,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  filter: 'none',
+                  filter: 'grayscale(100%)',
+                  scrollSnapAlign: { xs: 'center', sm: 'none' },
                   '&:hover': {
                     transform: 'scale(1.05)',
+                    filter: 'grayscale(0%)',
                   },
                 }}
               >
@@ -132,7 +155,7 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
                     objectFit: 'contain',
                   }}
                   showSkeleton={true}
-                  skeletonHeight={90}
+                  skeletonHeight={65}
                 />
               </Box>
             );
@@ -145,10 +168,14 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
             sx={{
               color: 'primary.main',
               '&:hover': { backgroundColor: 'action.hover' },
+              display: { xs: 'none', sm: 'flex' },
+              minWidth: { xs: 32, sm: 40 },
+              width: { xs: 32, sm: 40 },
+              height: { xs: 32, sm: 40 },
             }}
             aria-label="Siguiente"
           >
-            <ArrowForwardIosIcon />
+            <ArrowForwardIosIcon sx={{ fontSize: { xs: 18, sm: 24 } }} />
           </IconButton>
         )}
       </Box>
@@ -159,8 +186,9 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
           sx={{
             display: 'flex',
             justifyContent: 'center',
-            gap: 1,
-            mt: 2,
+            gap: { xs: 0.75, sm: 1 },
+            mt: { xs: 1.5, sm: 2 },
+            flexWrap: 'wrap',
           }}
         >
           {logos.map((_, index) => (
@@ -168,8 +196,8 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
               key={index}
               onClick={() => setCurrentIndex(index)}
               sx={{
-                width: 8,
-                height: 8,
+                width: { xs: 6, sm: 8 },
+                height: { xs: 6, sm: 8 },
                 borderRadius: '50%',
                 backgroundColor:
                   index === currentIndex ? 'primary.main' : 'action.disabled',
