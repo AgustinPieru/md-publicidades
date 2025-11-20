@@ -24,7 +24,7 @@ export const images = {
     marcelo: '/images/gerente-marce.jpg',
     marina: '/images/comercial-mari.jpg',
     angelina: '/images/contenido-ange.jpg',
-    paula: '/images/medios-pauli.png',
+    paula: '/images/medios-pauli.jpg',
     carolina: '/images/administracion-caro.jpg',
     liliana: '/images/logistica-lili.jpg',
     gaston: '/images/gestion-gasti.jpeg',
@@ -34,7 +34,7 @@ export const images = {
   services: {
     viaPublica: {
       led: [
-        '/images/led-1.png',
+        '/images/led-1.jpg',
       ],
       monocolumnas: [
         '/images/monocolumnas-1.jpg',
@@ -55,7 +55,7 @@ export const images = {
       ],
       sextuples: [
         '/images/sextuple-1.png',
-        '/images/sextuple-2.png',
+        '/images/sextuple-2.jpg',
       ]
     },
     eventos: [
