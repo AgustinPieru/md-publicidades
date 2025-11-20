@@ -15,7 +15,6 @@ const NewsDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [expandedDesc, setExpandedDesc] = useState(false);
 
   useEffect(() => {
     const fetchNovedad = async () => {
@@ -65,7 +64,7 @@ const NewsDetail = () => {
 
   return (
     <PageContainer maxWidth="sm" compact useTopOffset={false}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <Button 
           startIcon={<ArrowBackIcon />} 
           onClick={() => navigate('/novedades')}
@@ -84,20 +83,16 @@ const NewsDetail = () => {
             borderRadius: 3, 
             overflow: 'hidden', 
             display: 'flex', 
-            flexDirection: 'column',
-            flex: 1,
-            maxHeight: { 
-              xs: 'calc(100vh - 120px)', 
-              sm: 'calc(100vh - 130px)', 
-              md: 'calc(100vh - 140px)' 
-            }
+            flexDirection: 'column'
           }}
         >
           <Box 
             sx={{ 
               position: 'relative', 
               bgcolor: 'background.default',
-              flexShrink: 0
+              flexShrink: 0,
+              width: '100%',
+              overflow: 'hidden'
             }}
           >
             <CardMedia
@@ -110,8 +105,8 @@ const NewsDetail = () => {
                 display: 'block',
                 width: '100%',
                 height: 'auto',
-                maxHeight: { xs: '40vh', sm: '45vh', md: '50vh', lg: '55vh' },
-                objectFit: 'contain',
+                maxHeight: { xs: '25vh', sm: '30vh', md: '35vh', lg: '40vh' },
+                objectFit: 'cover',
                 cursor: 'zoom-in'
               }}
             />
@@ -134,9 +129,7 @@ const NewsDetail = () => {
           <Divider />
           <Box 
             sx={{ 
-              p: { xs: 2, sm: 2.5, md: 3 },
-              overflow: 'auto',
-              flex: 1
+              p: { xs: 1.5, sm: 2, md: 2.5 }
             }}
           >
             <Typography 
@@ -144,7 +137,8 @@ const NewsDetail = () => {
               component="h1" 
               gutterBottom
               sx={{ 
-                fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2.125rem' }
+                fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' },
+                mb: 1
               }}
             >
               {novedad.titulo}
@@ -155,22 +149,17 @@ const NewsDetail = () => {
               sx={{ 
                 whiteSpace: 'pre-line', 
                 mb: 1,
-                fontSize: { xs: '0.875rem', sm: '0.875rem', md: '0.875rem' },
-                ...(expandedDesc ? {} : {
-                  display: '-webkit-box',
-                  WebkitLineClamp: 6,
-                  WebkitBoxOrient: 'vertical',
-                  overflow: 'hidden'
-                })
+                fontSize: { xs: '0.8rem', sm: '0.875rem', md: '0.875rem' },
+                lineHeight: 1.5
               }}
             >
               {novedad.descripcion}
             </Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 1 }}>
               <Typography 
                 variant="caption" 
                 color="text.secondary"
-                sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
+                sx={{ fontSize: { xs: '0.65rem', sm: '0.7rem' } }}
               >
                 Publicado el {new Date(novedad.createdAt).toLocaleDateString('es-ES', {
                   year: 'numeric',
