@@ -153,7 +153,7 @@ const Home = () => {
               <CardActionArea sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
                 <Box sx={{ position: 'relative', width: '100%', height: 200 }}>
                   <OptimizedImage
-                    src={images.services.led[0]}
+                    src={images.services.viaPublica.led[0]}
                     alt="Vía Pública – OOH"
                     sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     skeletonHeight={200}
@@ -190,7 +190,7 @@ const Home = () => {
               <CardActionArea sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
                 <Box sx={{ position: 'relative', width: '100%', height: 200, backgroundColor: 'grey.200' }}>
                   <OptimizedImage
-                    src={images.services.monocolumnas[0]}
+                    src={images.services.eventos?.[0]}
                     alt="Eventos"
                     sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     skeletonHeight={200}
@@ -227,7 +227,7 @@ const Home = () => {
               <CardActionArea sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
                 <Box sx={{ position: 'relative', width: '100%', height: 200, backgroundColor: 'grey.200' }}>
                   <OptimizedImage
-                    src={images.services.ruteros[0]}
+                    src={images.services.marketingDeportivo?.[0]}
                     alt="Marketing Deportivo"
                     sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     skeletonHeight={200}
@@ -264,7 +264,7 @@ const Home = () => {
               <CardActionArea sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
                 <Box sx={{ position: 'relative', width: '100%', height: 200, backgroundColor: 'grey.200' }}>
                   <OptimizedImage
-                    src={images.services.led[0]}
+                    src={images.services.rental?.[0]}
                     alt="Rental"
                     sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     skeletonHeight={200}

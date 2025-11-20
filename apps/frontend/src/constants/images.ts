@@ -30,17 +30,35 @@ export const images = {
     gaston: 'https://i.pravatar.cc/300?img=20',
   },
   
-  // Imágenes de servicios (Services) - Solo para OOH / Vía Pública
+  // Imágenes de servicios (Services)
   services: {
-    led: [
-      '/images/led-1.png',
-    ],
-    monocolumnas: [
-      '/images/monocolumnas-1.jpg',
-    ],
-    ruteros: [
-      '/images/ruteros-1.jpg',
-    ],
+    viaPublica: {
+      led: [
+        '/images/led-1.png',
+      ],
+      monocolumnas: [
+        '/images/monocolumnas-1.jpg',
+      ],
+      ruteros: [
+        '/images/ruteros-1.jpg',
+      ],
+    },
+    eventos: [
+      '/images/eventos-1.jpg',
+      '/images/eventos-2.jpg',
+    ] as string[],
+    marketingDeportivo: [
+      '/images/marketing-deportivo-1.jpg',
+      '/images/marketing-deportivo-2.jpg',
+      '/images/marketing-deportivo-3.jpg',
+      '/images/marketing-deportivo-4.jpg',
+      '/images/marketing-deportivo-5.jpg',
+    ] as string[],
+    rental: [
+      '/images/rental-1.jpg',
+      '/images/rental-2.jpg',
+      '/images/rental-3.jpg',
+    ] as string[],
   },
   
   // Logos de clientes (para el carrusel)

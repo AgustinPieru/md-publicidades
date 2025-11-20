@@ -16,9 +16,12 @@ export const useRouteImagePreloader = () => {
       '/': [images.cover, images.logo, images.logoHorizontal],
       '/sobre-nosotros': [images.about, images.logo, images.logoHorizontal],
       '/servicios': [
-        ...images.services.led,
-        ...images.services.monocolumnas,
-        ...images.services.ruteros,
+        ...images.services.viaPublica.led,
+        ...images.services.viaPublica.monocolumnas,
+        ...images.services.viaPublica.ruteros,
+        ...images.services.eventos,
+        ...images.services.marketingDeportivo,
+        ...images.services.rental,
         images.logo,
         images.logoHorizontal,
       ],
@@ -39,9 +42,9 @@ export const useRouteImagePreloader = () => {
     if (location.pathname === '/') {
       // Si estamos en home, precargar about y servicios
       preloadImage(images.about).catch(() => {});
-      images.services.led.forEach((url) => preloadImage(url).catch(() => {}));
-      images.services.monocolumnas.forEach((url) => preloadImage(url).catch(() => {}));
-      images.services.ruteros.forEach((url) => preloadImage(url).catch(() => {}));
+      images.services.viaPublica.led.forEach((url) => preloadImage(url).catch(() => {}));
+      images.services.viaPublica.monocolumnas.forEach((url) => preloadImage(url).catch(() => {}));
+      images.services.viaPublica.ruteros.forEach((url) => preloadImage(url).catch(() => {}));
     }
   }, [location.pathname]);
 };

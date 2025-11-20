@@ -34,11 +34,11 @@ const oohServices: ServiceCard[] = [
     title: 'Monocolumna',
     description: 'Tu marca en lo más alto. Ubicadas estratégicamente para maximizar la visibilidad y el impacto de cada campaña.',
     fullDescription: 'Tu marca en lo más alto. Ubicadas estratégicamente para maximizar la visibilidad y el impacto de cada campaña.',
-    image: images.services.monocolumnas[0] || images.services.led[0],
+    image: images.services.viaPublica.monocolumnas[0] || images.services.viaPublica.led[0],
     imageAlt: 'Monocolumna',
     images: [
-      ...images.services.monocolumnas,
-      images.services.led[0], // Agregar una imagen adicional
+      ...images.services.viaPublica.monocolumnas,
+      images.services.viaPublica.led[0], // Agregar una imagen adicional
     ],
     showLocations: true,
     locations: [
@@ -52,11 +52,11 @@ const oohServices: ServiceCard[] = [
     title: 'Pantallas LED',
     description: 'Llegamos a todas las provincias del país, con más de 350 ubicaciones.',
     fullDescription: 'Llegamos a todas las provincias del país, con más de 350 ubicaciones.',
-    image: images.services.led[0] || images.services.monocolumnas[0],
+    image: images.services.viaPublica.led[0] || images.services.viaPublica.monocolumnas[0],
     imageAlt: 'Pantallas LED',
     images: [
-      ...images.services.led,
-      images.services.monocolumnas[0], // Agregar una imagen adicional
+      ...images.services.viaPublica.led,
+      images.services.viaPublica.monocolumnas[0], // Agregar una imagen adicional
     ],
   },
   {
@@ -64,11 +64,11 @@ const oohServices: ServiceCard[] = [
     title: 'Ruteros',
     description: 'Más de 250 ubicaciones distribuidas en el país. Posibilidad de instalación de nuevos dispositivos en zonas a determinar por pedido de las empresas.',
     fullDescription: 'Más de 250 ubicaciones distribuidas en el país. Posibilidad de instalación de nuevos dispositivos en zonas a determinar por pedido de las empresas.',
-    image: images.services.ruteros[0] || images.services.led[0],
+    image: images.services.viaPublica.ruteros[0] || images.services.viaPublica.led[0],
     imageAlt: 'Ruteros',
     images: [
-      ...images.services.ruteros,
-      images.services.led[0], // Agregar una imagen adicional
+      ...images.services.viaPublica.ruteros,
+      images.services.viaPublica.led[0], // Agregar una imagen adicional
     ],
   },
   {
@@ -76,11 +76,11 @@ const oohServices: ServiceCard[] = [
     title: 'Medianeras',
     description: 'Las medianeras se destacan por su gran escala y ubicación estratégica, facilitando una visibilidad periférica efectiva.',
     fullDescription: 'Las medianeras se destacan por su gran escala y ubicación estratégica, facilitando una visibilidad periférica efectiva. Son soportes ideales para campañas de lanzamiento, posicionamiento y acciones de largo plazo debido a su alta exposición y permanencia.',
-    image: images.services.monocolumnas[0] || images.services.led[0],
+    image: images.services.viaPublica.monocolumnas[0] || images.services.viaPublica.led[0],
     imageAlt: 'Medianeras',
     images: [
-      ...images.services.monocolumnas,
-      images.services.led[0], // Agregar una imagen adicional
+      ...images.services.viaPublica.monocolumnas,
+      images.services.viaPublica.led[0], // Agregar una imagen adicional
     ], // Placeholder - reemplazar con imágenes reales
   },
   {
@@ -88,11 +88,11 @@ const oohServices: ServiceCard[] = [
     title: 'Grandes Formatos / Hipervallas',
     description: 'Estructuras publicitarias de gran superficie, instaladas en puntos de tráfico intenso. Contamos con más de 5.000 ubicaciones.',
     fullDescription: 'Estructuras publicitarias de gran superficie, instaladas en puntos de tráfico intenso para garantizar una comunicación clara, amplia y efectiva durante largos períodos. Contamos con más de 5.000 ubicaciones.',
-    image: images.services.monocolumnas[0] || images.services.led[0],
+    image: images.services.viaPublica.monocolumnas[0] || images.services.viaPublica.led[0],
     imageAlt: 'Grandes Formatos',
     images: [
-      ...images.services.monocolumnas,
-      images.services.ruteros[0] || images.services.led[0], // Agregar una imagen adicional
+      ...images.services.viaPublica.monocolumnas,
+      images.services.viaPublica.ruteros[0] || images.services.viaPublica.led[0], // Agregar una imagen adicional
     ], // Placeholder - reemplazar con imágenes reales
   },
   {
@@ -100,11 +100,11 @@ const oohServices: ServiceCard[] = [
     title: 'Séxtuples',
     description: 'Soportes estratégicamente ubicados en avenidas y zonas de alto tránsito. Su formato y repetición secuencial permiten una exposición constante.',
     fullDescription: 'Los séxtuples son soportes estratégicamente ubicados en avenidas y zonas de alto tránsito. Su formato y repetición secuencial permiten una exposición constante, logrando gran visibilidad y recordación de marca.',
-    image: images.services.monocolumnas[0] || images.services.led[0],
+    image: images.services.viaPublica.monocolumnas[0] || images.services.viaPublica.led[0],
     imageAlt: 'Séxtuples',
     images: [
-      ...images.services.monocolumnas,
-      images.services.ruteros[0] || images.services.led[0], // Agregar una imagen adicional
+      ...images.services.viaPublica.monocolumnas,
+      images.services.viaPublica.ruteros[0] || images.services.viaPublica.led[0], // Agregar una imagen adicional
     ], // Placeholder - reemplazar con imágenes reales
   },
 ];
@@ -149,9 +149,9 @@ const Services = () => {
 
   // Precargar todas las imágenes de servicios
   const allServiceImages = [
-    ...images.services.led,
-    ...images.services.monocolumnas,
-    ...images.services.ruteros,
+    ...images.services.viaPublica.led,
+    ...images.services.viaPublica.monocolumnas,
+    ...images.services.viaPublica.ruteros,
   ];
   useImagePreloader(allServiceImages);
 
