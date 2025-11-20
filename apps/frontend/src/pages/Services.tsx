@@ -34,11 +34,10 @@ const oohServices: ServiceCard[] = [
     title: 'Monocolumna',
     description: 'Tu marca en lo más alto. Ubicadas estratégicamente para maximizar la visibilidad y el impacto de cada campaña.',
     fullDescription: 'Tu marca en lo más alto. Ubicadas estratégicamente para maximizar la visibilidad y el impacto de cada campaña.',
-    image: images.services.viaPublica.monocolumnas[0] || images.services.viaPublica.led[0],
+    image: images.services.viaPublica.monocolumnas[0],
     imageAlt: 'Monocolumna',
     images: [
       ...images.services.viaPublica.monocolumnas,
-      images.services.viaPublica.led[0], // Agregar una imagen adicional
     ],
     showLocations: true,
     locations: [
@@ -52,11 +51,10 @@ const oohServices: ServiceCard[] = [
     title: 'Pantallas LED',
     description: 'Llegamos a todas las provincias del país, con más de 350 ubicaciones.',
     fullDescription: 'Llegamos a todas las provincias del país, con más de 350 ubicaciones.',
-    image: images.services.viaPublica.led[0] || images.services.viaPublica.monocolumnas[0],
+    image: images.services.viaPublica.led[0],
     imageAlt: 'Pantallas LED',
     images: [
       ...images.services.viaPublica.led,
-      images.services.viaPublica.monocolumnas[0], // Agregar una imagen adicional
     ],
   },
   {
@@ -64,11 +62,10 @@ const oohServices: ServiceCard[] = [
     title: 'Ruteros',
     description: 'Más de 250 ubicaciones distribuidas en el país. Posibilidad de instalación de nuevos dispositivos en zonas a determinar por pedido de las empresas.',
     fullDescription: 'Más de 250 ubicaciones distribuidas en el país. Posibilidad de instalación de nuevos dispositivos en zonas a determinar por pedido de las empresas.',
-    image: images.services.viaPublica.ruteros[0] || images.services.viaPublica.led[0],
+    image: images.services.viaPublica.ruteros[0],
     imageAlt: 'Ruteros',
     images: [
       ...images.services.viaPublica.ruteros,
-      images.services.viaPublica.led[0], // Agregar una imagen adicional
     ],
   },
   {
@@ -76,36 +73,33 @@ const oohServices: ServiceCard[] = [
     title: 'Medianeras',
     description: 'Las medianeras se destacan por su gran escala y ubicación estratégica, facilitando una visibilidad periférica efectiva.',
     fullDescription: 'Las medianeras se destacan por su gran escala y ubicación estratégica, facilitando una visibilidad periférica efectiva. Son soportes ideales para campañas de lanzamiento, posicionamiento y acciones de largo plazo debido a su alta exposición y permanencia.',
-    image: images.services.viaPublica.monocolumnas[0] || images.services.viaPublica.led[0],
+    image: images.services.viaPublica.medianeras[0] ,
     imageAlt: 'Medianeras',
     images: [
-      ...images.services.viaPublica.monocolumnas,
-      images.services.viaPublica.led[0], // Agregar una imagen adicional
-    ], // Placeholder - reemplazar con imágenes reales
+      ...images.services.viaPublica.medianeras
+    ],
   },
   {
     id: 'grandes-formatos',
     title: 'Grandes Formatos / Hipervallas',
     description: 'Estructuras publicitarias de gran superficie, instaladas en puntos de tráfico intenso. Contamos con más de 5.000 ubicaciones.',
     fullDescription: 'Estructuras publicitarias de gran superficie, instaladas en puntos de tráfico intenso para garantizar una comunicación clara, amplia y efectiva durante largos períodos. Contamos con más de 5.000 ubicaciones.',
-    image: images.services.viaPublica.monocolumnas[0] || images.services.viaPublica.led[0],
+    image: images.services.viaPublica.formatos[0],
     imageAlt: 'Grandes Formatos',
     images: [
-      ...images.services.viaPublica.monocolumnas,
-      images.services.viaPublica.ruteros[0] || images.services.viaPublica.led[0], // Agregar una imagen adicional
-    ], // Placeholder - reemplazar con imágenes reales
+      ...images.services.viaPublica.formatos,
+    ],
   },
   {
     id: 'sextuples',
     title: 'Séxtuples',
     description: 'Soportes estratégicamente ubicados en avenidas y zonas de alto tránsito. Su formato y repetición secuencial permiten una exposición constante.',
     fullDescription: 'Los séxtuples son soportes estratégicamente ubicados en avenidas y zonas de alto tránsito. Su formato y repetición secuencial permiten una exposición constante, logrando gran visibilidad y recordación de marca.',
-    image: images.services.viaPublica.monocolumnas[0] || images.services.viaPublica.led[0],
+    image: images.services.viaPublica.sextuples[0],
     imageAlt: 'Séxtuples',
     images: [
-      ...images.services.viaPublica.monocolumnas,
-      images.services.viaPublica.ruteros[0] || images.services.viaPublica.led[0], // Agregar una imagen adicional
-    ], // Placeholder - reemplazar con imágenes reales
+      ...images.services.viaPublica.sextuples,
+    ],
   },
 ];
 
@@ -115,6 +109,7 @@ const Services = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [lightboxImages, setLightboxImages] = useState<string[]>([]);
 
   // Scroll automático a la sección cuando hay un hash en la URL
   useEffect(() => {
@@ -152,6 +147,10 @@ const Services = () => {
     ...images.services.viaPublica.led,
     ...images.services.viaPublica.monocolumnas,
     ...images.services.viaPublica.ruteros,
+    ...images.services.viaPublica.formatos,
+    ...images.services.rental,
+    ...images.services.marketingDeportivo,
+    ...images.services.eventos,
   ];
   useImagePreloader(allServiceImages);
 
@@ -163,6 +162,7 @@ const Services = () => {
   const handleCloseModal = () => {
     setModalOpen(false);
     setSelectedService(null);
+    setLightboxOpen(false);
   };
 
   const galleryItems = selectedService 
@@ -171,6 +171,21 @@ const Services = () => {
         alt: `${selectedService.title} ${idx + 1}` 
       }))
     : [];
+
+  // Funciones para abrir lightbox directamente (para Marketing Deportivo, Eventos y Rental)
+  const openLightbox = (images: string[], index: number) => {
+    setLightboxImages(images);
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const handleLightboxPrev = () => {
+    setLightboxIndex((prev) => (prev - 1 + lightboxImages.length) % lightboxImages.length);
+  };
+
+  const handleLightboxNext = () => {
+    setLightboxIndex((prev) => (prev + 1) % lightboxImages.length);
+  };
 
   return (
     <PageContainer maxWidth="lg" useTopOffset>
@@ -301,13 +316,13 @@ const Services = () => {
           scrollMarginTop: '80px'
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
+        <Typography variant="h4" sx={{ fontWeight: 800, mb: 1.5, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
           Marketing Deportivo
         </Typography>
         <Typography 
           color="text.secondary" 
           sx={{ 
-            mb: 3,
+            mb: 4,
             fontSize: { xs: '1rem', md: '1.125rem' },
             lineHeight: 1.8
           }}
@@ -344,6 +359,41 @@ const Services = () => {
         >
           Somos agentes exclusivos del Club Atlético de Rafaela y trabajamos junto a equipos de la Liga Profesional, el Torneo Federal A y MM Competición, presente en el Nuevo Car Show Clase 2 con seis pilotos.
         </Typography>
+        <Grid container spacing={3} sx={{ mb: 3 }}>
+          {images.services.marketingDeportivo.map((img, idx) => (
+            <Grid item xs={12} sm={6} md={4} key={idx}>
+              <Box
+                sx={{
+                  position: 'relative',
+                  width: '100%',
+                  height: 300,
+                  borderRadius: 2,
+                  overflow: 'hidden',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                  cursor: 'zoom-in',
+                  transition: 'transform 0.3s ease',
+                  '&:hover': {
+                    transform: 'scale(1.02)'
+                  }
+                }}
+                onClick={() => {
+                  openLightbox(images.services.marketingDeportivo, idx);
+                }}
+              >
+                <OptimizedImage
+                  src={img}
+                  alt={`Marketing Deportivo ${idx + 1}`}
+                  skeletonHeight={300}
+                  sx={{ 
+                    height: '100%',
+                    width: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
         <Box 
           sx={{ 
             display: 'flex', 
@@ -398,19 +448,54 @@ const Services = () => {
           scrollMarginTop: '80px'
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
+        <Typography variant="h4" sx={{ fontWeight: 800, mb: 1.5, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
           Eventos
         </Typography>
         <Typography 
           color="text.secondary" 
           sx={{ 
-            mb: 3,
+            mb: 4,
             fontSize: { xs: '1rem', md: '1.125rem' },
             lineHeight: 1.8
           }}
         >
           Comercialización de los tres eventos más importantes de la ciudad de Rafaela: la Expo Rural, el torneo Sueño Celeste y el Festival de Teatro.
         </Typography>
+        <Grid container spacing={3} sx={{ mb: 3 }}>
+          {images.services.eventos.map((img, idx) => (
+            <Grid item xs={12} sm={6} key={idx}>
+              <Box
+                sx={{
+                  position: 'relative',
+                  width: '100%',
+                  height: 300,
+                  borderRadius: 2,
+                  overflow: 'hidden',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                  cursor: 'zoom-in',
+                  transition: 'transform 0.3s ease',
+                  '&:hover': {
+                    transform: 'scale(1.02)'
+                  }
+                }}
+                onClick={() => {
+                  openLightbox(images.services.eventos, idx);
+                }}
+              >
+                <OptimizedImage
+                  src={img}
+                  alt={`Eventos ${idx + 1}`}
+                  skeletonHeight={300}
+                  sx={{ 
+                    height: '100%',
+                    width: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
         <Box 
           sx={{ 
             display: 'flex', 
@@ -456,13 +541,13 @@ const Services = () => {
           scrollMarginTop: '80px'
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
+        <Typography variant="h4" sx={{ fontWeight: 800, mb: 1.5, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
           Rental
         </Typography>
         <Typography 
           color="text.secondary" 
           sx={{ 
-            mb: 3,
+            mb: 4,
             fontSize: { xs: '1rem', md: '1.125rem' },
             lineHeight: 1.8
           }}
@@ -489,6 +574,41 @@ const Services = () => {
         >
           Contamos con distintas configuraciones de tamaño según las necesidades del cliente y el tipo de evento, con un total disponible de 24,6 m² de pantallas LED.
         </Typography>
+        <Grid container spacing={3} sx={{ mb: 3 }}>
+          {images.services.rental.map((img, idx) => (
+            <Grid item xs={12} sm={6} md={4} key={idx}>
+              <Box
+                sx={{
+                  position: 'relative',
+                  width: '100%',
+                  height: 300,
+                  borderRadius: 2,
+                  overflow: 'hidden',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                  cursor: 'zoom-in',
+                  transition: 'transform 0.3s ease',
+                  '&:hover': {
+                    transform: 'scale(1.02)'
+                  }
+                }}
+                onClick={() => {
+                  openLightbox(images.services.rental, idx);
+                }}
+              >
+                <OptimizedImage
+                  src={img}
+                  alt={`Rental ${idx + 1}`}
+                  skeletonHeight={300}
+                  sx={{ 
+                    height: '100%',
+                    width: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
         <Box 
           sx={{ 
             display: 'flex', 
@@ -685,11 +805,34 @@ const Services = () => {
       {/* Lightbox para las imágenes */}
       <Lightbox
         open={lightboxOpen}
-        src={galleryItems[lightboxIndex]?.src || ''}
-        alt={galleryItems[lightboxIndex]?.alt}
-        onClose={() => setLightboxOpen(false)}
-        onPrev={galleryItems.length > 1 ? () => setLightboxIndex((prev) => (prev - 1 + galleryItems.length) % galleryItems.length) : undefined}
-        onNext={galleryItems.length > 1 ? () => setLightboxIndex((prev) => (prev + 1) % galleryItems.length) : undefined}
+        src={
+          lightboxImages.length > 0 
+            ? lightboxImages[lightboxIndex] || ''
+            : galleryItems[lightboxIndex]?.src || ''
+        }
+        alt={
+          lightboxImages.length > 0
+            ? `Imagen ${lightboxIndex + 1}`
+            : galleryItems[lightboxIndex]?.alt
+        }
+        onClose={() => {
+          setLightboxOpen(false);
+          setLightboxImages([]);
+        }}
+        onPrev={
+          (lightboxImages.length > 0 ? lightboxImages.length : galleryItems.length) > 1
+            ? lightboxImages.length > 0
+              ? handleLightboxPrev
+              : () => setLightboxIndex((prev) => (prev - 1 + galleryItems.length) % galleryItems.length)
+            : undefined
+        }
+        onNext={
+          (lightboxImages.length > 0 ? lightboxImages.length : galleryItems.length) > 1
+            ? lightboxImages.length > 0
+              ? handleLightboxNext
+              : () => setLightboxIndex((prev) => (prev + 1) % galleryItems.length)
+            : undefined
+        }
       />
     </PageContainer>
   );

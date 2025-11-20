@@ -41,11 +41,21 @@ export const images = {
       ],
       ruteros: [
         '/images/ruteros-1.jpg',
+        '/images/ruteros-2.jpg',
+        '/images/ruteros-3.jpg',
       ],
       formatos: [
         '/images/formatos-1.jpg',
         '/images/formatos-2.jpg',
         '/images/formatos-3.jpg',
+      ],
+      medianeras: [
+        '/images/medianera-1.jpg',
+        '/images/medianera-2.jpg',
+      ],
+      sextuples: [
+        '/images/sextuple-1.png',
+        '/images/sextuple-2.png',
       ]
     },
     eventos: [
