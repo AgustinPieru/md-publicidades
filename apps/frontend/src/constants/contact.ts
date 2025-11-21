@@ -1,7 +1,7 @@
 // Datos de contacto de MD Publicidades
 export const contactData = {
   companyName: 'MD Publicidades',
-  slogan: 'Donde tus clientes están, ahí estamos',
+  slogan: 'Donde están tus clientes',
   address: 'Intendente Gimenez 368, Rafaela, Argentina',
   email: 'ventas@mdpublicidades.com.ar',
   phone: '+54 3492 501249',
