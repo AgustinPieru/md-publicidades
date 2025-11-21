@@ -5,6 +5,7 @@ import PageContainer from '../components/PageContainer';
 import { useImagePreloader } from '../hooks/useImagePreloader';
 import { images } from '../constants/images';
 import OptimizedImage from '../components/OptimizedImage';
+import AnimatedCounter from '../components/AnimatedCounter';
 
 const About = () => {
   // Precargar las imágenes del equipo y del fundador
@@ -36,7 +37,7 @@ const About = () => {
   return (
     <PageContainer maxWidth="lg" useTopOffset compact reservePx={110}>
         {/* Sección: Sobre nosotros */}
-        <Box sx={{ pb: { xs: 6, md: 8 } }}>
+        <Box sx={{ pb: 0 }}>
           <SectionHeader title="Sobre nosotros" subtitle="20 años de pasión, crecimiento y compromiso con la comunicación." align="left" />
 
           <Grid container spacing={3} alignItems="center">
@@ -72,7 +73,7 @@ const About = () => {
             direction={{ xs: 'column', sm: 'row' }}
             spacing={2}
             justifyContent="center"
-            sx={{ mt: { xs: 6, md: 8 } }}
+            sx={{ mt: { xs: 8, md: 10 } }}
           >
             <Box
               sx={{
@@ -83,9 +84,7 @@ const About = () => {
                 backgroundColor: 'grey.100',
               }}
             >
-              <Typography variant="h4" component="div" sx={{ fontWeight: 800 }}>
-                +20
-              </Typography>
+              <AnimatedCounter end={20} />
               <Typography variant="subtitle1" color="text.secondary">
                 años de experiencia
               </Typography>
@@ -100,11 +99,25 @@ const About = () => {
                 backgroundColor: 'grey.100',
               }}
             >
-              <Typography variant="h4" component="div" sx={{ fontWeight: 800 }}>
-                +500
-              </Typography>
+              <AnimatedCounter end={2000} />
               <Typography variant="subtitle1" color="text.secondary">
-                pantallas LED en todo el país
+                 dispositivos en todo el país
+              </Typography>
+            </Box>
+
+
+            <Box
+              sx={{
+                flex: 1,
+                borderRadius: 2,
+                p: 2,
+                textAlign: 'center',
+                backgroundColor: 'grey.100',
+              }}
+            >
+              <AnimatedCounter end={50} />
+              <Typography variant="subtitle1" color="text.secondary">
+                eventos comercializados
               </Typography>
             </Box>
 
@@ -117,11 +130,9 @@ const About = () => {
                 backgroundColor: 'grey.100',
               }}
             >
-              <Typography variant="h4" component="div" sx={{ fontWeight: 800 }}>
-                +200
-              </Typography>
+              <AnimatedCounter end={200} />
               <Typography variant="subtitle1" color="text.secondary">
-                marcas acompañadas
+                marcas confiaron en nosotros
               </Typography>
             </Box>
           </Stack>
@@ -130,14 +141,14 @@ const About = () => {
         {/* Separador visual */}
         <Divider 
           sx={{ 
-            my: { xs: 6, md: 8 },
+            my: 0,
             borderWidth: 1,
             borderColor: 'divider',
           }} 
         />
 
         {/* Sección del Fundador */}
-        <Box sx={{ py: { xs: 6, md: 8 }, backgroundColor: 'grey.50', borderRadius: 3, px: { xs: 3, md: 4 }, mx: { xs: -2, md: -3 } }}>
+        <Box sx={{ my: { xs: 3, md: 4 }, backgroundColor: 'grey.50', borderRadius: 3, px: { xs: 3, md: 4 }, mx: { xs: -2, md: -3 } }}>
           <SectionHeader 
             title="Nuestra Historia" 
             subtitle="El comienzo de un proyecto que no dejó de crecer" 
@@ -189,14 +200,14 @@ const About = () => {
         {/* Separador visual */}
         <Divider 
           sx={{ 
-            my: { xs: 6, md: 8 },
+            my: 0,
             borderWidth: 1,
             borderColor: 'divider',
           }} 
         />
 
         {/* Sección del Equipo */}
-        <Box sx={{ py: { xs: 6, md: 8 } }}>
+        <Box sx={{ py: 0 }}>
           <SectionHeader 
             title="Equipo" 
             subtitle="Brindamos un servicio totalmente personalizado, con una atención cercana y comprometida. Contamos con un equipo especializado en cada área de la empresa para garantizar soluciones eficientes." 
