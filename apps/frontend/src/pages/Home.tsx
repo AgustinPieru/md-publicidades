@@ -138,14 +138,14 @@ const Home = () => {
       </Box>
 
       {/* Sección Nuestros Servicios */}
-      <Container maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
+      <Container maxWidth="lg" sx={{ py: { xs: 2, md: 2.5 } }}>
         <SectionHeader 
           title="Nuestros Servicios" 
           subtitle="En MD Publicidades ofrecemos soluciones integrales"
           align="center"
         />
         
-        <Grid container spacing={3} sx={{ mt: 2 }}>
+        <Grid container spacing={3} sx={{ mt: 0.5 }}>
           <Grid item xs={12} sm={6} md={3}>
             <Card
               component={Link}
@@ -435,7 +435,7 @@ const Home = () => {
         </Grid>
       </Container>
 
-      <Box sx={{ backgroundColor: 'grey.50', py: { xs: 6, md: 8 } }}>
+      <Box sx={{ backgroundColor: 'grey.50', py: { xs: 2, md: 2.5 } }}>
         <Container maxWidth="lg">
           <SectionHeader 
             title="Nuestros Clientes" 
@@ -446,7 +446,7 @@ const Home = () => {
       </Box>
 
       {/* Sección Somos Miembros */}
-      <Container maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
+      <Container maxWidth="lg" sx={{ py: { xs: 2, md: 2.5 } }}>
         <SectionHeader 
           title="Somos miembros" 
           align="center"
@@ -458,7 +458,7 @@ const Home = () => {
             alignItems: 'center',
             flexWrap: 'wrap',
             gap: { xs: 3, sm: 4, md: 6 },
-            mt: 4,
+            mt: 1,
           }}
         >
           {images.members.map((logo, index) => (
