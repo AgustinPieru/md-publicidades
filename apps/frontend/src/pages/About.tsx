@@ -151,7 +151,7 @@ const About = () => {
         <Box sx={{ my: { xs: 3, md: 4 }, backgroundColor: 'grey.50', borderRadius: 3, px: { xs: 3, md: 4 }, mx: { xs: -2, md: -3 } }}>
           <SectionHeader 
             title="Nuestra Historia" 
-            subtitle="El comienzo de un proyecto que no dejó de crecer" 
+            subtitle="El comienzo de un proyecto que siempre crece." 
             align="left" 
           />
           
@@ -176,22 +176,22 @@ const About = () => {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body1" paragraph sx={{ fontSize: '1.05rem', lineHeight: 1.8 }}>
+                Hoy, nuestra historia es el resultado de visión emprendedora, trabajo constante y una evolución continua que nos impulsa a seguir creciendo junto a cada marca que confía en nosotros.
+              </Typography>
+              <Typography variant="body1" paragraph sx={{ fontSize: '1.05rem', lineHeight: 1.8 }}>
                 M&D Publicidades nació en 2005 en Rafaela, Santa Fe, a partir de una idea simple que marcó el comienzo de un proyecto que no dejó de crecer. Ese año, junto a Damián, inicié la venta de almanaques publicitarios tras un encuentro casual con Miguel, serigrafista y cuñado de Damián. Aquellos primeros pasos dieron lugar a la venta de fixtures del Mundial FIFA 2006 y, posteriormente, a los mapas publicitarios distribuidos en comercios locales.
               </Typography>
               <Typography variant="body1" paragraph sx={{ fontSize: '1.05rem', lineHeight: 1.8 }}>
                 Con el tiempo desarrollé La Red Comercial Rafaela, un espacio que integraba comunicación en radios, gráfica, acciones promocionales y beneficios para comercios de la ciudad. Luego de un período de trabajo conjunto con Damián en otros rubros, cada uno siguió su propio camino y continué solo, enfocado en lo que siempre fue mi pasión: comunicar.
               </Typography>
               <Typography variant="body1" paragraph sx={{ fontSize: '1.05rem', lineHeight: 1.8 }}>
-                En 2011 instalé los primeros carteles fijos de vía pública en Rafaela. Dos años después incorporé la primera pantalla LED de la ciudad, y en 2015 ya contamos con un circuito de cuatro pantallas, al que se sumó la expansión hacia Sunchales y Santa Fe Capital.
-                En 2018 avanzamos hacia una cobertura nacional con el desarrollo de cartelería rutera y distintos formatos de publicidad exterior en varios puntos del país.
+                En 2011 instalé los primeros carteles fijos de vía pública en Rafaela. Dos años después incorporé la primera pantalla LED de la ciudad, y en 2015 ya contamos con un circuito de cuatro pantallas, al que se sumó la expansión hacia Sunchales y Santa Fe Capital. En 2018 avanzamos hacia una cobertura nacional con el desarrollo de cartelería rutera y distintos formatos de publicidad exterior en varios puntos del país.
               </Typography>
               <Typography variant="body1" paragraph sx={{ fontSize: '1.05rem', lineHeight: 1.8 }}>
-                Paralelamente, desde 2012 incursioné en el marketing deportivo, acompañando a Atlético de Rafaela y conectando marcas con clubes de Primera División y B Nacional, entre ellos River Plate, Newell's Old Boys, Unión, Colón, Defensa y Justicia, Quilmes, Chicago y Almagro.
-                Durante la pandemia llegó un desafío decisivo: la Sociedad Rural de Rafaela me convocó para comercializar su evento online. A solo 25 días de la fecha, se habilitó su realización presencial y asumí la organización completa. Fue un éxito que abrió una nueva etapa.
+                Paralelamente, desde 2012 incursioné en el marketing deportivo, acompañando a Atlético de Rafaela y conectando marcas con clubes de Primera División y B Nacional, entre ellos River Plate, Newell's Old Boys, Unión, Colón, Defensa y Justicia, Quilmes, Chicago y Almagro. Durante la pandemia llegó un desafío decisivo: la Sociedad Rural de Rafaela me convocó para comercializar su evento online. A solo 25 días de la fecha, se habilitó su realización presencial y asumí la organización completa. Fue un éxito que abrió una nueva etapa.
               </Typography>
               <Typography variant="body1" paragraph sx={{ fontSize: '1.05rem', lineHeight: 1.8 }}>
                 Desde entonces, llevamos cinco años consecutivos a cargo de la comercialización y comunicación de este evento emblemático, que reúne más de 35.000 visitantes y 250 stands.
-                Hoy, nuestra historia es el resultado de visión emprendedora, trabajo constante y una evolución continua que nos impulsa a seguir creciendo junto a cada marca que confía en nosotros.
               </Typography>
             </Grid>
           </Grid>
