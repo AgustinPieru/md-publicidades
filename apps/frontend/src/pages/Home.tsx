@@ -141,7 +141,7 @@ const Home = () => {
       <Container maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
         <SectionHeader 
           title="Nuestros Servicios" 
-          subtitle="Hoy, M&D Publicidades ofrece soluciones integrales en cuatro áreas principales"
+          subtitle="En MD Publicidades ofrecemos soluciones integrales"
           align="center"
         />
         
@@ -213,7 +213,7 @@ const Home = () => {
                     Vía Pública – OOH
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                    Cobertura nacional en vía pública para visibilidad, recordación y alcance masivo.
+                    Ofrecemos cobertura nacional en vía pública para garantizar la visibilidad, recordación y alcance masivo de tu marca.
                   </Typography>
                 </CardContent>
               </CardActionArea>
@@ -288,7 +288,7 @@ const Home = () => {
                     Eventos
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                    Producción, cobertura y soporte visual para eventos de gran escala.
+                    Brindamos un servicio integral de comercialización para eventos.
                   </Typography>
                 </CardContent>
               </CardActionArea>
@@ -357,7 +357,7 @@ const Home = () => {
                     Marketing Deportivo
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                    Activaciones y patrocinios en clubes y eventos nacionales.
+                    Realizamos activaciones y gestionamos patrocinios en clubes nacionales.
                   </Typography>
                 </CardContent>
               </CardActionArea>
@@ -426,7 +426,7 @@ const Home = () => {
                     Rental
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                    Alquiler de pantallas LED para eventos y publicidad.
+                    Alquilamos pantallas LED para interior y exterior.
                   </Typography>
                 </CardContent>
               </CardActionArea>
@@ -444,6 +444,57 @@ const Home = () => {
           <ClientCarousel logos={[...images.clients]} />
         </Container>
       </Box>
+
+      {/* Sección Somos Miembros */}
+      <Container maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
+        <SectionHeader 
+          title="Somos miembros" 
+          align="center"
+        />
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: { xs: 3, sm: 4, md: 6 },
+            mt: 4,
+          }}
+        >
+          {images.members.map((logo, index) => (
+            <Box
+              key={index}
+              sx={{
+                width: { xs: 100, sm: 120, md: 140 },
+                height: { xs: 60, sm: 70, md: 80 },
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                filter: 'grayscale(100%)',
+                opacity: 0.8,
+                transition: 'all 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'scale(1.1)',
+                  filter: 'grayscale(0%)',
+                  opacity: 1,
+                },
+              }}
+            >
+              <OptimizedImage
+                src={logo}
+                alt={`Miembro ${index + 1}`}
+                sx={{
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  objectFit: 'contain',
+                }}
+                showSkeleton={true}
+                skeletonHeight={80}
+              />
+            </Box>
+          ))}
+        </Box>
+      </Container>
     </Container>
   );
 };

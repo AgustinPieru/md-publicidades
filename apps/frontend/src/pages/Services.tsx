@@ -213,7 +213,7 @@ const Services = () => {
             lineHeight: 1.8
           }}
         >
-          Cobertura nacional en vía pública para visibilidad, recordación y alcance masivo.
+          Ofrecemos cobertura nacional en vía pública para garantizar visibilidad, recordación y alcance masivo.
         </Typography>
 
         <Grid container spacing={3}>

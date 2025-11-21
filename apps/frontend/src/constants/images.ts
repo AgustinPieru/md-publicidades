@@ -70,9 +70,10 @@ export const images = {
       '/images/marketing-deportivo-5.jpg',
     ] as string[],
     rental: [
-      '/images/rental-1.jpg',
+      '/images/rental-1.png',
       '/images/rental-2.jpg',
       '/images/rental-3.jpg',
+      '/images/rental-4.jpg',
     ] as string[],
   },
   
@@ -87,6 +88,15 @@ export const images = {
     'https://logo.clearbit.com/nike.com',
     'https://logo.clearbit.com/adidas.com',
     'https://logo.clearbit.com/pepsi.com',
+  ],
+  
+  // Logos de organizaciones de las que somos miembros
+  // Reemplazar con logos reales cuando estén disponibles
+  members: [
+    '/images/member-1.png', // Logo de organización 1
+    '/images/member-2.png', // Logo de organización 2
+    '/images/member-3.png', // Logo de organización 3
+    '/images/member-4.png', // Logo de organización 4
   ],
 } as const;
 
