@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Box } from '@mui/material';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import WhatsAppButton from './components/WhatsAppButton';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
@@ -35,6 +36,7 @@ function App() {
         </Routes>
       </Box>
       <Footer />
+      <WhatsAppButton />
     </Box>
   );
 }
