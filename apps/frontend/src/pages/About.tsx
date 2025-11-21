@@ -25,13 +25,48 @@ const About = () => {
 
   // Datos del equipo
   const teamMembers = [
-    { name: 'Marcelo Monton', area: 'Gerencia', image: images.team.marcelo },
-    { name: 'Marina Volpato', area: 'Comercial', image: images.team.marina },
-    { name: 'Angelina Lamagni', area: 'Contenidos', image: images.team.angelina },
-    { name: 'Paula Pisani', area: 'Medios', image: images.team.paula },
-    { name: 'Carolina Peralta', area: 'Administración', image: images.team.carolina },
-    { name: 'Liliana Tschieder', area: 'Logística', image: images.team.liliana },
-    { name: 'Gastón Tschieder', area: 'Gestión y Soporte Operativo', image: images.team.gaston },
+    { 
+      name: 'Marcelo Monton', 
+      area: 'Socio fundador y gerencia general', 
+      image: images.team.marcelo,
+      description: 'Fundador de M&D Publicidades con más de 20 años de experiencia en comunicación y publicidad. Lidera la estrategia general de la empresa y el desarrollo de nuevas oportunidades de negocio.'
+    },
+    { 
+      name: 'Marina Volpato', 
+      area: 'Comercial', 
+      image: images.team.marina,
+      description: 'Especialista en relaciones comerciales y desarrollo de clientes. Gestiona las estrategias de ventas y mantiene un contacto cercano con nuestros socios publicitarios.'
+    },
+    { 
+      name: 'Angelina Lamagni', 
+      area: 'Contenidos', 
+      image: images.team.angelina,
+      description: 'Responsable de la creación y gestión de contenidos creativos. Desarrolla campañas publicitarias innovadoras que conectan las marcas con sus audiencias objetivo.'
+    },
+    { 
+      name: 'Paula Pisani', 
+      area: 'Medios', 
+      image: images.team.paula,
+      description: 'Experta en planificación y compra de medios. Coordina la distribución estratégica de publicidad en nuestra red nacional de dispositivos y pantallas.'
+    },
+    { 
+      name: 'Carolina Peralta', 
+      area: 'Administración', 
+      image: images.team.carolina,
+      description: 'Gestiona los aspectos administrativos y financieros de la empresa, asegurando procesos eficientes y una operación organizada.'
+    },
+    { 
+      name: 'Liliana Tschieder', 
+      area: 'Logística', 
+      image: images.team.liliana,
+      description: 'Coordina la logística operativa y la distribución de materiales publicitarios, garantizando que cada campaña se ejecute con precisión y puntualidad.'
+    },
+    { 
+      name: 'Gastón Tschieder', 
+      area: 'Gestión y Soporte Operativo', 
+      image: images.team.gaston,
+      description: 'Proporciona soporte técnico y operativo, asegurando el correcto funcionamiento de nuestros sistemas y dispositivos publicitarios en todo el país.'
+    },
   ];
 
   return (
@@ -137,16 +172,6 @@ const About = () => {
             </Box>
           </Stack>
         </Box>
-
-        {/* Separador visual */}
-        <Divider 
-          sx={{ 
-            my: 0,
-            borderWidth: 1,
-            borderColor: 'divider',
-          }} 
-        />
-
         {/* Sección del Fundador */}
         <Box sx={{ my: { xs: 3, md: 4 }, backgroundColor: 'grey.50', borderRadius: 3, px: { xs: 3, md: 4 }, mx: { xs: -2, md: -3 } }}>
           <SectionHeader 
@@ -224,10 +249,16 @@ const About = () => {
                     flexDirection: 'column',
                     borderRadius: 2,
                     boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                    transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+                    transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+                    position: 'relative',
+                    overflow: 'visible',
                     '&:hover': {
-                      transform: 'translateY(-4px)',
-                      boxShadow: '0 8px 20px rgba(0,0,0,0.12)',
+                      transform: 'translateY(-8px)',
+                      boxShadow: '0 12px 28px rgba(0,0,0,0.15)',
+                      '& .member-overlay': {
+                        opacity: 1,
+                        visibility: 'visible',
+                      },
                     },
                   }}
                 >
@@ -237,6 +268,7 @@ const About = () => {
                       aspectRatio: '1',
                       overflow: 'hidden',
                       backgroundColor: 'grey.200',
+                      position: 'relative',
                     }}
                   >
                     <OptimizedImage
@@ -245,6 +277,10 @@ const About = () => {
                       skeletonHeight="100%"
                       sx={{
                         borderRadius: '8px 8px 0 0',
+                        transition: 'transform 0.3s ease-in-out',
+                        '&:hover': {
+                          transform: 'scale(1.05)',
+                        },
                       }}
                     />
                   </Box>
@@ -268,6 +304,55 @@ const About = () => {
                       {member.area}
                     </Typography>
                   </CardContent>
+                  
+                  {/* Overlay con descripción al hacer hover */}
+                  <Box
+                    className="member-overlay"
+                    sx={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      backgroundColor: 'rgba(0, 0, 0, 0.85)',
+                      color: 'white',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      padding: 2,
+                      borderRadius: 2,
+                      opacity: 0,
+                      visibility: 'hidden',
+                      transition: 'opacity 0.3s ease-in-out, visibility 0.3s ease-in-out',
+                      zIndex: 10,
+                      backdropFilter: 'blur(4px)',
+                    }}
+                  >
+                    <Typography 
+                      variant="h6" 
+                      component="div"
+                      sx={{ 
+                        fontWeight: 600,
+                        mb: 1.5,
+                        textAlign: 'center',
+                        fontSize: { xs: '0.9rem', sm: '1rem' },
+                      }}
+                    >
+                      {member.name}
+                    </Typography>
+                    <Typography 
+                      variant="body2"
+                      sx={{ 
+                        textAlign: 'center',
+                        fontSize: { xs: '0.75rem', sm: '0.85rem' },
+                        lineHeight: 1.6,
+                        color: 'rgba(255, 255, 255, 0.95)',
+                      }}
+                    >
+                      {member.description}
+                    </Typography>
+                  </Box>
                 </Card>
               </Grid>
             ))}
