@@ -10,6 +10,11 @@ interface OptimizedImageProps extends Omit<BoxProps, 'component'> {
   skeletonHeight?: number | string;
   onLoad?: () => void;
   onError?: () => void;
+  /**
+   * Estilos específicos para la etiqueta de imagen interna (`<img />`).
+   * Útil para controlar `objectFit`, tamaños máximos, etc. sin afectar al contenedor.
+   */
+  imageSx?: BoxProps['sx'];
 }
 
 /**
@@ -24,6 +29,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   onLoad,
   onError,
   sx,
+  imageSx,
   ...boxProps
 }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -97,6 +103,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
           objectFit: 'cover',
           opacity: isLoading ? 0 : 1,
           transition: 'opacity 0.3s ease-in-out',
+           ...imageSx,
           ...(hasError && {
             backgroundColor: 'grey.200',
             display: 'flex',

@@ -52,9 +52,9 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
   const getVisibleCount = () => {
     if (logos.length === 0) return 0;
     if (logos.length <= 2) return logos.length;
-    if (isMobile) return 2; // Móvil: 2 logos
+    if (isMobile) return 3; // Móvil:  logos
     if (isTablet) return 3; // Tablet: 3 logos
-    return 5; // Desktop: 5 logos
+    return 6; // Desktop: 5 logos
   };
 
   const visibleCount = getVisibleCount();
@@ -110,8 +110,8 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            minHeight: { xs: 80, sm: 100, md: 120 },
-            gap: { xs: 1.5, sm: 2, md: 3 },
+            minHeight: { xs: 100, sm: 120, md: 140 },
+            gap: { xs: 2, sm: 2.5, md: 3.5 },
             flexWrap: { xs: 'nowrap', sm: 'wrap' },
             overflowX: { xs: 'auto', sm: 'visible' },
             overflowY: 'hidden',
@@ -131,9 +131,9 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
                 sx={{
                   opacity: 1,
                   transition: 'all 0.3s ease-in-out',
-                  width: { xs: 80, sm: 90, md: 110 },
-                  height: { xs: 50, sm: 55, md: 65 },
-                  minWidth: { xs: 80, sm: 90, md: 110 },
+                  width: { xs: 90, sm: 110, md: 130 },
+                  height: { xs: 60, sm: 70, md: 80 },
+                  minWidth: { xs: 90, sm: 110, md: 130 },
                   flexShrink: 0,
                   display: 'flex',
                   alignItems: 'center',
@@ -149,7 +149,7 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
                 <OptimizedImage
                   src={logo}
                   alt={`Cliente ${actualIndex + 1}`}
-                  sx={{
+                  imageSx={{
                     maxWidth: '100%',
                     maxHeight: '100%',
                     objectFit: 'contain',

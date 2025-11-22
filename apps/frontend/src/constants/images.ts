@@ -80,23 +80,26 @@ export const images = {
   // Logos de clientes (para el carrusel)
   // Usando logos de placeholder para pruebas - Reemplazar con logos reales cuando estén disponibles
   clients: [
-    'https://logo.clearbit.com/coca-cola.com',
-    'https://logo.clearbit.com/microsoft.com',
-    'https://logo.clearbit.com/apple.com',
-    'https://logo.clearbit.com/google.com',
-    'https://logo.clearbit.com/amazon.com',
-    'https://logo.clearbit.com/nike.com',
-    'https://logo.clearbit.com/adidas.com',
-    'https://logo.clearbit.com/pepsi.com',
+    '/images/empresa-1.svg',
+    '/images/empresa-2.svg',
+    '/images/empresa-3.svg',
+    '/images/empresa-4.svg',
+    '/images/empresa-5.svg',
+    '/images/empresa-6.svg',
+    '/images/empresa-7.svg',
+    '/images/empresa-8.svg',
+    '/images/empresa-9.svg',
+    '/images/empresa-10.svg',
+    '/images/empresa-11.svg',
   ],
   
   // Logos de organizaciones de las que somos miembros
   // Reemplazar con logos reales cuando estén disponibles
   members: [
-    '/images/member-1.png', // Logo de organización 1
-    '/images/member-2.png', // Logo de organización 2
-    '/images/member-3.png', // Logo de organización 3
-    '/images/member-4.png', // Logo de organización 4
+    '/images/member-1.svg', // Logo de organización 1
+    '/images/member-2.svg', // Logo de organización 2
+    '/images/member-3.svg', // Logo de organización 3
+    '/images/member-4.svg', // Logo de organización 4
   ],
 } as const;
 

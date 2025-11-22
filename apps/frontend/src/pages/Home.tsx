@@ -457,39 +457,34 @@ const Home = () => {
             justifyContent: 'center',
             alignItems: 'center',
             flexWrap: 'wrap',
-            gap: { xs: 3, sm: 4, md: 6 },
-            mt: 1,
+            gap: { xs: 2, sm: 3, md: 4 },
+            mt: { xs: 1.5, md: 2 },
           }}
         >
           {images.members.map((logo, index) => (
             <Box
               key={index}
               sx={{
-                width: { xs: 100, sm: 120, md: 140 },
-                height: { xs: 60, sm: 70, md: 80 },
+                flex: { xs: '1 1 50%', sm: '0 1 auto' },
+                maxWidth: { xs: '50%', sm: 'auto' },
+                width: { xs: '100%', sm: 120, md: 140 },
+                height: { xs: 60, sm: 80, md: 90 },
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                filter: 'grayscale(100%)',
-                opacity: 0.8,
-                transition: 'all 0.3s ease-in-out',
-                '&:hover': {
-                  transform: 'scale(1.1)',
-                  filter: 'grayscale(0%)',
-                  opacity: 1,
-                },
+                px: { xs: 1, sm: 1.5 },
               }}
             >
               <OptimizedImage
                 src={logo}
                 alt={`Miembro ${index + 1}`}
-                sx={{
+                imageSx={{
                   maxWidth: '100%',
                   maxHeight: '100%',
                   objectFit: 'contain',
                 }}
                 showSkeleton={true}
-                skeletonHeight={80}
+                skeletonHeight={90}
               />
             </Box>
           ))}
