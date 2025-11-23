@@ -3,6 +3,7 @@ export interface Novedad {
   titulo: string;
   descripcion: string;
   imagenUrl: string;
+  esRSE: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -11,12 +12,14 @@ export interface CreateNovedadRequest {
   titulo: string;
   descripcion: string;
   imagenUrl: string;
+  esRSE?: boolean;
 }
 
 export interface UpdateNovedadRequest {
   titulo?: string;
   descripcion?: string;
   imagenUrl?: string;
+  esRSE?: boolean;
 }
 
 export interface LoginRequest {

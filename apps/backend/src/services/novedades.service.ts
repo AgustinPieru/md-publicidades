@@ -10,6 +10,14 @@ export class NovedadesService {
     });
   }
 
+  async getNovedadesRSE(limit: number = 4): Promise<Novedad[]> {
+    return this.prisma.novedad.findMany({
+      where: { esRSE: true },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+    });
+  }
+
   async getNovedadById(id: number): Promise<Novedad | null> {
     return this.prisma.novedad.findUnique({
       where: { id },

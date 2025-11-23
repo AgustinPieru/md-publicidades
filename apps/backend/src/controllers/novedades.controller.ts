@@ -16,6 +16,17 @@ export const getAllNovedades = async (req: Request, res: Response) => {
   }
 };
 
+export const getNovedadesRSE = async (req: Request, res: Response) => {
+  try {
+    const limit = parseInt(req.query.limit as string) || 4;
+    const novedades = await novedadesService.getNovedadesRSE(limit);
+    return res.json(novedades);
+  } catch (error) {
+    console.error('Error getting novedades RSE:', error);
+    return res.status(500).json({ message: 'Error interno del servidor' });
+  }
+};
+
 export const getNovedadById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -50,11 +61,12 @@ export const createNovedad = async (req: Request, res: Response) => {
       });
     }
 
-    const { titulo, descripcion, imagenUrl } = req.body;
+    const { titulo, descripcion, imagenUrl, esRSE } = req.body;
     const novedad = await novedadesService.createNovedad({
       titulo,
       descripcion,
       imagenUrl,
+      esRSE: esRSE || false,
     });
 
     return res.status(201).json(novedad);
@@ -81,12 +93,13 @@ export const updateNovedad = async (req: Request, res: Response) => {
       });
     }
 
-    const { titulo, descripcion, imagenUrl } = req.body;
+    const { titulo, descripcion, imagenUrl, esRSE } = req.body;
     const updateData: any = {};
     
     if (titulo !== undefined) updateData.titulo = titulo;
     if (descripcion !== undefined) updateData.descripcion = descripcion;
     if (imagenUrl !== undefined) updateData.imagenUrl = imagenUrl;
+    if (esRSE !== undefined) updateData.esRSE = esRSE;
 
     const novedad = await novedadesService.updateNovedad(novedadId, updateData);
     if (!novedad) {

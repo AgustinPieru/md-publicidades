@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <Box sx={{ overflowX: 'hidden' }}>
+      <ScrollToTop />
       <Navbar />
       <Box>
         <Routes>

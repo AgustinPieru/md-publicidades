@@ -1,11 +1,13 @@
-import { Typography, Box, Grid, Stack, Card, CardContent, Divider } from '@mui/material';
+import { Typography, Box, Grid, Stack, Card, CardContent, Divider, CardMedia, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import SectionHeader from '../components/SectionHeader';
 import PageContainer from '../components/PageContainer';
 import { useImagePreloader } from '../hooks/useImagePreloader';
 import { images } from '../constants/images';
 import OptimizedImage from '../components/OptimizedImage';
 import AnimatedCounter from '../components/AnimatedCounter';
+import { useNovedadesRSE } from '../hooks/useNovedades';
 
 const About = () => {
   // Precargar las imágenes del equipo y del fundador
@@ -15,6 +17,9 @@ const About = () => {
   // Precargar la imagen de about por separado para mostrarla tan pronto como esté lista
   const { loadedImages: aboutLoadedImages } = useImagePreloader([images.about]);
   const [backgroundImage, setBackgroundImage] = useState<string>('');
+
+  // Obtener novedades RSE
+  const { novedadesRSE, loading: loadingRSE } = useNovedadesRSE(4);
 
   useEffect(() => {
     // Mostrar la imagen de about tan pronto como se cargue, sin esperar a las demás
@@ -357,6 +362,83 @@ const About = () => {
               </Grid>
             ))}
           </Grid>
+        </Box>
+
+        {/* Separador visual */}
+        <Divider 
+          sx={{ 
+            my: 0,
+            borderWidth: 1,
+            borderColor: 'divider',
+          }} 
+        />
+
+        {/* Sección RSE */}
+        <Box sx={{ py: 0 }}>
+          <SectionHeader 
+            title="RSE (Responsabilidad Social Empresaria)" 
+            subtitle="Nuestro compromiso con la comunidad y el desarrollo sostenible." 
+            align="left" 
+          />
+          
+          {loadingRSE ? (
+            <Box sx={{ py: 4, display: 'flex', justifyContent: 'center' }}>
+              <CircularProgress />
+            </Box>
+          ) : novedadesRSE.length === 0 ? (
+            <Typography variant="body1" align="center" sx={{ mt: 4 }}>
+              No hay novedades RSE disponibles en este momento.
+            </Typography>
+          ) : (
+            <Grid container spacing={3} sx={{ mt: 2 }}>
+              {novedadesRSE.map((novedad) => (
+                <Grid item xs={12} sm={6} md={3} key={novedad.id}>
+                  <Card 
+                    component={Link} 
+                    to={`/novedades/${novedad.id}`}
+                    sx={{ 
+                      textDecoration: 'none',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      transition: 'transform 0.2s',
+                      '&:hover': {
+                        transform: 'translateY(-4px)',
+                      }
+                    }}
+                  >
+                    <CardMedia
+                      component="img"
+                      height="200"
+                      image={novedad.imagenUrl}
+                      alt={novedad.titulo}
+                      sx={{ objectFit: 'cover' }}
+                    />
+                    <CardContent sx={{ flexGrow: 1 }}>
+                      <Typography variant="h6" component="h2" gutterBottom>
+                        {novedad.titulo}
+                      </Typography>
+                      <Typography 
+                        variant="body2" 
+                        color="text.secondary"
+                        sx={{
+                          display: '-webkit-box',
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        {novedad.descripcion}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary" sx={{ mt: 2, display: 'block' }}>
+                        {new Date(novedad.createdAt).toLocaleDateString('es-ES')}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          )}
         </Box>
     </PageContainer>
   );

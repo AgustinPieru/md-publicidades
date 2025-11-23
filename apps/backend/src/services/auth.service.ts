@@ -30,10 +30,12 @@ export class AuthService {
       throw new Error('JWT_SECRET no está configurado');
     }
     
+    const expiresIn = process.env.JWT_EXPIRES_IN || '7d';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const token = (jwt as any).sign(
       { adminId: admin.id, email: admin.email },
       jwtSecret,
-      { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
+      { expiresIn }
     );
 
     return {
@@ -49,12 +51,21 @@ export class AuthService {
     try {
       const jwtSecret = process.env.JWT_SECRET;
       if (!jwtSecret) {
+        console.error('❌ JWT_SECRET no está configurado');
         return null;
       }
       
-      const payload = (jwt as any).verify(token, jwtSecret);
+      const payload = jwt.verify(token, jwtSecret) as AuthPayload;
       return payload;
-    } catch (error) {
+    } catch (error: any) {
+      console.error('❌ Error al verificar token:', error.message);
+      if (error.name === 'TokenExpiredError') {
+        console.error('   Token expirado');
+      } else if (error.name === 'JsonWebTokenError') {
+        console.error('   Token inválido:', error.message);
+      } else if (error.name === 'NotBeforeError') {
+        console.error('   Token no válido aún');
+      }
       return null;
     }
   }

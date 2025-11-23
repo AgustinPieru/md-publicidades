@@ -16,6 +16,16 @@ const NewsDetail = () => {
   const [error, setError] = useState<string | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
+  const handleBack = () => {
+    // Si hay historial previo en la misma pestaña, volvemos atrás;
+    // si no, como fallback vamos a la lista de novedades.
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate('/novedades');
+    }
+  };
+
   useEffect(() => {
     const fetchNovedad = async () => {
       if (!id) return;
@@ -52,7 +62,7 @@ const NewsDetail = () => {
           <Alert severity="error">{error || 'Novedad no encontrada'}</Alert>
           <Button 
             startIcon={<ArrowBackIcon />} 
-            onClick={() => navigate('/novedades')}
+            onClick={handleBack}
             sx={{ mt: 2 }}
           >
             Volver a Novedades
@@ -67,7 +77,7 @@ const NewsDetail = () => {
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <Button 
           startIcon={<ArrowBackIcon />} 
-          onClick={() => navigate('/novedades')}
+          onClick={handleBack}
           sx={{ 
             mb: 1.5,
             alignSelf: 'flex-start',

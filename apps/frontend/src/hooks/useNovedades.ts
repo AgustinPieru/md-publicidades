@@ -77,4 +77,34 @@ export const useNovedades = () => {
   };
 };
 
+export const useNovedadesRSE = (limit: number = 4) => {
+  const [novedadesRSE, setNovedadesRSE] = useState<Novedad[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchNovedadesRSE = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await apiService.getNovedadesRSE(limit);
+        setNovedadesRSE(data);
+      } catch (err) {
+        setError('Error al cargar las novedades RSE');
+        console.error('Error fetching novedades RSE:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNovedadesRSE();
+  }, [limit]);
+
+  return {
+    novedadesRSE,
+    loading,
+    error,
+  };
+};
+
 

@@ -15,6 +15,7 @@ model Novedad {
   titulo      String
   descripcion String
   imagenUrl   String
+  esRSE       Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

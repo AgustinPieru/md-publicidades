@@ -42,6 +42,10 @@ class ApiService {
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
+      // No sobrescribir Content-Type si es FormData (multer lo necesita)
+      if (config.data instanceof FormData) {
+        delete config.headers['Content-Type'];
+      }
       return config;
     });
 
@@ -82,6 +86,14 @@ class ApiService {
     }));
   }
 
+  async getNovedadesRSE(limit: number = 4): Promise<Novedad[]> {
+    const response: AxiosResponse<Novedad[]> = await this.api.get(`/novedades/rse?limit=${limit}`);
+    return response.data.map((n) => ({
+      ...n,
+      imagenUrl: this.toAbsoluteUrl(n.imagenUrl),
+    }));
+  }
+
   async getNovedadById(id: number): Promise<Novedad> {
     const response: AxiosResponse<Novedad> = await this.api.get(`/novedades/${id}`);
     return {
@@ -109,12 +121,27 @@ class ApiService {
     const formData = new FormData();
     formData.append('image', file);
     
-    // Forzamos multipart para evitar el default 'application/json' del instance
-    const response = await this.api.post('/upload/image', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
-    const { imageUrl, filename } = response.data as { imageUrl: string; filename: string };
-    return { imageUrl: this.toAbsoluteUrl(imageUrl), filename };
+    // Verificar que el token existe antes de hacer la petición
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('❌ No hay token en localStorage');
+      throw new Error('No estás autenticado. Por favor, inicia sesión nuevamente');
+    }
+    console.log('✅ Token encontrado en localStorage:', token.substring(0, 20) + '...');
+    
+    try {
+      // No especificamos Content-Type, axios lo detectará automáticamente para FormData
+      // y establecerá el boundary correcto
+      const response = await this.api.post('/upload/image', formData);
+      const { imageUrl, filename } = response.data as { imageUrl: string; filename: string };
+      return { imageUrl: this.toAbsoluteUrl(imageUrl), filename };
+    } catch (error: any) {
+      console.error('Error en uploadImage:', error);
+      console.error('Response status:', error.response?.status);
+      console.error('Response data:', error.response?.data);
+      // Re-lanzar el error para que el componente pueda manejarlo
+      throw error;
+    }
   }
 
   async deleteImage(filename: string): Promise<void> {

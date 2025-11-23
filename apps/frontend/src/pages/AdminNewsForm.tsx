@@ -12,7 +12,9 @@ import {
   InputLabel,
   OutlinedInput,
   InputAdornment,
-  IconButton
+  IconButton,
+  FormControlLabel,
+  Checkbox
 } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -38,6 +40,7 @@ const AdminNewsForm = () => {
     titulo: '',
     descripcion: '',
     imagenUrl: '',
+    esRSE: false,
   });
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(false);
@@ -69,6 +72,7 @@ const AdminNewsForm = () => {
             titulo: novedad.titulo,
             descripcion: novedad.descripcion,
             imagenUrl: novedad.imagenUrl,
+            esRSE: novedad.esRSE || false,
           });
         } catch (err) {
           setError('Error al cargar los datos de la novedad');
@@ -92,10 +96,10 @@ const AdminNewsForm = () => {
   }, [localPreviewUrl]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value,
+      [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
@@ -117,6 +121,21 @@ const AdminNewsForm = () => {
     setUploadingImage(true);
     setError(null);
 
+    // Validar tipo de archivo
+    if (!file.type.startsWith('image/')) {
+      setError('El archivo seleccionado no es una imagen válida');
+      setUploadingImage(false);
+      return;
+    }
+
+    // Validar tamaño (5MB máximo)
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      setError('La imagen es demasiado grande. El tamaño máximo permitido es 5MB');
+      setUploadingImage(false);
+      return;
+    }
+
     try {
       const result = await apiService.uploadImage(file);
       setFormData(prev => ({
@@ -131,9 +150,28 @@ const AdminNewsForm = () => {
       }
       setLocalPreviewUrl(result.imageUrl);
       setPreviewError(false);
-    } catch (err) {
-      setError('Error al subir la imagen');
+    } catch (err: any) {
       console.error('Upload error:', err);
+      // Extraer mensaje de error más descriptivo
+      let errorMessage = 'Error al subir la imagen';
+      
+      if (err?.response?.data?.message) {
+        errorMessage = err.response.data.message;
+      } else if (err?.response?.status === 401) {
+        errorMessage = 'No estás autenticado. Por favor, inicia sesión nuevamente';
+      } else if (err?.response?.status === 413) {
+        errorMessage = 'La imagen es demasiado grande. El tamaño máximo permitido es 5MB';
+      } else if (err?.message) {
+        errorMessage = `Error: ${err.message}`;
+      }
+      
+      setError(errorMessage);
+      // Limpiar el archivo seleccionado en caso de error
+      setSelectedFile(null);
+      if (localPreviewUrl) {
+        URL.revokeObjectURL(localPreviewUrl);
+      }
+      setLocalPreviewUrl(null);
     } finally {
       setUploadingImage(false);
     }
@@ -188,6 +226,7 @@ const AdminNewsForm = () => {
           titulo: formData.titulo,
           descripcion: formData.descripcion,
           imagenUrl: formData.imagenUrl,
+          esRSE: formData.esRSE,
         };
         console.log('📝 AdminNewsForm - updateData:', updateData);
         success = await updateNovedad(parseInt(id!), updateData);
@@ -311,6 +350,19 @@ const AdminNewsForm = () => {
                     placeholder="Describe el contenido de la novedad..."
                     helperText="Puedes usar saltos de línea para formatear el texto"
                     size="small"
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={formData.esRSE || false}
+                        onChange={handleChange}
+                        name="esRSE"
+                      />
+                    }
+                    label="Marcar como RSE (Responsabilidad Social Empresaria)"
                   />
                 </Grid>
 

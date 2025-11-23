@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
   getAllNovedades,
+  getNovedadesRSE,
   getNovedadById,
   createNovedad,
   updateNovedad,
@@ -14,6 +15,7 @@ const router = Router();
 
 // Rutas públicas
 router.get('/', getAllNovedades);
+router.get('/rse', getNovedadesRSE);
 router.get('/:id', getNovedadById);
 
 // Rutas protegidas (requieren autenticación)
