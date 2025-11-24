@@ -47,10 +47,12 @@ app.get('/health', (req, res) => {
 // Routes
 import authRoutes from './routes/auth.routes';
 import novedadesRoutes from './routes/novedades.routes';
+import trabajosRoutes from './routes/trabajos.routes';
 import uploadRoutes from './routes/upload.routes';
 
 app.use('/api/auth', authRoutes);
 app.use('/api/novedades', novedadesRoutes);
+app.use('/api/trabajos', trabajosRoutes);
 app.use('/api/upload', uploadRoutes);
 
 // Error handling middleware

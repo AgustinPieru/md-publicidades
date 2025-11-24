@@ -1,5 +1,14 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { Novedad, CreateNovedadRequest, UpdateNovedadRequest, LoginRequest, LoginResponse } from '../types';
+import {
+  Novedad,
+  CreateNovedadRequest,
+  UpdateNovedadRequest,
+  LoginRequest,
+  LoginResponse,
+  Trabajo,
+  CreateTrabajoRequest,
+  UpdateTrabajoRequest,
+} from '../types';
 
 class ApiService {
   private api: AxiosInstance;
@@ -114,6 +123,46 @@ class ApiService {
 
   async deleteNovedad(id: number): Promise<void> {
     await this.api.delete(`/novedades/${id}`);
+  }
+
+  // Trabajos endpoints
+  async getTrabajos(): Promise<Trabajo[]> {
+    const response: AxiosResponse<Trabajo[]> = await this.api.get('/trabajos');
+    return response.data.map((t) => ({
+      ...t,
+      imagenPrincipalUrl: this.toAbsoluteUrl(t.imagenPrincipalUrl),
+      imagenes: t.imagenes?.map((img) => ({
+        ...img,
+        url: this.toAbsoluteUrl(img.url),
+      })) ?? [],
+    }));
+  }
+
+  async getTrabajoById(id: number): Promise<Trabajo> {
+    const response: AxiosResponse<Trabajo> = await this.api.get(`/trabajos/${id}`);
+    return {
+      ...response.data,
+      imagenPrincipalUrl: this.toAbsoluteUrl(response.data.imagenPrincipalUrl),
+      imagenes:
+        response.data.imagenes?.map((img) => ({
+          ...img,
+          url: this.toAbsoluteUrl(img.url),
+        })) ?? [],
+    };
+  }
+
+  async createTrabajo(data: CreateTrabajoRequest): Promise<Trabajo> {
+    const response: AxiosResponse<Trabajo> = await this.api.post('/trabajos', data);
+    return response.data;
+  }
+
+  async updateTrabajo(id: number, data: UpdateTrabajoRequest): Promise<Trabajo> {
+    const response: AxiosResponse<Trabajo> = await this.api.put(`/trabajos/${id}`, data);
+    return response.data;
+  }
+
+  async deleteTrabajo(id: number): Promise<void> {
+    await this.api.delete(`/trabajos/${id}`);
   }
 
   // Upload endpoints

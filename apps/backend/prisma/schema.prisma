@@ -20,6 +20,24 @@ model Novedad {
   updatedAt   DateTime @updatedAt
 }
 
+model Trabajo {
+  id                 Int              @id @default(autoincrement())
+  titulo             String
+  descripcion        String
+  imagenPrincipalUrl String
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  imagenes           TrabajoImagen[]
+}
+
+model TrabajoImagen {
+  id        Int      @id @default(autoincrement())
+  url       String
+  orden     Int?
+  trabajo   Trabajo @relation(fields: [trabajoId], references: [id], onDelete: Cascade)
+  trabajoId Int
+}
+
 model Admin {
   id        Int      @id @default(autoincrement())
   email     String   @unique

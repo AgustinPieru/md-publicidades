@@ -9,10 +9,14 @@ import About from './pages/About';
 import Services from './pages/Services';
 import News from './pages/News';
 import NewsDetail from './pages/NewsDetail';
+import Trabajos from './pages/Trabajos';
+import TrabajoDetail from './pages/TrabajoDetail';
 import Contact from './pages/Contact';
 import AdminLogin from './pages/AdminLogin';
 import AdminNews from './pages/AdminNews';
 import AdminNewsForm from './pages/AdminNewsForm';
+import AdminTrabajos from './pages/AdminTrabajos';
+import AdminTrabajosForm from './pages/AdminTrabajosForm';
 import { useRouteImagePreloader } from './hooks/useRouteImagePreloader';
 
 function App() {
@@ -28,6 +32,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/sobre-nosotros" element={<About />} />
           <Route path="/servicios" element={<Services />} />
+          <Route path="/trabajos" element={<Trabajos />} />
+          <Route path="/trabajos/:id" element={<TrabajoDetail />} />
           <Route path="/novedades" element={<News />} />
           <Route path="/novedades/:id" element={<NewsDetail />} />
           <Route path="/contacto" element={<Contact />} />
@@ -35,6 +41,9 @@ function App() {
           <Route path="/admin/novedades" element={<AdminNews />} />
           <Route path="/admin/novedades/nueva" element={<AdminNewsForm />} />
           <Route path="/admin/novedades/editar/:id" element={<AdminNewsForm />} />
+          <Route path="/admin/trabajos" element={<AdminTrabajos />} />
+          <Route path="/admin/trabajos/nuevo" element={<AdminTrabajosForm />} />
+          <Route path="/admin/trabajos/editar/:id" element={<AdminTrabajosForm />} />
         </Routes>
       </Box>
       <Footer />

@@ -8,6 +8,22 @@ export interface Novedad {
   updatedAt: Date;
 }
 
+export interface Trabajo {
+  id: number;
+  titulo: string;
+  descripcion: string;
+  imagenPrincipalUrl: string;
+  createdAt: Date;
+  updatedAt: Date;
+  imagenes: TrabajoImagen[];
+}
+
+export interface TrabajoImagen {
+  id: number;
+  url: string;
+  orden?: number | null;
+}
+
 export interface CreateNovedadRequest {
   titulo: string;
   descripcion: string;
@@ -20,6 +36,27 @@ export interface UpdateNovedadRequest {
   descripcion?: string;
   imagenUrl?: string;
   esRSE?: boolean;
+}
+
+export interface CreateTrabajoRequest {
+  titulo: string;
+  descripcion: string;
+  imagenPrincipalUrl: string;
+  imagenes?: {
+    url: string;
+    orden?: number | null;
+  }[];
+}
+
+export interface UpdateTrabajoRequest {
+  titulo?: string;
+  descripcion?: string;
+  imagenPrincipalUrl?: string;
+  imagenes?: {
+    id?: number;
+    url: string;
+    orden?: number | null;
+  }[];
 }
 
 export interface LoginRequest {

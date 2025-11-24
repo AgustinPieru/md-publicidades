@@ -28,6 +28,7 @@ const Navbar = () => {
     { label: 'Inicio', path: '/' },
     { label: 'Sobre Nosotros', path: '/sobre-nosotros' },
     { label: 'Servicios', path: '/servicios' },
+    { label: 'Trabajos', path: '/trabajos' },
     { label: 'Novedades', path: '/novedades' },
     { label: 'Contacto', path: '/contacto' },
   ];
