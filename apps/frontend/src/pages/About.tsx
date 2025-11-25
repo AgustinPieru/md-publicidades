@@ -377,7 +377,7 @@ const About = () => {
         <Box sx={{ py: 0 }}>
           <SectionHeader 
             title="RSE (Responsabilidad Social Empresaria)" 
-            subtitle="Nuestro compromiso con la comunidad y el desarrollo sostenible." 
+            subtitle="Acompañamos activamente el desarrollo del deporte y la cultura en nuestra región. Creemos en el valor de apoyar a clubes, instituciones y proyectos culturales que fomentan el crecimiento." 
             align="left" 
           />
           

@@ -5,10 +5,10 @@
 
 export const images = {
   // Logo de la empresa
-  logo: '/images/logo.png',
+  logo: '/images/logo.svg',
   
   // Logo horizontal para Footer
-  logoHorizontal: '/images/logo-horizontal.png',
+  logoHorizontal: '/images/logo-horizontal.svg',
   
   // Imagen de portada (Home)
   cover: '/images/cover.jpg',
@@ -35,9 +35,14 @@ export const images = {
     viaPublica: {
       led: [
         '/images/led-1.jpg',
+        '/images/led-2.jpg',
+        '/images/led-3.jpg',
+        '/images/led-4.jpeg',
+        '/images/led-5.jpeg',
       ],
       monocolumnas: [
         '/images/monocolumnas-1.jpg',
+        '/images/monocolumnas-2.png',
       ],
       ruteros: [
         '/images/ruteros-1.jpg',
@@ -54,13 +59,15 @@ export const images = {
         '/images/medianera-2.jpg',
       ],
       sextuples: [
-        '/images/sextuple-1.png',
-        '/images/sextuple-2.jpg',
+        '/images/sextuple-1.jpeg',
+        '/images/sextuple-2.jpeg',
       ]
     },
     eventos: [
-      '/images/eventos-1.jpg',
+      '/images/eventos-1.jpeg',
       '/images/eventos-2.jpg',
+      '/images/eventos-3.jpg',
+      '/images/eventos-4.jpg',
     ] as string[],
     marketingDeportivo: [
       '/images/marketing-deportivo-1.jpg',
@@ -68,12 +75,13 @@ export const images = {
       '/images/marketing-deportivo-3.jpg',
       '/images/marketing-deportivo-4.jpg',
       '/images/marketing-deportivo-5.jpg',
+      '/images/marketing-deportivo-6.jpg',
+      '/images/marketing-deportivo-7.jpeg',
+      '/images/marketing-deportivo-8.jpeg',
     ] as string[],
     rental: [
       '/images/rental-1.png',
       '/images/rental-2.jpg',
-      '/images/rental-3.jpg',
-      '/images/rental-4.jpg',
     ] as string[],
   },
   

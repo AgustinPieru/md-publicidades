@@ -180,6 +180,20 @@ const Footer = () => {
           <Typography variant="body2" color="text.secondary">
             © {companyName} {new Date().getFullYear()}. Todos los derechos reservados.
           </Typography>
+          <Box sx={{ mt: 1 }}>
+            <Typography variant="body2" color="text.secondary">
+              Desarrollado por{' '}
+              <MuiLink
+                href="https://tu-portafolio-o-linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                underline="hover"
+                color="inherit"
+              >
+                Tu Nombre
+              </MuiLink>
+            </Typography>
+          </Box>
         </Box>
       </Container>
     </Box>
