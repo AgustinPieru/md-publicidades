@@ -218,10 +218,11 @@ DEPLOYEOF
 deploy_backend() {
     echo -e "${YELLOW}🔧 Desplegando backend...${NC}"
     
-    # Crear ZIP del backend
+    # Crear ZIP del backend (sin node_modules, dist, logs, uploads NI .env)
     echo -e "${YELLOW}   Creando archivo ZIP...${NC}"
     cd apps/backend
-    zip -r ../../backend-complete.zip . -x "node_modules/*" "dist/*" "*.log" "uploads/*"
+    zip -r ../../backend-complete.zip . \
+        -x "node_modules/*" "dist/*" "*.log" "uploads/*" ".env" ".env.*"
     cd ../..
     
     # Transferir archivo

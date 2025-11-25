@@ -61,12 +61,29 @@ export const createNovedad = async (req: Request, res: Response) => {
       });
     }
 
-    const { titulo, descripcion, imagenUrl, esRSE } = req.body;
-    const novedad = await novedadesService.createNovedad({
-      titulo,
-      descripcion,
-      imagenUrl,
-      esRSE: esRSE || false,
+    const { titulo, descripcion, imagenUrl } = req.body;
+
+    // Normalizar el valor de esRSE (puede llegar como boolean, string, número, etc.)
+    const rawEsRSE = (req.body as any).esRSE;
+    const esRSE =
+      rawEsRSE === true ||
+      rawEsRSE === 'true' ||
+      rawEsRSE === '1' ||
+      rawEsRSE === 1 ||
+      rawEsRSE === 'on';
+
+    const novedad = await prisma.novedad.create({
+      data: {
+        titulo,
+        descripcion,
+        imagenUrl,
+        esRSE,
+      },
+    });
+
+    console.log('✅ CreateNovedad - Guardado en BD:', {
+      id: novedad.id,
+      esRSE: (novedad as any).esRSE,
     });
 
     return res.status(201).json(novedad);
@@ -93,15 +110,27 @@ export const updateNovedad = async (req: Request, res: Response) => {
       });
     }
 
-    const { titulo, descripcion, imagenUrl, esRSE } = req.body;
+    const { titulo, descripcion, imagenUrl } = req.body;
     const updateData: any = {};
     
     if (titulo !== undefined) updateData.titulo = titulo;
     if (descripcion !== undefined) updateData.descripcion = descripcion;
     if (imagenUrl !== undefined) updateData.imagenUrl = imagenUrl;
-    if (esRSE !== undefined) updateData.esRSE = esRSE;
+    
+    const rawEsRSE = (req.body as any).esRSE;
+    if (rawEsRSE !== undefined) {
+      updateData.esRSE =
+        rawEsRSE === true ||
+        rawEsRSE === 'true' ||
+        rawEsRSE === '1' ||
+        rawEsRSE === 1 ||
+        rawEsRSE === 'on';
+    }
 
-    const novedad = await novedadesService.updateNovedad(novedadId, updateData);
+    const novedad = await prisma.novedad.update({
+      where: { id: novedadId },
+      data: updateData,
+    });
     if (!novedad) {
       return res.status(404).json({ message: 'Novedad no encontrada' });
     }
