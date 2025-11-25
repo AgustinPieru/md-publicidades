@@ -184,13 +184,13 @@ const Footer = () => {
             <Typography variant="body2" color="text.secondary">
               Desarrollado por{' '}
               <MuiLink
-                href="https://tu-portafolio-o-linkedin.com"
+                href="https://wa.me/3492419859"
                 target="_blank"
                 rel="noopener noreferrer"
                 underline="hover"
                 color="inherit"
               >
-                Tu Nombre
+                Agustin Pieruccioni
               </MuiLink>
             </Typography>
           </Box>
