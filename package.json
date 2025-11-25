@@ -41,11 +41,13 @@
     "help:deploy": "echo '🚀 Comandos de Despliegue:' && echo '  npm run deploy:complete     - Despliegue completo desde cero' && echo '  npm run deploy:existing     - Desplegar en instancia existente' && echo '  npm run deploy:frontend-only - Desplegar solo frontend' && echo '  npm run deploy:backend-only  - Desplegar solo backend' && echo '  npm run deploy:all          - Desplegar frontend y backend' && echo '  npm run deploy:status       - Ver estado de la aplicación'",
     "help:db": "echo '🗄️  Comandos de Base de Datos:' && echo '  npm run db:backup [archivo] - Crear backup' && echo '  npm run db:restore [archivo] - Restaurar backup' && echo '  npm run db:migrate          - Ejecutar migraciones' && echo '  npm run db:create-admin     - Crear usuario admin' && echo '  npm run db:status           - Ver estado de la BD'",
     "help:admin": "echo '👤 Comandos de Usuarios Admin:' && echo '  npm run admin:create [email] [password] - Crear usuario' && echo '  npm run admin:list                    - Listar usuarios' && echo '  npm run admin:delete [email]          - Eliminar usuario'",
-    "help:all": "npm run help:deploy && echo '' && npm run help:db && echo '' && npm run help:admin"
+    "help:all": "npm run help:deploy && echo '' && npm run help:db && echo '' && npm run help:admin",
+    "images:optimize": "node scripts/optimize-images.mjs"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
     "prettier": "^3.1.1",
+    "sharp": "^0.34.5",
     "typescript": "^5.3.3"
   },
   "engines": {
