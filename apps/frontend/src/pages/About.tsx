@@ -155,7 +155,7 @@ const About = () => {
                 backgroundColor: 'grey.100',
               }}
             >
-              <AnimatedCounter end={50} />
+              <AnimatedCounter end={30} />
               <Typography variant="subtitle1" color="text.secondary">
                 eventos comercializados
               </Typography>
@@ -170,7 +170,7 @@ const About = () => {
                 backgroundColor: 'grey.100',
               }}
             >
-              <AnimatedCounter end={200} />
+              <AnimatedCounter end={500} />
               <Typography variant="subtitle1" color="text.secondary">
                 marcas confiaron en nosotros
               </Typography>
