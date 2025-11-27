@@ -126,7 +126,20 @@ const Home = () => {
               color: 'rgba(255,255,255,0.95)',
             }}
           >
-            Llevamos más de dos décadas posicionándonos en la industria, extendiendo nuestra influencia por todo el país. Nos dedicamos a forjar vínculos duraderos entre marcas y su público, generando conexiones valiosas y significativas
+            Llevamos más de dos décadas posicionándonos en la industria, extendiendo nuestra influencia por todo el país. Nos dedicamos a{' '}
+            <Box
+              component="span"
+              sx={{
+                fontWeight: 700,
+                color: '#ffffff',
+                textDecoration: 'underline',
+                textDecorationThickness: '2px',
+                textUnderlineOffset: '4px',
+              }}
+            >
+              forjar vínculos duraderos entre marcas y su público
+            </Box>
+            , generando conexiones valiosas y significativas
           </Typography>
         </Box>
 
