@@ -100,6 +100,15 @@ export const images = {
     '/images/empresa-10.svg',
     '/images/empresa-11.svg',
   ],
+
+  // Logos de aliados estratégicos
+  // Por ahora reutilizamos algunos logos de ejemplo; reemplazar por los logos reales de aliados
+  strategicAllies: [
+    '/images/empresa-1.svg',
+    '/images/empresa-4.svg',
+    '/images/empresa-7.svg',
+    '/images/empresa-9.svg',
+  ],
   
   // Logos de organizaciones de las que somos miembros
   // Reemplazar con logos reales cuando estén disponibles

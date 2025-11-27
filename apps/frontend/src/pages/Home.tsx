@@ -445,6 +445,17 @@ const Home = () => {
         </Container>
       </Box>
 
+      <Box sx={{ backgroundColor: 'grey.50', py: { xs: 1.5, md: 2 } }}>
+        <Container maxWidth="lg">
+          <SectionHeader 
+            title="Aliados estratégicos" 
+            subtitle="Trabajamos junto a socios clave para potenciar tus campañas"
+            align="center"
+          />
+          <ClientCarousel logos={[...images.strategicAllies]} />
+        </Container>
+      </Box>
+
       {/* Sección Somos Miembros */}
       <Container maxWidth="lg" sx={{ py: { xs: 2, md: 2.5 } }}>
         <SectionHeader 
