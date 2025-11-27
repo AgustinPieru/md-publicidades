@@ -362,7 +362,7 @@ const AdminNewsForm = () => {
                         name="esRSE"
                       />
                     }
-                    label="Marcar como RSE (Responsabilidad Social Empresaria)"
+                    label="Marcar como RSE (Responsabilidad Social Empresarial)"
                   />
                 </Grid>
 

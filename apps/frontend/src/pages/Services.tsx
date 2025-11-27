@@ -30,12 +30,12 @@ interface ServiceCard {
 
 const oohServices: ServiceCard[] = [
   {
-    id: 'monocolumna',
-    title: 'Monocolumna',
+    id: 'monocolumnas',
+    title: 'Monocolumnas',
     description: 'Tu marca en lo más alto. Ubicadas estratégicamente para maximizar la visibilidad y el impacto de cada campaña.',
     fullDescription: 'Tu marca en lo más alto. Ubicadas estratégicamente para maximizar la visibilidad y el impacto de cada campaña.',
     image: images.services.viaPublica.monocolumnas[0],
-    imageAlt: 'Monocolumna',
+    imageAlt: 'Monocolumnas',
     images: [
       ...images.services.viaPublica.monocolumnas,
     ],
@@ -248,6 +248,9 @@ const Services = () => {
                       width: '100%',
                       height: 240,
                       overflow: 'hidden',
+                      '&:hover .image-caption-overlay': {
+                        opacity: 1,
+                      },
                     }}
                   >
                     <OptimizedImage
@@ -264,6 +267,33 @@ const Services = () => {
                         }
                       }}
                     />
+                    <Box
+                      className="image-caption-overlay"
+                      sx={{
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        height: '25%',
+                        background: 'linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0))',
+                        display: 'flex',
+                        alignItems: 'flex-end',
+                        justifyContent: 'flex-start',
+                        p: 2,
+                        opacity: 0,
+                        transition: 'opacity 0.3s ease',
+                      }}
+                    >
+                      <Typography 
+                        variant="caption" 
+                        sx={{ 
+                          color: '#fff',
+                          fontWeight: 500,
+                        }}
+                      >
+                        {service.imageAlt}
+                      </Typography>
+                    </Box>
                   </Box>
                   <CardContent sx={{ flex: 1, p: 2.5 }}>
                     <Typography 
@@ -374,6 +404,9 @@ const Services = () => {
                   transition: 'transform 0.3s ease',
                   '&:hover': {
                     transform: 'scale(1.02)'
+                  },
+                  '&:hover .image-caption-overlay': {
+                    opacity: 1,
                   }
                 }}
                 onClick={() => {
@@ -390,6 +423,33 @@ const Services = () => {
                     objectFit: 'cover',
                   }}
                 />
+                <Box
+                  className="image-caption-overlay"
+                  sx={{
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    height: '25%',
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0))',
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    justifyContent: 'flex-start',
+                    p: 2,
+                    opacity: 0,
+                    transition: 'opacity 0.3s ease',
+                  }}
+                >
+                  <Typography 
+                    variant="caption" 
+                    sx={{ 
+                      color: '#fff',
+                      fontWeight: 500,
+                    }}
+                  >
+                    {`Marketing Deportivo ${idx + 1}`}
+                  </Typography>
+                </Box>
               </Box>
             </Grid>
           ))}
@@ -476,6 +536,9 @@ const Services = () => {
                   transition: 'transform 0.3s ease',
                   '&:hover': {
                     transform: 'scale(1.02)'
+                  },
+                  '&:hover .image-caption-overlay': {
+                    opacity: 1,
                   }
                 }}
                 onClick={() => {
@@ -492,6 +555,33 @@ const Services = () => {
                     objectFit: 'cover',
                   }}
                 />
+                <Box
+                  className="image-caption-overlay"
+                  sx={{
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    height: '25%',
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0))',
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    justifyContent: 'flex-start',
+                    p: 2,
+                    opacity: 0,
+                    transition: 'opacity 0.3s ease',
+                  }}
+                >
+                  <Typography 
+                    variant="caption" 
+                    sx={{ 
+                      color: '#fff',
+                      fontWeight: 500,
+                    }}
+                  >
+                    {`Eventos ${idx + 1}`}
+                  </Typography>
+                </Box>
               </Box>
             </Grid>
           ))}
@@ -589,6 +679,9 @@ const Services = () => {
                   transition: 'transform 0.3s ease',
                   '&:hover': {
                     transform: 'scale(1.02)'
+                  },
+                  '&:hover .image-caption-overlay': {
+                    opacity: 1,
                   }
                 }}
                 onClick={() => {
@@ -605,6 +698,33 @@ const Services = () => {
                     objectFit: 'cover',
                   }}
                 />
+                <Box
+                  className="image-caption-overlay"
+                  sx={{
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    height: '25%',
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0))',
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    justifyContent: 'flex-start',
+                    p: 2,
+                    opacity: 0,
+                    transition: 'opacity 0.3s ease',
+                  }}
+                >
+                  <Typography 
+                    variant="caption" 
+                    sx={{ 
+                      color: '#fff',
+                      fontWeight: 500,
+                    }}
+                  >
+                    {`Rental ${idx + 1}`}
+                  </Typography>
+                </Box>
               </Box>
             </Grid>
           ))}

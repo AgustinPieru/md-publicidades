@@ -106,6 +106,18 @@ const About = () => {
                   transition: 'background-image 0.3s ease-in-out',
                 }}
               />
+              <Typography 
+                variant="caption" 
+                color="text.secondary"
+                sx={{ 
+                  display: 'block', 
+                  mt: 1, 
+                  textAlign: 'center',
+                  fontStyle: 'italic',
+                }}
+              >
+                El equipo de MD publicidades en septiembre en la Expo Rural Rafaela
+              </Typography>
             </Grid>
           </Grid>
 
@@ -379,7 +391,7 @@ const About = () => {
         {/* Sección RSE */}
         <Box sx={{ py: 0 }}>
           <SectionHeader 
-            title="RSE (Responsabilidad Social Empresaria)" 
+            title="RSE (Responsabilidad Social Empresarial)" 
             subtitle="Acompañamos activamente el desarrollo del deporte y la cultura en nuestra región. Creemos en el valor de apoyar a clubes, instituciones y proyectos culturales que fomentan el crecimiento." 
             align="left" 
           />
