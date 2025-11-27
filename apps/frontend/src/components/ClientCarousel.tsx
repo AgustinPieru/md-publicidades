@@ -23,12 +23,16 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
   useEffect(() => {
     if (!autoPlay || logos.length === 0) return;
 
+    // Solo auto-play cuando hay más logos que los que se pueden mostrar a la vez
+    const maxVisible = getVisibleCount();
+    if (logos.length <= maxVisible) return;
+
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % logos.length);
     }, autoPlayInterval);
 
     return () => clearInterval(interval);
-  }, [autoPlay, autoPlayInterval, logos.length]);
+  }, [autoPlay, autoPlayInterval, logos.length, isMobile, isTablet]);
 
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev - 1 + logos.length) % logos.length);
@@ -52,9 +56,9 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
   const getVisibleCount = () => {
     if (logos.length === 0) return 0;
     if (logos.length <= 2) return logos.length;
-    if (isMobile) return 3; // Móvil:  logos
-    if (isTablet) return 3; // Tablet: 3 logos
-    return 6; // Desktop: 5 logos
+    if (isMobile) return 9; // Móvil: 3 filas de 3 logos (9 en total)
+    if (isTablet) return 9; // Tablet: también 3x3 logos
+    return 18; // Desktop: 3 filas de 6 logos (18 en total)
   };
 
   const visibleCount = getVisibleCount();
@@ -107,39 +111,32 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
         <Box
           sx={{
             flex: 1,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            minHeight: { xs: 100, sm: 120, md: 140 },
-            gap: { xs: 2, sm: 2.5, md: 3.5 },
-            flexWrap: { xs: 'nowrap', sm: 'wrap' },
-            overflowX: { xs: 'auto', sm: 'visible' },
-            overflowY: 'hidden',
-            scrollSnapType: { xs: 'x mandatory', sm: 'none' },
-            WebkitOverflowScrolling: 'touch',
-            '&::-webkit-scrollbar': {
-              display: 'none',
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: 'repeat(3, 1fr)', // 3 columnas en mobile
+              sm: 'repeat(3, 1fr)', // 3 columnas en tablet
+              md: 'repeat(6, 1fr)', // 6 columnas en desktop
             },
-            scrollbarWidth: 'none',
+            alignItems: 'center',
+            justifyItems: 'center',
+            minHeight: { xs: 180, sm: 140, md: 160 },
+            gap: { xs: 2, sm: 2.5, md: 3.5 },
           }}
         >
           {visibleLogos.map((logo, index) => {
             const actualIndex = (currentIndex + index) % logos.length;
             return (
               <Box
-                key={`${actualIndex}-${index}`}
+                key={actualIndex}
                 sx={{
                   opacity: 1,
                   transition: 'all 0.3s ease-in-out',
-                  width: { xs: 90, sm: 110, md: 130 },
+                  width: '100%',
                   height: { xs: 60, sm: 70, md: 80 },
-                  minWidth: { xs: 90, sm: 110, md: 130 },
-                  flexShrink: 0,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   filter: 'grayscale(100%)',
-                  scrollSnapAlign: { xs: 'center', sm: 'none' },
                   '&:hover': {
                     transform: 'scale(1.05)',
                     filter: 'grayscale(0%)',
@@ -154,8 +151,7 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
                     maxHeight: '100%',
                     objectFit: 'contain',
                   }}
-                  showSkeleton={true}
-                  skeletonHeight={65}
+                  showSkeleton={false}
                 />
               </Box>
             );
@@ -180,37 +176,6 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
         )}
       </Box>
 
-      {/* Indicadores */}
-      {logos.length > 1 && (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: { xs: 0.75, sm: 1 },
-            mt: { xs: 1.5, sm: 2 },
-            flexWrap: 'wrap',
-          }}
-        >
-          {logos.map((_, index) => (
-            <Box
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              sx={{
-                width: { xs: 6, sm: 8 },
-                height: { xs: 6, sm: 8 },
-                borderRadius: '50%',
-                backgroundColor:
-                  index === currentIndex ? 'primary.main' : 'action.disabled',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease-in-out',
-                '&:hover': {
-                  backgroundColor: 'primary.dark',
-                },
-              }}
-            />
-          ))}
-        </Box>
-      )}
     </Box>
   );
 };
