@@ -117,7 +117,7 @@ const AdminTrabajos = () => {
             sx={{ alignSelf: { xs: 'flex-start', md: 'flex-end' } }}
           >
             <ToggleButton value="novedades">Novedades</ToggleButton>
-            <ToggleButton value="trabajos">Trabajos</ToggleButton>
+            <ToggleButton value="trabajos">Campañas</ToggleButton>
           </ToggleButtonGroup>
         </Box>
 
@@ -132,7 +132,7 @@ const AdminTrabajos = () => {
           }}
         >
           <Typography variant="h5" component="h1">
-            Administrar Trabajos
+            Administrar Campañas
           </Typography>
           <Box
             sx={{
@@ -167,7 +167,7 @@ const AdminTrabajos = () => {
         {trabajos.length === 0 ? (
           <Box sx={{ textAlign: 'center', py: 8 }}>
             <Typography variant="h6" color="text.secondary" gutterBottom>
-              No hay trabajos creados
+              No hay Campañas creados
             </Typography>
             <Button
               variant="contained"
@@ -175,7 +175,7 @@ const AdminTrabajos = () => {
               onClick={() => navigate('/admin/trabajos/nuevo')}
               sx={{ mt: 2 }}
             >
-              Crear Primer Trabajo
+              Crear Primer Campañas
             </Button>
           </Box>
         ) : (

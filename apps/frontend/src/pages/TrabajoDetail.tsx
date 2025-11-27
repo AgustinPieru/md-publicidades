@@ -125,7 +125,7 @@ const TrabajoDetail = () => {
             onClick={handleBack}
             sx={{ mt: 2 }}
           >
-            Volver a Trabajos
+            Volver a Campañas
           </Button>
         </Box>
       </PageContainer>
@@ -144,7 +144,7 @@ const TrabajoDetail = () => {
             ml: { xs: -1, sm: -1.5 },
           }}
         >
-          Volver a Trabajos
+          Volver a Campañas
         </Button>
 
         <Card

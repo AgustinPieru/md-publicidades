@@ -111,7 +111,7 @@ const Home = () => {
               },
             }}
           >
-            DONDE ESTAN TUS CLIENTES
+            DONDE TU MARCA SE CONECTA CON TUS CLIENTES
           </Typography>
           <Typography
             sx={{

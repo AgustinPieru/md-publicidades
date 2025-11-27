@@ -30,14 +30,14 @@ const Trabajos = () => {
   return (
     <PageContainer maxWidth="lg" useTopOffset>
       <SectionHeader
-        title="Trabajos"
+        title="Campañas"
         subtitle="Casos y proyectos realizados por MD Publicidades"
         align="left"
       />
 
       {trabajos.length === 0 ? (
         <Typography variant="body1" align="center" sx={{ mt: 4 }}>
-          No hay trabajos cargados en este momento.
+          No hay campañas cargados en este momento.
         </Typography>
       ) : (
         <Grid container spacing={3} sx={{ mt: 2 }}>
