@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Typography, Box, Grid, Paper, Card, CardContent, CardActionArea, Chip, Dialog, DialogContent, IconButton, Divider } from '@mui/material';
+import { Typography, Box, Grid, Paper, Card, CardContent, CardActionArea, Chip, Dialog, DialogContent, IconButton, Divider, Button } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CloseIcon from '@mui/icons-material/Close';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import SectionHeader from '../components/SectionHeader';
 import PageContainer from '../components/PageContainer';
 import OptimizedImage from '../components/OptimizedImage';
 import Lightbox from '../components/Lightbox';
 import { useImagePreloader } from '../hooks/useImagePreloader';
 import { images } from '../constants/images';
+import { contactData } from '../constants/contact';
 
 interface ServiceLocation {
   address: string;
@@ -82,8 +84,8 @@ const oohServices: ServiceCard[] = [
   {
     id: 'grandes-formatos',
     title: 'Grandes Formatos / Hipervallas',
-    description: 'Estructuras publicitarias de gran superficie, instaladas en puntos de tráfico intenso. Contamos con más de 5.000 ubicaciones.',
-    fullDescription: 'Estructuras publicitarias de gran superficie, instaladas en puntos de tráfico intenso para garantizar una comunicación clara, amplia y efectiva durante largos períodos. Contamos con más de 5.000 ubicaciones.',
+    description: 'Estructuras publicitarias de gran superficie, instaladas en puntos de tráfico intenso. Contamos con más de 1.500 ubicaciones.',
+    fullDescription: 'Estructuras publicitarias de gran superficie, instaladas en puntos de tráfico intenso para garantizar una comunicación clara, amplia y efectiva durante largos períodos. Contamos con más de 1.500 ubicaciones.',
     image: images.services.viaPublica.formatos[0],
     imageAlt: 'Grandes Formatos',
     images: [
@@ -110,6 +112,14 @@ const Services = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [lightboxImages, setLightboxImages] = useState<string[]>([]);
+
+  const whatsappNumber = contactData.whatsapp.replace(/\D/g, '');
+
+  const buildWhatsAppUrl = (serviceLabel: string) => {
+    const message = `Hola, me gustaría recibir más información sobre ${serviceLabel}.`;
+    const encodedMessage = encodeURIComponent(message);
+    return `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+  };
 
   // Scroll automático a la sección cuando hay un hash en la URL
   useEffect(() => {
@@ -333,6 +343,38 @@ const Services = () => {
             </Grid>
           ))}
         </Grid>
+        <Box 
+          sx={{ 
+            mt: 4,
+            display: 'flex',
+            justifyContent: 'center'
+          }}
+        >
+          <Button
+            variant="contained"
+            href={buildWhatsAppUrl('Vía Pública')}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              px: 3,
+              py: 1.2,
+              borderRadius: 999,
+              textTransform: 'none',
+              fontWeight: 600,
+              backgroundColor: '#25D366',
+              color: '#fff',
+              boxShadow: '0 8px 20px rgba(0,0,0,0.12)',
+              '&:hover': {
+                backgroundColor: '#1ebe5d',
+                boxShadow: '0 10px 24px rgba(0,0,0,0.16)',
+              },
+            }}
+            startIcon={<WhatsAppIcon />}
+            aria-label="Escribinos por WhatsApp para más info de Vía Pública"
+          >
+            Escribinos por WhatsApp para más info de Vía Pública
+          </Button>
+        </Box>
       </Paper>
 
       {/* Marketing Deportivo */}
@@ -495,6 +537,38 @@ const Services = () => {
             }} 
           />
         </Box>
+        <Box 
+          sx={{ 
+            mt: 4,
+            display: 'flex',
+            justifyContent: 'center'
+          }}
+        >
+          <Button
+            variant="contained"
+            href={buildWhatsAppUrl('Marketing Deportivo')}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              px: 3,
+              py: 1.2,
+              borderRadius: 999,
+              textTransform: 'none',
+              fontWeight: 600,
+              backgroundColor: '#25D366',
+              color: '#fff',
+              boxShadow: '0 8px 20px rgba(0,0,0,0.12)',
+              '&:hover': {
+                backgroundColor: '#1ebe5d',
+                boxShadow: '0 10px 24px rgba(0,0,0,0.16)',
+              },
+            }}
+            startIcon={<WhatsAppIcon />}
+            aria-label="Escribinos por WhatsApp para más info de Marketing Deportivo"
+          >
+            Escribinos por WhatsApp para más info de Marketing Deportivo
+          </Button>
+        </Box>
       </Paper>
 
       {/* Eventos */}
@@ -618,6 +692,38 @@ const Services = () => {
               height: { xs: 28, sm: 32 },
             }} 
           />
+        </Box>
+        <Box 
+          sx={{ 
+            mt: 4,
+            display: 'flex',
+            justifyContent: 'center'
+          }}
+        >
+          <Button
+            variant="contained"
+            href={buildWhatsAppUrl('Eventos')}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              px: 3,
+              py: 1.2,
+              borderRadius: 999,
+              textTransform: 'none',
+              fontWeight: 600,
+              backgroundColor: '#25D366',
+              color: '#fff',
+              boxShadow: '0 8px 20px rgba(0,0,0,0.12)',
+              '&:hover': {
+                backgroundColor: '#1ebe5d',
+                boxShadow: '0 10px 24px rgba(0,0,0,0.16)',
+              },
+            }}
+            startIcon={<WhatsAppIcon />}
+            aria-label="Escribinos por WhatsApp para más info de Eventos"
+          >
+            Escribinos por WhatsApp para más info de Eventos
+          </Button>
         </Box>
       </Paper>
 
@@ -761,6 +867,38 @@ const Services = () => {
               height: { xs: 28, sm: 32 },
             }} 
           />
+        </Box>
+        <Box 
+          sx={{ 
+            mt: 4,
+            display: 'flex',
+            justifyContent: 'center'
+          }}
+        >
+          <Button
+            variant="contained"
+            href={buildWhatsAppUrl('Rental')}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              px: 3,
+              py: 1.2,
+              borderRadius: 999,
+              textTransform: 'none',
+              fontWeight: 600,
+              backgroundColor: '#25D366',
+              color: '#fff',
+              boxShadow: '0 8px 20px rgba(0,0,0,0.12)',
+              '&:hover': {
+                backgroundColor: '#1ebe5d',
+                boxShadow: '0 10px 24px rgba(0,0,0,0.16)',
+              },
+            }}
+            startIcon={<WhatsAppIcon />}
+            aria-label="Escribinos por WhatsApp para más info de Rental"
+          >
+            Escribinos por WhatsApp para más info de Rental
+          </Button>
         </Box>
       </Paper>
 
