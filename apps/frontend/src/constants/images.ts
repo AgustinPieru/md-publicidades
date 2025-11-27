@@ -14,7 +14,7 @@ export const images = {
   cover: '/images/cover.jpg',
   
   // Imagen sobre nosotros (About)
-  about: '/images/about.jpeg',
+  about: '/images/about.webp',
   
   // Imagen del fundador (About)
   founder: '/images/gerente-marce.jpg', // Imagen de test - Reemplazar con imagen real
