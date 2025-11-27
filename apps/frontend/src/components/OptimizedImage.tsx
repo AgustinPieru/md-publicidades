@@ -11,6 +11,12 @@ interface OptimizedImageProps extends Omit<BoxProps, 'component'> {
   onLoad?: () => void;
   onError?: () => void;
   /**
+   * Controla cómo se cargará la imagen en el navegador.
+   * Por defecto usamos "lazy" para mejorar la performance,
+   * y se puede forzar "eager" en imágenes críticas (por ejemplo, héroe).
+   */
+  loading?: 'lazy' | 'eager';
+  /**
    * Estilos específicos para la etiqueta de imagen interna (`<img />`).
    * Útil para controlar `objectFit`, tamaños máximos, etc. sin afectar al contenedor.
    */
@@ -30,6 +36,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   onError,
   sx,
   imageSx,
+  loading = 'lazy',
   ...boxProps
 }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -85,6 +92,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         component="img"
         src={imageSrc}
         alt={alt}
+        loading={loading}
         onLoad={() => {
           setIsLoading(false);
           onLoad?.();

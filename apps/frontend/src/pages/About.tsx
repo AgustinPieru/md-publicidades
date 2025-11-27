@@ -10,10 +10,9 @@ import AnimatedCounter from '../components/AnimatedCounter';
 import { useNovedadesRSE } from '../hooks/useNovedades';
 
 const About = () => {
-  // Precargar las imágenes del equipo y del fundador
-  const teamImages = Object.values(images.team);
-  useImagePreloader([images.founder, ...teamImages]);
-  
+  // Precargar solo la imagen del fundador (las del equipo se cargan lazy)
+  useImagePreloader([images.founder]);
+ 
   // Precargar la imagen de about por separado para mostrarla tan pronto como esté lista
   const { loadedImages: aboutLoadedImages } = useImagePreloader([images.about]);
   const [backgroundImage, setBackgroundImage] = useState<string>('');

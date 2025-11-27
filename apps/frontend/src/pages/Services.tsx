@@ -152,17 +152,10 @@ const Services = () => {
     }
   }, [location.hash, location.pathname]);
 
-  // Precargar todas las imágenes de servicios
-  const allServiceImages = [
-    ...images.services.viaPublica.led,
-    ...images.services.viaPublica.monocolumnas,
-    ...images.services.viaPublica.ruteros,
-    ...images.services.viaPublica.formatos,
-    ...images.services.rental,
-    ...images.services.marketingDeportivo,
-    ...images.services.eventos,
-  ];
-  useImagePreloader(allServiceImages);
+  // Precargar solo las imágenes principales que se ven en las cards iniciales.
+  // El resto de las imágenes de galerías y lightbox se cargan de forma lazy.
+  const heroServiceImages = oohServices.map((service) => service.image);
+  useImagePreloader(heroServiceImages);
 
   const handleServiceClick = (service: ServiceCard) => {
     setSelectedService(service);
