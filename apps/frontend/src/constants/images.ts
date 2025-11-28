@@ -136,12 +136,21 @@ export const images = {
   // Logos de aliados estratégicos
   // Por ahora reutilizamos algunos logos de ejemplo; reemplazar por los logos reales de aliados
   strategicAllies: [
-    '/images/logos_empresas-38.svg',
-    '/images/logos_empresas-39.svg',
-    '/images/logos_empresas-40.svg',
-    '/images/logos_empresas-41.svg',
-    '/images/logos_empresas-42.svg',
-    '/images/logos_empresas-43.svg',
+    '/images/aliados-01.svg',
+    '/images/aliados-02.svg',
+    '/images/aliados-03.svg',
+    '/images/aliados-04.svg',
+    '/images/aliados-05.svg',
+    '/images/aliados-06.svg',
+    '/images/aliados-07.svg',
+    '/images/aliados-08.svg',
+    '/images/aliados-09.svg',
+    '/images/aliados-10.svg',
+    '/images/aliados-11.svg',
+    '/images/aliados-12.svg',
+    '/images/aliados-13.svg',
+    '/images/aliados-14.svg',
+    '/images/aliados-15.svg',
   ],
   
   // Logos de organizaciones de las que somos miembros

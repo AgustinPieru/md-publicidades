@@ -8,12 +8,30 @@ interface ClientCarouselProps {
   logos: readonly string[];
   autoPlay?: boolean;
   autoPlayInterval?: number;
+  /** 
+   * Cuando es true, los logos se muestran siempre a color (sin filtro en escala de grises).
+   * Útil, por ejemplo, para los aliados estratégicos.
+   */
+  colored?: boolean;
+  /**
+   * Permite forzar cuántos logos se muestran a la vez en el carrusel.
+   * Si se establece, tiene prioridad sobre el cálculo automático según el breakpoint.
+   */
+  visibleCountOverride?: number;
+  /**
+   * Número de columnas en desktop (md+) para la grilla de logos.
+   * Por defecto son 6 columnas; se puede ajustar, por ejemplo, a 5 para tener 3 filas de 5.
+   */
+  desktopColumnsOverride?: number;
 }
 
 const ClientCarousel: React.FC<ClientCarouselProps> = ({
   logos,
   autoPlay = true,
   autoPlayInterval = 3000,
+  colored = false,
+  visibleCountOverride,
+  desktopColumnsOverride,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -32,7 +50,7 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
     }, autoPlayInterval);
 
     return () => clearInterval(interval);
-  }, [autoPlay, autoPlayInterval, logos.length, isMobile, isTablet]);
+  }, [autoPlay, autoPlayInterval, logos.length, isMobile, isTablet, visibleCountOverride]);
 
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev - 1 + logos.length) % logos.length);
@@ -56,12 +74,14 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
   const getVisibleCount = () => {
     if (logos.length === 0) return 0;
     if (logos.length <= 2) return logos.length;
+    if (visibleCountOverride) return Math.min(visibleCountOverride, logos.length);
     if (isMobile) return 9; // Móvil: 3 filas de 3 logos (9 en total)
     if (isTablet) return 9; // Tablet: también 3x3 logos
     return 18; // Desktop: 3 filas de 6 logos (18 en total)
   };
 
   const visibleCount = getVisibleCount();
+  const desktopColumns = desktopColumnsOverride ?? 6;
 
   const visibleLogos = logos.slice(currentIndex, currentIndex + visibleCount);
   
@@ -115,7 +135,7 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
             gridTemplateColumns: {
               xs: 'repeat(3, 1fr)', // 3 columnas en mobile
               sm: 'repeat(3, 1fr)', // 3 columnas en tablet
-              md: 'repeat(6, 1fr)', // 6 columnas en desktop
+              md: `repeat(${desktopColumns}, 1fr)`, // columnas configurables en desktop
             },
             alignItems: 'center',
             justifyItems: 'center',
@@ -136,10 +156,10 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  filter: 'grayscale(100%)',
+                  filter: colored ? 'none' : 'grayscale(100%)',
                   '&:hover': {
                     transform: 'scale(1.05)',
-                    filter: 'grayscale(0%)',
+                    filter: colored ? 'none' : 'grayscale(0%)',
                   },
                 }}
               >

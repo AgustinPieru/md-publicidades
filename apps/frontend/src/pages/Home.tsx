@@ -465,7 +465,12 @@ const Home = () => {
             subtitle="Trabajamos junto a socios clave para potenciar tus campañas"
             align="center"
           />
-          <ClientCarousel logos={[...images.strategicAllies]} />
+          <ClientCarousel 
+            logos={[...images.strategicAllies]} 
+            colored
+            visibleCountOverride={15}
+            desktopColumnsOverride={5}
+          />
         </Container>
       </Box>
 
