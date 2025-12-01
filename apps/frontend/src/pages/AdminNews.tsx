@@ -33,7 +33,7 @@ const AdminNews = () => {
   const navigate = useNavigate();
   const { logout, admin, isAuthenticated, loading: authLoading } = useAuth();
   const { novedades, loading, error, deleteNovedad } = useNovedades();
-  const [section, setSection] = useState<'novedades' | 'trabajos'>('novedades');
+  const [section, setSection] = useState<'novedades' | 'campañas'>('novedades');
   const [deleteDialog, setDeleteDialog] = useState<{
     open: boolean;
     novedad: Novedad | null;
@@ -65,11 +65,11 @@ const AdminNews = () => {
 
   const handleSectionChange = (
     _event: React.MouseEvent<HTMLElement>,
-    newSection: 'novedades' | 'trabajos' | null
+    newSection: 'novedades' | 'campañas' | null
   ) => {
     if (!newSection) return;
     setSection(newSection);
-    if (newSection === 'trabajos') {
+    if (newSection === 'campañas') {
       navigate('/admin/trabajos');
     }
   };
