@@ -112,7 +112,7 @@ const AdminNews = () => {
             sx={{ alignSelf: { xs: 'flex-start', md: 'flex-end' } }}
           >
             <ToggleButton value="novedades">Novedades</ToggleButton>
-            <ToggleButton value="trabajos">Trabajos</ToggleButton>
+            <ToggleButton value="campañas">Campañas</ToggleButton>
           </ToggleButtonGroup>
         </Box>
 
