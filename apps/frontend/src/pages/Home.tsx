@@ -462,7 +462,6 @@ const Home = () => {
         <Container maxWidth="lg">
           <SectionHeader 
             title="Aliados estratégicos" 
-            subtitle="Trabajamos junto a socios clave para potenciar tus campañas"
             align="center"
           />
           <ClientCarousel 

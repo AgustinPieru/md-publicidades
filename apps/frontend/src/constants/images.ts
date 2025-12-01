@@ -14,7 +14,7 @@ export const images = {
   cover: '/images/cover.jpg',
   
   // Imagen sobre nosotros (About)
-  about: '/images/about.webp',
+  about: '/images/about.png',
   
   // Imagen del fundador (About)
   founder: '/images/gerente-marce.jpg', // Imagen de test - Reemplazar con imagen real
@@ -39,6 +39,7 @@ export const images = {
         '/images/led-3.jpg',
         '/images/led-4.jpeg',
         '/images/led-5.jpeg',
+        '/images/led-6.png',
       ],
       monocolumnas: [
         '/images/monocolumnas-1.jpg',
@@ -48,26 +49,40 @@ export const images = {
         '/images/ruteros-1.jpg',
         '/images/ruteros-2.jpg',
         '/images/ruteros-3.jpg',
+        '/images/ruteros-4.png',
+        '/images/ruteros-5.png',
+        '/images/ruteros-6.jpg',
       ],
       formatos: [
         '/images/formatos-1.jpg',
         '/images/formatos-2.jpg',
         '/images/formatos-3.jpg',
+        '/images/formatos-4.jpg',
+        '/images/formatos-5.png',
+        '/images/formatos-6.jpeg',
+        '/images/formatos-7.jpeg',
+        '/images/formatos-8.jpg',
+        '/images/formatos-9.png',
       ],
       medianeras: [
         '/images/medianera-1.jpg',
         '/images/medianera-2.jpg',
       ],
       sextuples: [
-        '/images/sextuple-1.jpeg',
+        '/images/sextuple-1.png',
         '/images/sextuple-2.jpeg',
+        '/images/sextuple-3.jpeg',
+        '/images/sextuple-4.jpeg',
+        '/images/sextuple-5.jpg',
+        '/images/sextuple-6.jpg',
+        '/images/sextuple-7.jpg',
       ]
     },
     eventos: [
       '/images/eventos-1.jpeg',
       '/images/eventos-2.jpg',
       '/images/eventos-3.jpg',
-      '/images/eventos-4.jpg',
+      '/images/eventos-4.jpeg',
     ] as string[],
     marketingDeportivo: [
       '/images/marketing-deportivo-1.jpg',
@@ -82,6 +97,7 @@ export const images = {
     rental: [
       '/images/rental-1.png',
       '/images/rental-2.jpg',
+      '/images/rental-3.jpeg',
     ] as string[],
   },
   

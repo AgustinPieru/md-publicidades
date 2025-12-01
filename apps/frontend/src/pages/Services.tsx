@@ -15,7 +15,9 @@ import { contactData } from '../constants/contact';
 
 interface ServiceLocation {
   address: string;
-  city: string;
+  city?: string;
+  province?: string;
+  signType?: string;
 }
 
 interface ServiceCard {
@@ -43,9 +45,21 @@ const oohServices: ServiceCard[] = [
     ],
     showLocations: true,
     locations: [
-      { address: 'Circunvalación Rosario altura Bv. 27 de febrero', city: 'ROSARIO' },
-      { address: 'Circunvalación Rosario altura bv avellaneda', city: 'ROSARIO' },
-      { address: 'Autopista 9 altura Ruta A174', city: 'CORDOBA' },
+      { 
+        address: 'Circunvalación Rosario altura Bv. 27 de febrero', 
+        province: 'ROSARIO',
+        signType: 'PANTALLA LED + CARTEL FIJO',
+      },
+      { 
+        address: 'Circunvalación Rosario altura bv avellaneda', 
+        province: 'ROSARIO',
+        signType: 'CARTELES FIJOS DE LOS DOS LADOS',
+      },
+      { 
+        address: 'Autopista 9 altura Ruta A174', 
+        province: 'CORDOBA',
+        signType: 'CARTELES FIJOS DE LOS DOS LADOS',
+      },
     ],
   },
   {
@@ -103,6 +117,21 @@ const oohServices: ServiceCard[] = [
       ...images.services.viaPublica.sextuples,
     ],
   },
+];
+
+const eventosCaptions = [
+  'Comercialización Sueño celeste',
+  'Comercialización Sueño celeste ',
+  'Comercialización Expo Rural Rafaela',
+  'Comercialización Expo Rural Rafaela',
+];
+
+const marketingDeportivoCaptions = [
+  'Presencia en la cancha de River Plate',
+  'Presencia en la cancha de Colón',
+  'Presencia en la cancha de River Plate',
+  'Asesoramiento de sponsoreo para Hospital Italiano Rosario e Italmedica en Club Atlético Newell´s Old Boys',
+  'Presencia de marca en la despedida de Maxi Rodriguez',
 ];
 
 const Services = () => {
@@ -450,7 +479,7 @@ const Services = () => {
               >
                 <OptimizedImage
                   src={img}
-                  alt={`Marketing Deportivo ${idx + 1}`}
+                  alt={marketingDeportivoCaptions[idx] || `Marketing Deportivo ${idx + 1}`}
                   skeletonHeight={300}
                   sx={{ 
                     height: '100%',
@@ -482,7 +511,7 @@ const Services = () => {
                       fontWeight: 500,
                     }}
                   >
-                    {`Marketing Deportivo ${idx + 1}`}
+                    {marketingDeportivoCaptions[idx] || `Marketing Deportivo ${idx + 1}`}
                   </Typography>
                 </Box>
               </Box>
@@ -614,7 +643,7 @@ const Services = () => {
               >
                 <OptimizedImage
                   src={img}
-                  alt={`Eventos ${idx + 1}`}
+                  alt={eventosCaptions[idx] || `Eventos ${idx + 1}`}
                   skeletonHeight={300}
                   sx={{ 
                     height: '100%',
@@ -646,7 +675,7 @@ const Services = () => {
                       fontWeight: 500,
                     }}
                   >
-                    {`Eventos ${idx + 1}`}
+                    {eventosCaptions[idx] || `Eventos ${idx + 1}`}
                   </Typography>
                 </Box>
               </Box>
@@ -991,10 +1020,13 @@ const Services = () => {
                           <Box>
                             <Typography variant="body1" sx={{ fontWeight: 600 }}>
                               {location.address}
+                              {(location.province || location.city) && ` – ${location.province || location.city}`}
                             </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                              {location.city}
-                            </Typography>
+                            {location.signType && (
+                              <Typography variant="body2" color="text.secondary">
+                                {location.signType}
+                              </Typography>
+                            )}
                           </Box>
                         </Paper>
                       </Grid>
