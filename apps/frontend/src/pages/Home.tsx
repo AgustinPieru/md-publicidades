@@ -89,7 +89,7 @@ const Home = () => {
             sx={{
               fontWeight: 900,
               lineHeight: 1.1,
-              letterSpacing: { xs: '-0.02em', sm: '-0.03em', md: '-0.04em' },
+              letterSpacing: { xs: '-0.02em', sm: '-0.03em', md: '0.08em' },
               fontSize: { xs: '2.2rem', sm: '3rem', md: '4rem', lg: '4.5rem' },
               textTransform: 'uppercase',
               mb: { xs: 2, sm: 3 },
