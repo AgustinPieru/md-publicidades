@@ -5,11 +5,14 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CloseIcon from '@mui/icons-material/Close';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import DownloadIcon from '@mui/icons-material/Download';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import SectionHeader from '../components/SectionHeader';
 import PageContainer from '../components/PageContainer';
 import OptimizedImage from '../components/OptimizedImage';
 import Lightbox from '../components/Lightbox';
 import { useImagePreloader } from '../hooks/useImagePreloader';
+import { useServicios } from '../hooks/useServicios';
 import { images } from '../constants/images';
 import { contactData } from '../constants/contact';
 
@@ -47,18 +50,33 @@ const oohServices: ServiceCard[] = [
     locations: [
       { 
         address: 'Circunvalación Rosario altura Bv. 27 de febrero', 
-        province: 'ROSARIO',
-        signType: 'PANTALLA LED + CARTEL FIJO',
+        province: 'Rosario',
+        signType: 'Pantalla LED + Cartel Fijo',
       },
       { 
-        address: 'Circunvalación Rosario altura bv avellaneda', 
-        province: 'ROSARIO',
-        signType: 'CARTELES FIJOS DE LOS DOS LADOS',
+        address: 'Circunvalación Rosario altura Bv. Avellaneda', 
+        province: 'Rosario',
+        signType: 'Carteles Fijos de los Dos Lados',
       },
       { 
-        address: 'Autopista 9 altura Ruta A174', 
-        province: 'CORDOBA',
-        signType: 'CARTELES FIJOS DE LOS DOS LADOS',
+        address: 'Av. Eva Perón 6030', 
+        province: 'Rosario',
+        signType: 'Monocolumna Publicitaria',
+      },
+      { 
+        address: 'Av. Pellegrini 6200', 
+        province: 'Rosario',
+        signType: 'Monocolumna Publicitaria',
+      },
+      { 
+        address: '', 
+        province: 'Mendoza',
+        signType: 'Monocolumna Publicitaria',
+      },
+      { 
+        address: '', 
+        province: 'Mendoza',
+        signType: 'Monocolumna Publicitaria',
       },
     ],
   },
@@ -136,6 +154,7 @@ const marketingDeportivoCaptions = [
 
 const Services = () => {
   const location = useLocation();
+  const { servicios, getServicioByTipo } = useServicios();
   const [selectedService, setSelectedService] = useState<ServiceCard | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -410,9 +429,36 @@ const Services = () => {
           scrollMarginTop: '80px'
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: 800, mb: 1.5, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
-          Marketing Deportivo
-        </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5, gap: 2, flexWrap: 'wrap' }}>
+          <Typography variant="h4" sx={{ fontWeight: 800, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
+            Marketing Deportivo
+          </Typography>
+          {/* Botón de descarga de PDF compacto */}
+          {(() => {
+            const servicio = getServicioByTipo('marketing-deportivo');
+            return servicio?.pdfUrl ? (
+              <Button
+                variant="outlined"
+                size="small"
+                startIcon={<PictureAsPdfIcon sx={{ fontSize: '1rem' }} />}
+                href={servicio.pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  textTransform: 'none',
+                  fontWeight: 600,
+                  px: 1.5,
+                  py: 0.5,
+                  fontSize: '0.8125rem',
+                  borderRadius: 2,
+                  flexShrink: 0,
+                }}
+              >
+                Descargar PDF
+              </Button>
+            ) : null;
+          })()}
+        </Box>
         <Typography 
           color="text.secondary" 
           sx={{ 
@@ -604,9 +650,36 @@ const Services = () => {
           scrollMarginTop: '80px'
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: 800, mb: 1.5, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
-          Eventos
-        </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5, gap: 2, flexWrap: 'wrap' }}>
+          <Typography variant="h4" sx={{ fontWeight: 800, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
+            Eventos
+          </Typography>
+          {/* Botón de descarga de PDF compacto */}
+          {(() => {
+            const servicio = getServicioByTipo('eventos');
+            return servicio?.pdfUrl ? (
+              <Button
+                variant="outlined"
+                size="small"
+                startIcon={<PictureAsPdfIcon sx={{ fontSize: '1rem' }} />}
+                href={servicio.pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  textTransform: 'none',
+                  fontWeight: 600,
+                  px: 1.5,
+                  py: 0.5,
+                  fontSize: '0.8125rem',
+                  borderRadius: 2,
+                  flexShrink: 0,
+                }}
+              >
+                Descargar PDF
+              </Button>
+            ) : null;
+          })()}
+        </Box>
         <Typography 
           color="text.secondary" 
           sx={{ 
@@ -759,9 +832,36 @@ const Services = () => {
           scrollMarginTop: '80px'
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: 800, mb: 1.5, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
-          Rental
-        </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5, gap: 2, flexWrap: 'wrap' }}>
+          <Typography variant="h4" sx={{ fontWeight: 800, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
+            Rental
+          </Typography>
+          {/* Botón de descarga de PDF compacto */}
+          {(() => {
+            const servicio = getServicioByTipo('rental');
+            return servicio?.pdfUrl ? (
+              <Button
+                variant="outlined"
+                size="small"
+                startIcon={<PictureAsPdfIcon sx={{ fontSize: '1rem' }} />}
+                href={servicio.pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  textTransform: 'none',
+                  fontWeight: 600,
+                  px: 1.5,
+                  py: 0.5,
+                  fontSize: '0.8125rem',
+                  borderRadius: 2,
+                  flexShrink: 0,
+                }}
+              >
+                Descargar PDF
+              </Button>
+            ) : null;
+          })()}
+        </Box>
         <Typography 
           color="text.secondary" 
           sx={{ 
@@ -991,7 +1091,35 @@ const Services = () => {
                 {selectedService.fullDescription}
               </Typography>
 
-              {selectedService.showLocations && selectedService.locations && selectedService.locations.length > 0 && (
+              {/* Botón de descarga de PDF si existe */}
+              {selectedService && (() => {
+                const servicio = getServicioByTipo(selectedService.id);
+                return servicio?.pdfUrl ? (
+                  <Box sx={{ mb: 4 }}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      startIcon={<PictureAsPdfIcon />}
+                      endIcon={<DownloadIcon />}
+                      href={servicio.pdfUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        textTransform: 'none',
+                        fontWeight: 600,
+                        px: 3,
+                        py: 1.2,
+                        borderRadius: 2,
+                      }}
+                    >
+                      Descargar información en PDF
+                    </Button>
+                  </Box>
+                ) : null;
+              })()}
+
+              {/* Mostrar sección de ubicaciones solo para servicios que NO sean monocolumnas */}
+              {selectedService.id !== 'monocolumnas' && selectedService.showLocations && selectedService.locations && selectedService.locations.length > 0 && (
                 <Box sx={{ mb: 4 }}>
                   <Typography 
                     variant="h6" 
@@ -1049,34 +1177,99 @@ const Services = () => {
                     Galería
                   </Typography>
                   <Grid container spacing={2}>
-                    {galleryItems.map((img, idx) => (
-                      <Grid item xs={12} sm={6} md={4} key={idx}>
-                        <Box
-                          sx={{
-                            position: 'relative',
-                            cursor: 'zoom-in',
-                            borderRadius: 2,
-                            overflow: 'hidden',
-                            boxShadow: '0 10px 24px rgba(0,0,0,0.12)',
-                            transition: 'transform 0.2s',
-                            '&:hover': {
-                              transform: 'scale(1.02)'
-                            }
-                          }}
-                          onClick={() => {
-                            setLightboxIndex(idx);
-                            setLightboxOpen(true);
-                          }}
-                        >
-                          <OptimizedImage
-                            src={img.src}
-                            alt={img.alt}
-                            skeletonHeight={260}
-                            sx={{ height: 260, width: '100%', objectFit: 'cover' }}
-                          />
-                        </Box>
-                      </Grid>
-                    ))}
+                    {galleryItems.map((img, idx) => {
+                      // Obtener la ubicación correspondiente para monocolumnas
+                      const location = selectedService.id === 'monocolumnas' && selectedService.locations 
+                        ? selectedService.locations[idx] 
+                        : null;
+                      
+                      return (
+                        <Grid item xs={12} sm={6} md={4} key={idx}>
+                          <Box
+                            sx={{
+                              position: 'relative',
+                              cursor: 'zoom-in',
+                              borderRadius: 2,
+                              overflow: 'hidden',
+                              boxShadow: '0 10px 24px rgba(0,0,0,0.12)',
+                              transition: 'transform 0.2s',
+                              '&:hover': {
+                                transform: 'scale(1.02)'
+                              }
+                            }}
+                            onClick={() => {
+                              setLightboxIndex(idx);
+                              setLightboxOpen(true);
+                            }}
+                          >
+                            <OptimizedImage
+                              src={img.src}
+                              alt={img.alt}
+                              skeletonHeight={260}
+                              sx={{ height: 260, width: '100%', objectFit: 'cover' }}
+                            />
+                            {/* Pie de foto con ubicación para monocolumnas */}
+                            {location && (
+                              <Box
+                                sx={{
+                                  position: 'absolute',
+                                  bottom: 0,
+                                  left: 0,
+                                  right: 0,
+                                  height: 70,
+                                  bgcolor: 'rgba(0, 0, 0, 0.75)',
+                                  color: 'white',
+                                  p: 1.5,
+                                  backdropFilter: 'blur(4px)',
+                                  display: 'flex',
+                                  alignItems: 'center'
+                                }}
+                              >
+                                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1, width: '100%' }}>
+                                  <LocationOnIcon sx={{ fontSize: 18, mt: 0.2, flexShrink: 0 }} />
+                                  <Box sx={{ flex: 1, minWidth: 0 }}>
+                                    <Typography 
+                                      variant="caption" 
+                                      sx={{ 
+                                        fontWeight: 600,
+                                        fontSize: '0.8125rem',
+                                        lineHeight: 1.3,
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        display: '-webkit-box',
+                                        WebkitLineClamp: 2,
+                                        WebkitBoxOrient: 'vertical'
+                                      }}
+                                    >
+                                      {location.address 
+                                        ? `${location.address}${(location.province || location.city) ? ` – ${location.province || location.city}` : ''}`
+                                        : (location.province || location.city)
+                                      }
+                                    </Typography>
+                                    {location.signType && (
+                                      <Typography 
+                                        variant="caption" 
+                                        sx={{ 
+                                          fontSize: '0.6875rem',
+                                          opacity: 0.9,
+                                          display: 'block',
+                                          mt: 0.3,
+                                          overflow: 'hidden',
+                                          textOverflow: 'ellipsis',
+                                          whiteSpace: 'nowrap'
+                                        }}
+                                      >
+                                        {location.signType}
+                                      </Typography>
+                                    )}
+                                  </Box>
+                                </Box>
+                              </Box>
+                            )}
+                          </Box>
+                        </Grid>
+                      );
+                    })}
                   </Grid>
                 </>
               )}

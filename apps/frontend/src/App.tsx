@@ -17,6 +17,7 @@ import AdminNews from './pages/AdminNews';
 import AdminNewsForm from './pages/AdminNewsForm';
 import AdminTrabajos from './pages/AdminTrabajos';
 import AdminTrabajosForm from './pages/AdminTrabajosForm';
+import AdminServices from './pages/AdminServices';
 import { useRouteImagePreloader } from './hooks/useRouteImagePreloader';
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
           <Route path="/admin/trabajos" element={<AdminTrabajos />} />
           <Route path="/admin/trabajos/nuevo" element={<AdminTrabajosForm />} />
           <Route path="/admin/trabajos/editar/:id" element={<AdminTrabajosForm />} />
+          <Route path="/admin/servicios" element={<AdminServices />} />
         </Routes>
       </Box>
       <Footer />

@@ -8,6 +8,8 @@ import {
   Trabajo,
   CreateTrabajoRequest,
   UpdateTrabajoRequest,
+  Servicio,
+  UpdateServicioRequest,
 } from '../types';
 
 class ApiService {
@@ -195,6 +197,60 @@ class ApiService {
 
   async deleteImage(filename: string): Promise<void> {
     await this.api.delete(`/upload/image/${filename}`);
+  }
+
+  // Servicios endpoints
+  async getServicios(): Promise<Servicio[]> {
+    const response: AxiosResponse<Servicio[]> = await this.api.get('/servicios');
+    return response.data.map((s) => ({
+      ...s,
+      pdfUrl: s.pdfUrl ? this.toAbsoluteUrl(s.pdfUrl) : null,
+    }));
+  }
+
+  async getServicioByTipo(tipo: string): Promise<Servicio> {
+    const response: AxiosResponse<Servicio> = await this.api.get(`/servicios/${tipo}`);
+    return {
+      ...response.data,
+      pdfUrl: response.data.pdfUrl ? this.toAbsoluteUrl(response.data.pdfUrl) : null,
+    };
+  }
+
+  async updateServicio(tipo: string, data: UpdateServicioRequest): Promise<Servicio> {
+    const response: AxiosResponse<Servicio> = await this.api.put(`/servicios/${tipo}`, data);
+    return response.data;
+  }
+
+  async deletePdfFromServicio(tipo: string): Promise<Servicio> {
+    const response: AxiosResponse<Servicio> = await this.api.delete(`/servicios/${tipo}/pdf`);
+    return response.data;
+  }
+
+  async uploadPdf(file: File): Promise<{ pdfUrl: string; filename: string }> {
+    const formData = new FormData();
+    formData.append('pdf', file);
+    
+    // Verificar que el token existe antes de hacer la petición
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('❌ No hay token en localStorage');
+      throw new Error('No estás autenticado. Por favor, inicia sesión nuevamente');
+    }
+    
+    try {
+      const response = await this.api.post('/upload/pdf', formData);
+      const { pdfUrl, filename } = response.data as { pdfUrl: string; filename: string };
+      return { pdfUrl: this.toAbsoluteUrl(pdfUrl), filename };
+    } catch (error: any) {
+      console.error('Error en uploadPdf:', error);
+      console.error('Response status:', error.response?.status);
+      console.error('Response data:', error.response?.data);
+      throw error;
+    }
+  }
+
+  async deletePdf(filename: string): Promise<void> {
+    await this.api.delete(`/upload/pdf/${filename}`);
   }
 }
 

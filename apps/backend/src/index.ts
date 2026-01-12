@@ -49,11 +49,13 @@ import authRoutes from './routes/auth.routes';
 import novedadesRoutes from './routes/novedades.routes';
 import trabajosRoutes from './routes/trabajos.routes';
 import uploadRoutes from './routes/upload.routes';
+import serviciosRoutes from './routes/servicios.routes';
 
 app.use('/api/auth', authRoutes);
 app.use('/api/novedades', novedadesRoutes);
 app.use('/api/trabajos', trabajosRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/servicios', serviciosRoutes);
 
 // Error handling middleware
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {

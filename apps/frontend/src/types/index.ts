@@ -80,4 +80,19 @@ export interface ApiError {
   }>;
 }
 
+export interface Servicio {
+  id: number;
+  tipo: string;
+  nombre: string;
+  pdfUrl: string | null;
+  descripcion: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface UpdateServicioRequest {
+  nombre?: string;
+  pdfUrl?: string;
+  descripcion?: string;
+}
 

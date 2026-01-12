@@ -31,7 +31,7 @@ const About = () => {
   const teamMembers = [
     { 
       name: 'Marcelo Monton', 
-      area: 'Socio fundador y gerencia general', 
+      area: 'Fundador y gerencia general', 
       image: images.team.marcelo,
       description: 'Fundador de MD Publicidades con más de 20 años de experiencia en comunicación y publicidad. Lidera la estrategia general de la empresa y el desarrollo de nuevas oportunidades de negocio.'
     },

@@ -3,7 +3,7 @@ import multer, { FileFilterCallback } from 'multer';
 import path from 'path';
 import fs from 'fs';
 
-// Configurar multer para almacenar archivos
+// Configurar multer para almacenar archivos (imágenes)
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadDir = path.join(__dirname, '../../uploads');
@@ -21,6 +21,24 @@ const storage = multer.diskStorage({
   }
 });
 
+// Configurar multer para almacenar PDFs
+const pdfStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadDir = path.join(__dirname, '../../uploads');
+    // Crear directorio si no existe
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    // Generar nombre único para el archivo
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const ext = path.extname(file.originalname);
+    cb(null, `pdf-${uniqueSuffix}${ext}`);
+  }
+});
+
 // Configurar filtro para solo imágenes
 const fileFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
   if (file.mimetype.startsWith('image/')) {
@@ -30,11 +48,28 @@ const fileFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallb
   }
 };
 
+// Configurar filtro para solo PDFs
+const pdfFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
+  if (file.mimetype === 'application/pdf') {
+    cb(null, true);
+  } else {
+    cb(new Error('Solo se permiten archivos PDF'));
+  }
+};
+
 export const upload = multer({
   storage: storage,
   fileFilter: fileFilter,
   limits: {
     fileSize: 5 * 1024 * 1024, // 5MB máximo
+  }
+});
+
+export const uploadPdf = multer({
+  storage: pdfStorage,
+  fileFilter: pdfFilter,
+  limits: {
+    fileSize: 20 * 1024 * 1024, // 20MB máximo para PDFs
   }
 });
 
@@ -59,6 +94,27 @@ export const uploadImage = async (req: Request, res: Response) => {
   }
 };
 
+// Endpoint para subir PDF
+export const uploadPdfFile = async (req: Request, res: Response) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No se proporcionó ningún archivo' });
+    }
+
+    // Generar URL para acceder al PDF
+    const pdfUrl = `/uploads/${req.file.filename}`;
+    
+    return res.json({
+      message: 'PDF subido exitosamente',
+      pdfUrl: pdfUrl,
+      filename: req.file.filename
+    });
+  } catch (error) {
+    console.error('Error uploading PDF:', error);
+    return res.status(500).json({ message: 'Error al subir el PDF' });
+  }
+};
+
 // Endpoint para eliminar imagen
 export const deleteImage = async (req: Request, res: Response) => {
   try {
@@ -75,5 +131,24 @@ export const deleteImage = async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Error deleting image:', error);
     return res.status(500).json({ message: 'Error al eliminar la imagen' });
+  }
+};
+
+// Endpoint para eliminar PDF
+export const deletePdf = async (req: Request, res: Response) => {
+  try {
+    const { filename } = req.params;
+    const pdfPath = path.join(__dirname, '../../uploads', filename);
+    
+    // Verificar si el archivo existe
+    if (fs.existsSync(pdfPath)) {
+      fs.unlinkSync(pdfPath);
+      return res.json({ message: 'PDF eliminado exitosamente' });
+    } else {
+      return res.status(404).json({ message: 'PDF no encontrado' });
+    }
+  } catch (error) {
+    console.error('Error deleting PDF:', error);
+    return res.status(500).json({ message: 'Error al eliminar el PDF' });
   }
 };

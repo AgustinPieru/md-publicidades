@@ -33,7 +33,7 @@ const AdminNews = () => {
   const navigate = useNavigate();
   const { logout, admin, isAuthenticated, loading: authLoading } = useAuth();
   const { novedades, loading, error, deleteNovedad } = useNovedades();
-  const [section, setSection] = useState<'novedades' | 'campañas'>('novedades');
+  const [section, setSection] = useState<'novedades' | 'campañas' | 'servicios'>('novedades');
   const [deleteDialog, setDeleteDialog] = useState<{
     open: boolean;
     novedad: Novedad | null;
@@ -65,12 +65,14 @@ const AdminNews = () => {
 
   const handleSectionChange = (
     _event: React.MouseEvent<HTMLElement>,
-    newSection: 'novedades' | 'campañas' | null
+    newSection: 'novedades' | 'campañas' | 'servicios' | null
   ) => {
     if (!newSection) return;
     setSection(newSection);
     if (newSection === 'campañas') {
       navigate('/admin/trabajos');
+    } else if (newSection === 'servicios') {
+      navigate('/admin/servicios');
     }
   };
 
@@ -103,16 +105,26 @@ const AdminNews = () => {
             subtitle={`Bienvenido, ${admin?.email || ''}`}
             align="left"
           />
+        </Box>
+
+        <Box sx={{ mb: 3 }}>
           <ToggleButtonGroup
-            color="primary"
-            exclusive
             value={section}
+            exclusive
             onChange={handleSectionChange}
-            size="small"
-            sx={{ alignSelf: { xs: 'flex-start', md: 'flex-end' } }}
+            aria-label="sección"
+            fullWidth
+            sx={{ display: 'flex', flexWrap: { xs: 'wrap', sm: 'nowrap' } }}
           >
-            <ToggleButton value="novedades">Novedades</ToggleButton>
-            <ToggleButton value="campañas">Campañas</ToggleButton>
+            <ToggleButton value="novedades" aria-label="novedades">
+              Novedades / RSE
+            </ToggleButton>
+            <ToggleButton value="campañas" aria-label="campañas">
+              Campañas
+            </ToggleButton>
+            <ToggleButton value="servicios" aria-label="servicios">
+              Servicios (PDFs)
+            </ToggleButton>
           </ToggleButtonGroup>
         </Box>
 

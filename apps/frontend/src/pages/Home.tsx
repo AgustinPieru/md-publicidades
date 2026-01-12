@@ -370,7 +370,7 @@ const Home = () => {
                     Marketing Deportivo
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                    Realizamos activaciones y gestionamos patrocinios en clubes nacionales.
+                    Realizamos activaciones y gestionamos patrocinios en clubes de todo el país.
                   </Typography>
                 </CardContent>
               </CardActionArea>

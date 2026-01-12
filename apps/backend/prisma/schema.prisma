@@ -46,3 +46,14 @@ model Admin {
   updatedAt DateTime @updatedAt
 }
 
+model Servicio {
+  id          Int      @id @default(autoincrement())
+  tipo        String   // 'monocolumnas', 'pantallas-led', 'ruteros', 'medianeras', 'grandes-formatos', 'sextuples', 'marketing-deportivo', 'eventos', 'rental'
+  nombre      String
+  pdfUrl      String?
+  descripcion String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([tipo])
+}

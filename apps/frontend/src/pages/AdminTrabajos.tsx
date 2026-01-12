@@ -58,16 +58,18 @@ const AdminTrabajos = () => {
     navigate('/admin/login');
   };
 
-  const [section, setSection] = useState<'novedades' | 'trabajos'>('trabajos');
+  const [section, setSection] = useState<'novedades' | 'trabajos' | 'servicios'>('trabajos');
 
   const handleSectionChange = (
     _event: React.MouseEvent<HTMLElement>,
-    newSection: 'novedades' | 'trabajos' | null
+    newSection: 'novedades' | 'trabajos' | 'servicios' | null
   ) => {
     if (!newSection) return;
     setSection(newSection);
     if (newSection === 'novedades') {
       navigate('/admin/novedades');
+    } else if (newSection === 'servicios') {
+      navigate('/admin/servicios');
     }
   };
 
@@ -94,30 +96,32 @@ const AdminTrabajos = () => {
   return (
     <PageContainer maxWidth="lg" useTopOffset>
       <Box>
-        <Box
-          sx={{
-            mb: 3,
-            display: 'flex',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: 2,
-          }}
-        >
+        <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 2 }}>
           <SectionHeader
             title="Panel de Administración"
             subtitle={`Bienvenido, ${admin?.email || ''}`}
             align="left"
           />
+        </Box>
+
+        <Box sx={{ mb: 3 }}>
           <ToggleButtonGroup
-            color="primary"
-            exclusive
             value={section}
+            exclusive
             onChange={handleSectionChange}
-            size="small"
-            sx={{ alignSelf: { xs: 'flex-start', md: 'flex-end' } }}
+            aria-label="sección"
+            fullWidth
+            sx={{ display: 'flex', flexWrap: { xs: 'wrap', sm: 'nowrap' } }}
           >
-            <ToggleButton value="novedades">Novedades</ToggleButton>
-            <ToggleButton value="trabajos">Campañas</ToggleButton>
+            <ToggleButton value="novedades" aria-label="novedades">
+              Novedades / RSE
+            </ToggleButton>
+            <ToggleButton value="trabajos" aria-label="campañas">
+              Campañas
+            </ToggleButton>
+            <ToggleButton value="servicios" aria-label="servicios">
+              Servicios (PDFs)
+            </ToggleButton>
           </ToggleButtonGroup>
         </Box>
 

@@ -44,6 +44,10 @@ export const images = {
       monocolumnas: [
         '/images/monocolumnas-1.jpg',
         '/images/monocolumnas-2.png',
+        '/images/monocolumnas-3.jpeg',
+        '/images/monocolumnas-4.jpeg',
+        '/images/monocolumnas-5.jpeg',
+        '/images/monocolumnas-6.jpeg',
       ],
       ruteros: [
         '/images/ruteros-1.jpg',
@@ -63,6 +67,9 @@ export const images = {
         '/images/formatos-7.jpeg',
         '/images/formatos-8.jpg',
         '/images/formatos-9.png',
+        '/images/formatos-10.jpeg',
+        '/images/formatos-11.jpeg',
+        '/images/formatos-12.jpeg',
       ],
       medianeras: [
         '/images/medianera-1.jpg',
