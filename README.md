@@ -2,6 +2,13 @@
 
 Sitio web institucional para MD Publicidades, empresa dedicada al marketing integral, vía pública, marketing deportivo, pantallas LED y eventos.
 
+## 📚 Documentación
+
+- **[Guía de Despliegue a Producción](./DESPLIEGUE_PRODUCCION.md)** - Cómo desplegar cambios a Lightsail
+- **[Guía Completa de Despliegue](./DEPLOYMENT_GUIDE.md)** - Configuración inicial e infraestructura
+- **[Comandos Disponibles](./COMMANDS.md)** - Referencia de todos los comandos npm
+- **[Feature: PDFs de Servicios](./FEATURE_PDFs_SERVICIOS.md)** - Documentación de la funcionalidad de PDFs
+
 ## 🏗️ Arquitectura
 
 ### Stack Tecnológico

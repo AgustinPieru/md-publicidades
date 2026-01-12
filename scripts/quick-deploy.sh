@@ -222,7 +222,7 @@ deploy_backend() {
     echo -e "${YELLOW}   Creando archivo ZIP...${NC}"
     cd apps/backend
     zip -r ../../backend-complete.zip . \
-        -x "node_modules/*" "dist/*" "*.log" "uploads/*" ".env" ".env.*"
+        -x "node_modules/*" "dist/*" "*.log" "uploads/*" ".env" ".env.*" ".env.local" ".env.production"
     cd ../..
     
     # Transferir archivo
@@ -233,13 +233,48 @@ deploy_backend() {
     echo -e "${YELLOW}   Desplegando en la instancia...${NC}"
     ssh -i $SSH_KEY $USER@$INSTANCE_IP << 'EOF'
 cd ~/md-publicidades-backend
+
+# Hacer backup del .env antes de descomprimir
+if [ -f .env ]; then
+    echo "📋 Haciendo backup del .env actual..."
+    cp .env .env.backup.$(date +%Y%m%d_%H%M%S)
+fi
+
 pm2 stop md-publicidades-backend
+
+# Descomprimir el código nuevo (sin sobreescribir .env)
 unzip -o ~/backend-complete.zip
+
+# Restaurar el .env si se sobrescribió accidentalmente
+if [ -f .env.backup.* ]; then
+    LATEST_BACKUP=$(ls -t .env.backup.* | head -1)
+    if [ -f "$LATEST_BACKUP" ]; then
+        echo "🔄 Restaurando .env desde backup..."
+        cp "$LATEST_BACKUP" .env
+    fi
+fi
+
+# Verificar que el .env existe, si no, crear uno por defecto
+if [ ! -f .env ]; then
+    echo "⚠️  .env no encontrado, creando uno desde env.example..."
+    if [ -f env.example ]; then
+        cp env.example .env
+        echo "⚠️  IMPORTANTE: Debes configurar las credenciales correctas en .env"
+    fi
+fi
+
 npm install --production
+
+# Instalar TypeScript si no está
+if ! command -v tsc &> /dev/null; then
+    echo "📦 Instalando TypeScript..."
+    npm install --save-dev typescript @types/node
+fi
+
 npx prisma db push
 npx prisma generate
 npm run build
-pm2 start md-publicidades-backend
+pm2 restart md-publicidades-backend
 echo "✅ Backend desplegado"
 EOF
     

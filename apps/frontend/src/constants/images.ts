@@ -43,11 +43,14 @@ export const images = {
       ],
       monocolumnas: [
         '/images/monocolumnas-1.jpg',
-        '/images/monocolumnas-2.png',
+        '/images/monocolumnas-2.JPG',
         '/images/monocolumnas-3.jpeg',
         '/images/monocolumnas-4.jpeg',
         '/images/monocolumnas-5.jpeg',
         '/images/monocolumnas-6.jpeg',
+        '/images/monocolumnas-7.jpeg',
+        '/images/monocolumnas-8.jpeg',
+        '/images/monocolumnas-9.png',
       ],
       ruteros: [
         '/images/ruteros-1.jpg',

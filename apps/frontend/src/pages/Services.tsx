@@ -51,12 +51,22 @@ const oohServices: ServiceCard[] = [
       { 
         address: 'Circunvalación Rosario altura Bv. 27 de febrero', 
         province: 'Rosario',
-        signType: 'Pantalla LED + Cartel Fijo',
+        signType: 'Pantalla LED',
+      },
+      { 
+        address: 'Circunvalación Rosario altura Bv. 27 de febrero', 
+        province: 'Rosario',
+        signType: 'Cartel Fijo',
       },
       { 
         address: 'Circunvalación Rosario altura Bv. Avellaneda', 
         province: 'Rosario',
-        signType: 'Carteles Fijos de los Dos Lados',
+        signType: 'Cartel Fijo',
+      },
+      { 
+        address: 'Circunvalación Rosario altura Bv. Avellaneda', 
+        province: 'Rosario',
+        signType: 'Cartel Fijo',
       },
       { 
         address: 'Av. Eva Perón 6030', 
@@ -77,6 +87,11 @@ const oohServices: ServiceCard[] = [
         address: '', 
         province: 'Mendoza',
         signType: 'Monocolumna Publicitaria',
+      },
+      { 
+        address: 'Autopista 9 altura Ruta A174', 
+        province: 'Cordoba',
+        signType: 'Cartel Fijo',
       },
     ],
   },
