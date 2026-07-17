@@ -51,6 +51,10 @@ export const images = {
         '/images/monocolumnas-7.jpeg',
         '/images/monocolumnas-8.jpeg',
         '/images/monocolumnas-9.png',
+        '/images/monocolumnas-10.PNG',
+        '/images/monocolumnas-11.jpeg',
+        '/images/monocolumnas-12.jpeg',
+        '/images/monocolumnas-13.jpeg',
       ],
       ruteros: [
         '/images/ruteros-1.jpg',

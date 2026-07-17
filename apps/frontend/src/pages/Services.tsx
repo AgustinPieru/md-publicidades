@@ -88,9 +88,29 @@ const oohServices: ServiceCard[] = [
         province: 'Mendoza',
         signType: 'Monocolumna Publicitaria',
       },
-      { 
-        address: 'Autopista 9 altura Ruta A174', 
+      {
+        address: 'Autopista 9 altura Ruta A174',
         province: 'Cordoba',
+        signType: 'Cartel Fijo',
+      },
+      {
+        address: 'Autopista Santa Fe - Rosario km 154',
+        province: 'Rosario',
+        signType: 'Pantalla LED',
+      },
+      {
+        address: 'Autopista Santa Fe - Rosario km 154',
+        province: 'Rosario',
+        signType: 'Cartel Fijo',
+      },
+      {
+        address: 'Autopista Santa Fe - Rosario km 154',
+        province: 'Rosario',
+        signType: 'Cartel Fijo',
+      },
+      {
+        address: 'Autopista Santa Fe - Rosario km 154',
+        province: 'Rosario',
         signType: 'Cartel Fijo',
       },
     ],
