@@ -180,7 +180,6 @@ export const images = {
     '/images/aliados-12.svg',
     '/images/aliados-13.svg',
     '/images/aliados-14.svg',
-    '/images/aliados-15.svg',
   ],
   
   // Logos de organizaciones de las que somos miembros
