@@ -467,8 +467,8 @@ const Home = () => {
           <ClientCarousel 
             logos={[...images.strategicAllies]} 
             colored
-            visibleCountOverride={15}
-            desktopColumnsOverride={5}
+            visibleCountOverride={14}
+            desktopColumnsOverride={7}
           />
         </Container>
       </Box>

@@ -131,14 +131,11 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
         <Box
           sx={{
             flex: 1,
-            display: 'grid',
-            gridTemplateColumns: {
-              xs: 'repeat(3, 1fr)', // 3 columnas en mobile
-              sm: 'repeat(3, 1fr)', // 3 columnas en tablet
-              md: `repeat(${desktopColumns}, 1fr)`, // columnas configurables en desktop
-            },
+            // Flex con wrap (en vez de grid) para que la última fila incompleta quede centrada
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
             alignItems: 'center',
-            justifyItems: 'center',
             minHeight: { xs: 180, sm: 140, md: 160 },
             gap: { xs: 2, sm: 2.5, md: 3.5 },
           }}
@@ -151,7 +148,12 @@ const ClientCarousel: React.FC<ClientCarouselProps> = ({
                 sx={{
                   opacity: 1,
                   transition: 'all 0.3s ease-in-out',
-                  width: '100%',
+                  // Ancho de cada columna: 3 en mobile/tablet, configurable en desktop
+                  width: {
+                    xs: 'calc((100% - 2 * 16px) / 3)',
+                    sm: 'calc((100% - 2 * 20px) / 3)',
+                    md: `calc((100% - ${desktopColumns - 1} * 28px) / ${desktopColumns})`,
+                  },
                   height: { xs: 60, sm: 70, md: 80 },
                   display: 'flex',
                   alignItems: 'center',
